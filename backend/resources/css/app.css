@@ -2,13 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-
-:root {
-  --c-primary: #6C5CE7;
-  --c-accent: #00D1B2;
-  --c-bg: #0B1020;
-  --c-text: #F8FAFC;
+:root{
+  --c-primary:#6C5CE7; --c-accent:#00D1B2; --c-bg:#0B1020; --c-text:#F8FAFC;
 }
-
-.card { @apply bg-white/70 dark:bg-slate-900/60 backdrop-blur rounded-2xl shadow-md; }
-.btn-primary { @apply px-4 py-2 rounded-xl text-white transition; background: var(--c-primary); }
+.card{ @apply bg-white/80 dark:bg-slate-900/60 backdrop-blur rounded-2xl shadow p-4; }
+.kpi { @apply card p-6; }
+.btn { @apply inline-flex items-center gap-2 px-4 py-2 rounded-xl border transition; }
+.btn-primary { @apply text-white; background: var(--c-primary); }
+.input { @apply px-3 py-2 rounded-xl border bg-white/80 dark:bg-slate-900/60; }
