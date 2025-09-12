@@ -5,8 +5,21 @@
 :root{
   --c-primary:#6C5CE7; --c-accent:#00D1B2; --c-bg:#0B1020; --c-text:#F8FAFC;
 }
-.card{ @apply bg-white/80 dark:bg-slate-900/60 backdrop-blur rounded-2xl shadow p-4; }
-.kpi { @apply card p-6; }
-.btn { @apply inline-flex items-center gap-2 px-4 py-2 rounded-xl border transition; }
-.btn-primary { @apply text-white; background: var(--c-primary); }
-.input { @apply px-3 py-2 rounded-xl border bg-white/80 dark:bg-slate-900/60; }
+
+/* Cards, boutons, inputs */
+.card { @apply bg-white/80 dark:bg-slate-900/60 backdrop-blur rounded-2xl shadow border border-slate-200/50 dark:border-slate-800/50; }
+.kpi { @apply card p-6 transition duration-200 hover:shadow-lg hover:-translate-y-0.5; }
+.btn { @apply inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-300/70 dark:border-slate-700/70
+              bg-white/70 dark:bg-slate-900/60 backdrop-blur text-slate-900 dark:text-slate-100
+              transition duration-200 hover:-translate-y-0.5 hover:shadow; }
+.btn-primary { @apply text-white border-transparent; background: var(--c-primary); }
+.input { @apply px-3 py-2 rounded-xl border border-slate-300/70 dark:border-slate-700/70 bg-white/70 dark:bg-slate-900/60; }
+
+/* Sidebar links */
+.nav-item { @apply px-3 py-2 rounded-xl transition duration-150 text-slate-700 dark:text-slate-200; }
+.nav-item:hover { @apply bg-slate-100 dark:bg-slate-900; }
+.nav-item-active { @apply bg-slate-900 text-white dark:bg-white dark:text-slate-900; }
+
+/* Micro-animations */
+.fade-in { animation: fadeIn .25s ease-out both; }
+@keyframes fadeIn { from{opacity:0; transform:translateY(4px)} to{opacity:1; transform:none} }

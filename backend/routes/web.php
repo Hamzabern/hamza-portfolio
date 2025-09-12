@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ProjectController as AdminProject;
+use App\Http\Controllers\Admin\SettingController as AdminSetting;
 
 Route::get('/', fn () => view('welcome'));
 
@@ -34,8 +35,8 @@ Route::middleware('auth')->group(function () {
 
 
         // (plus tard) Settings, Testimonials, Media...
-        // Route::get('settings', [AdminSetting::class, 'edit'])->name('settings.edit');
-        // Route::post('settings', [AdminSetting::class, 'update'])->name('settings.update');
+        Route::get('/settings', [AdminSetting::class, 'edit'])->name('settings.edit');
+        Route::post('/settings', [AdminSetting::class, 'update'])->name('settings.update');
     });
 
     // Profil (Breeze)
