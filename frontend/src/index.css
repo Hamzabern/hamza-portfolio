@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --theme-primary:#6C5CE7;
+  --theme-bg:#0B1020;
+  --theme-text:#F8FAFC;
+  --theme-accent:#00D1B2;
+}
+
+.theme-bg { background: var(--theme-bg); color: var(--theme-text); }
+.theme-btn { background: var(--theme-primary); color: var(--theme-text); }
+.theme-pill { background: color-mix(in oklab, var(--theme-primary) 18%, transparent); }
+
+.container-pro { @apply max-w-6xl mx-auto px-4; }
+
+.card { @apply rounded-2xl border border-slate-200/60 shadow-sm bg-white/80; }
