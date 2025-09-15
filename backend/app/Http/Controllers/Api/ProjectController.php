@@ -8,30 +8,35 @@ use App\Models\Project;
 class ProjectController extends Controller
 {
     public function index() {
-        return Project::where('is_published', true)
-            ->orderByDesc('priority')->latest()->get()
-            ->map(fn($p)=>$this->toPayload($p));
+        $projects = Project::where('is_published', true)
+            ->orderByDesc('priority')->latest()->get();
+
+        return $projects->map(fn($p) => $this->toPayload($p))->values();
     }
 
     public function show($slug) {
-        $p = Project::where('slug',$slug)->where('is_published',true)->firstOrFail();
+        $p = Project::where('slug', $slug)
+            ->where('is_published', true)
+            ->firstOrFail();
+
         return $this->toPayload($p);
     }
 
-    private function toPayload(Project $p): array {
+     private function toPayload(Project $p): array
+    {
         return [
-            'title' => $p->title,
-            'slug' => $p->slug,
-            'summary' => $p->summary,
-            'stack' => $p->stack,
-            'github_url' => $p->github_url,
-            'demo_url' => $p->demo_url,
-            'theme' => $p->theme,
-            'cover_url' => $p->cover_path ? asset('storage/'.$p->cover_path) : null,
-            'gallery_urls' => collect($p->gallery_paths ?? [])->map(fn($x)=>asset('storage/'.$x))->values(),
-            'priority' => $p->priority,
-            'published' => $p->is_published,
-            'created_at' => $p->created_at,
+            'title'        => $p->title,
+            'slug'         => $p->slug,
+            'summary'      => $p->summary,
+            'stack'        => $p->stack,
+            'github_url'   => $p->github_url,
+            'demo_url'     => $p->demo_url,
+            'theme'        => $p->theme,
+            'cover_url'    => optional($p->getFirstMedia('cover'))->getUrl(),
+            'gallery_urls' => $p->getMedia('gallery')->map->getUrl()->all(),
+            'priority'     => $p->priority,
+            'published'    => (bool)$p->is_published,
+            'created_at'   => $p->created_at?->toISOString(),
         ];
     }
 }
