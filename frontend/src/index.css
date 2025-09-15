@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ensuite ton CSS perso */
 :root {
   --theme-primary:#6C5CE7;
   --theme-bg:#0B1020;
@@ -12,7 +13,8 @@
 .theme-bg { background: var(--theme-bg); color: var(--theme-text); }
 .theme-btn { background: var(--theme-primary); color: var(--theme-text); }
 .theme-pill { background: color-mix(in oklab, var(--theme-primary) 18%, transparent); }
-
-.container-pro { @apply max-w-6xl mx-auto px-4; }
-
+.container-pro { max-width: 72rem; margin: 0 auto; padding-left: 1rem; padding-right: 1rem; }
 .card { @apply rounded-2xl border border-slate-200/60 shadow-sm bg-white/80; }
+
+/* test CSS perso */
+.test { background: red; color: white; padding: 16px; border-radius: 12px; }

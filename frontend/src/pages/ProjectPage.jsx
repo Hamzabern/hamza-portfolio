@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getProject } from "../services/projects";
-import ThemeProvider from "@/components/theme/ThemeProvider";
+import ThemeProvider from "../components/theme/ThemeProvider";
 import { Helmet } from "react-helmet-async";
 
 export default function ProjectPage() {
