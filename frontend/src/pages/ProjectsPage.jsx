@@ -3,9 +3,16 @@ import { getProjects } from "../services/projects";
 import { Link } from "react-router-dom";
 
 export default function ProjectsPage() {
-  const { data, isLoading } = useQuery({ queryKey: ['projects'], queryFn: getProjects });
+  // const { data, isLoading } = useQuery({ queryKey: ['projects'], queryFn: getProjects });
+
+  // if (isLoading) return <div>Chargement…</div>;
+  const { data, isLoading, error } = useQuery({ queryKey: ['projects'], queryFn: getProjects });
 
   if (isLoading) return <div>Chargement…</div>;
+  if (error) return <div className="text-red-500">Erreur API: {String(error)}</div>;
+  if (!data?.length) return <div>Aucun projet (vérifie is_published)</div>;
+
+
 
   return (
     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
