@@ -13,7 +13,13 @@ export default function ProjectPage() {
 
   return (
     <ThemeProvider theme={p.theme}>
-      <Helmet><title>{p.title} — Portfolio</title></Helmet>
+       <Helmet>
+        <title>{p.title} — Portfolio</title>
+        <meta name="description" content={p.summary?.slice(0,150)} />
+        <meta property="og:title" content={p.title} />
+        <meta property="og:description" content={p.summary?.slice(0,150)} />
+        {p.cover_url && <meta property="og:image" content={p.cover_url} />}
+      </Helmet>
 
       <article className="grid md:grid-cols-2 gap-8">
         <div>

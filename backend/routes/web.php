@@ -4,6 +4,21 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ProjectController as AdminProject;
 use App\Http\Controllers\Admin\SettingController as AdminSetting;
+use App\Http\Controllers\Admin\ContactController as AdminContact;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
+use App\Models\Project;
+
+Route::get('/sitemap.xml', function () {
+    $sm = Sitemap::create()
+      ->add(Url::create('/')->setPriority(1.0))
+      ->add(Url::create('/projects')->setPriority(0.8));
+    Project::where('is_published',true)->get()->each(function($p) use ($sm){
+        $sm->add(Url::create("/projects/{$p->slug}")->setLastModificationDate($p->updated_at));
+    });
+    return $sm->toResponse(request());
+});
+Route::view('/robots.txt', 'robots')->name('robots');
 
 Route::get('/', fn () => view('welcome'));
 
@@ -32,6 +47,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/projects/{id}/restore', [AdminProject::class, 'restore'])->name('projects.restore');
         Route::delete('/projects/{id}/force', [AdminProject::class, 'forceDelete'])->name('projects.force');
         // Route::get('/projects/{project}', [AdminProject::class, 'show'])->name('projects.show');
+        Route::get('/contacts', [AdminContact::class,'index'])->name('contacts.index');
+        Route::get('/contacts/{contact}', [AdminContact::class,'show'])->name('contacts.show');
+        Route::delete('/contacts/{contact}', [AdminContact::class,'destroy'])->name('contacts.destroy');
 
 
         // (plus tard) Settings, Testimonials, Media...

@@ -20,6 +20,7 @@
         <x-admin.nav-item href="{{ route('admin.projects.index') }}" label="Projects"  icon="📦" />
         <x-admin.nav-item href="{{ route('admin.settings.edit') }}"  label="Settings"  icon="⚙️" />
         <x-admin.nav-item href="{{ route('admin.projects.archived') }}" label="Archived"  icon="🗃️" />
+        <x-admin.nav-item href="{{ route('admin.contacts.index') }}" label="Contacts" icon="✉️" />
       </nav>
       <div class="mt-auto text-xs opacity-60">Connecté : {{ auth()->user()->name }}</div>
     </aside>

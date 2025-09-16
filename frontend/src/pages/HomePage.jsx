@@ -1,10 +1,15 @@
 import { useSettings } from "../context/SettingsProvider";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 export default function HomePage() {
   const { settings } = useSettings();
   return (
     <section className="grid md:grid-cols-2 gap-8 items-center">
+      <Helmet>
+        <title>{settings?.site_name || "Portfolio"}</title>
+        {settings?.seo?.meta_desc && <meta name="description" content={settings.seo.meta_desc} />}
+      </Helmet>
       <div>
         <h1 className="text-4xl md:text-6xl font-extrabold leading-[1.1]">Full-Stack Developer</h1>
         <p className="mt-4 text-lg opacity-90">
