@@ -36,6 +36,7 @@ class ProjectController extends Controller
             'gallery_urls' => $p->getMedia('gallery')->map->getUrl()->all(),
             'priority'     => $p->priority,
             'published'    => (bool)$p->is_published,
+            'og_image_url' => route('og.project', ['slug' => $p->slug]),
             'created_at'   => $p->created_at?->toISOString(),
         ];
     }

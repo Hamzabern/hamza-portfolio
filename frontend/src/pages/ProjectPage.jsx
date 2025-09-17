@@ -14,11 +14,15 @@ export default function ProjectPage() {
   return (
     <ThemeProvider theme={p.theme}>
        <Helmet>
-        <title>{p.title} — Portfolio</title>
-        <meta name="description" content={p.summary?.slice(0,150)} />
-        <meta property="og:title" content={p.title} />
-        <meta property="og:description" content={p.summary?.slice(0,150)} />
+        <title>{p.title} — Hamza Bernoussi</title>
+          <meta name="description" content={p.summary?.slice(0,150)} />
+          <meta property="og:title" content={p.title} />
+          <meta property="og:description" content={p.summary?.slice(0,150)} />
+          <meta property="og:type" content="article" />
+          <meta property="og:image" content={p.og_image_url || `/og/${p.slug}.png`} />
+          <meta name="twitter:card" content="summary_large_image" />
         {p.cover_url && <meta property="og:image" content={p.cover_url} />}
+        <link rel="canonical" href={`${window.location.origin}/projects/${slug}`} />
       </Helmet>
 
       <article className="grid md:grid-cols-2 gap-8">

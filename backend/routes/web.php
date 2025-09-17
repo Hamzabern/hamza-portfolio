@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\ContactController as AdminContact;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 use App\Models\Project;
+use App\Http\Controllers\OgController;
+
 
 Route::get('/sitemap.xml', function () {
     $sm = Sitemap::create()
@@ -28,6 +30,8 @@ Route::middleware('auth')->group(function () {
             ? redirect()->route('admin.home')
             : view('dashboard'); 
     })->name('dashboard');
+
+Route::get('/og/{slug}.png', [OgController::class, 'project'])->name('og.project');
 
     // --- Zone Admin ---
     Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
