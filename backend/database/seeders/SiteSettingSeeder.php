@@ -16,7 +16,7 @@ class SiteSettingSeeder extends Seeder
         SiteSetting::query()->firstOrCreate(
             ['title' => 'Hamza Bernoussi — Portfolio'],
             [
-                'title' => 'Full-Stack Developer',
+                'tagline' => 'Full-Stack Developer',
                 'about'   => 'Portfolio minimal propulsé par Laravel + React.',
                 'theme'   => ['primary' => '#111827', 'accent' => '#22d3ee'],
             ]
