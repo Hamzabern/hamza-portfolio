@@ -15,7 +15,8 @@ Route::get('/projects', function () {
     $projects = Project::query()
         ->where('is_published', true)
         ->orderByDesc('created_at')
-        ->get(['title','slug','summary','stack','theme','cover_url','created_at']);
+        ->get(['title','slug','summary','stack','theme','cover_url','created_at'])
+        ->values(); // 👈 réindexe en 0..N pour retourner un vrai tableau JSON
     return response()->json($projects);
 });
 
@@ -24,5 +25,7 @@ Route::get('/projects/{slug}', function (string $slug) {
         ->where('slug', $slug)
         ->where('is_published', true)
         ->firstOrFail();
+
     return response()->json($project);
 });
+
