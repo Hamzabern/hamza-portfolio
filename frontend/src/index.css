@@ -2,17 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { 
-  --accent: #facc15;       /* Jaune principal */
-  --accent-soft: #fde047;  /* Jaune doux */
-  --bg: #0f172a;           /* Noir ardoise */
-  color-scheme: dark; 
+/* Par défaut: LIGHT */
+:root {
+  --accent: #f59e0b;        /* amber-500: jaune plus clair */
+  --bg: #f8fafc;            /* slate-50 */
+  --fg: #0f172a;            /* slate-900 */
+  color-scheme: light;
 }
+
+/* DARK */
+.dark {
+  --accent: #d97706;        /* amber-600: un peu plus foncé en dark */
+  --bg: #0f172a;            /* slate-900 */
+  --fg: #e5e7eb;            /* gray-200 */
+  color-scheme: dark;
+}
+
 html, body, #root { height: 100%; }
+html { scroll-behavior: smooth; }
 body {
   background-color: var(--bg);
-  background-image:
-    radial-gradient(600px 300px at 80% -10%, rgba(250,204,21,.15), transparent 50%),
-    radial-gradient(400px 200px at 10% 120%, rgba(250,204,21,.08), transparent 60%);
+  color: var(--fg);
+  background-image: theme('backgroundImage.darkgrid');
+  background-size: 100px 100px;
 }
+
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+section { scroll-margin-top: 84px; }
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium transition;
+    color: black; /* bon contraste sur jaune */
+    background: var(--accent);
+    /* léger “elevate” au survol, pas de blur */
+    box-shadow: 0 6px 20px rgba(217,119,6,.20);
+  }
+  .btn-primary:hover { filter: brightness(1.05); }
+
+  /* variante bordure neutre */
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium border transition;
+    border-color: color-mix(in oklab, var(--fg), transparent 80%);
+  }
+  .btn-outline:hover {
+    background: color-mix(in oklab, var(--fg), transparent 92%);
+  }
+
+  /* Ombres accentuées JAUNES (utiles sur images & cards) */
+  .shadow-accent {
+    box-shadow: 0 10px 32px color-mix(in oklab, var(--accent), black 10%);
+  }
+  .hover\:shadow-accent:hover {
+    box-shadow: 0 16px 40px color-mix(in oklab, var(--accent), black 5%);
+  }
+
+  /* Fine ligne accent (séparateurs discrets) */
+  .divider-accent {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: .35;
+  }
+}

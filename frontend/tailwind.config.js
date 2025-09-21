@@ -5,15 +5,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        accent: {
-          400: "#f59e0b", // amber-500
-          500: "#d97706", // amber-600 (jaune foncé)
-          600: "#b45309", // amber-700
-        },
+        // Jaune plus lisible en light, un peu plus foncé en dark (via CSS vars)
       },
       boxShadow: {
-        glow: "0 0 0 2px rgba(217,119,6,.12), 0 10px 30px rgba(217,119,6,.18)",
-        card: "0 10px 30px rgba(0,0,0,.25)",
+        // ombres neutres (pas teintées jaune)
+        card: "0 10px 30px rgba(0,0,0,.20)",
       },
       backgroundImage: {
         darkgrid:

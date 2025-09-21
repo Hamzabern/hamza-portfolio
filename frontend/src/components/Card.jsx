@@ -6,7 +6,7 @@ export default function Card({ children, className = "" }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: .35 }}
-      className={`rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm hover:shadow-glow transition ${className}`}
+      className={`rounded-xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-sm hover:shadow-accent transition ${className}`}
     >
       {children}
     </Motion.div>
