@@ -1,114 +1,86 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
-import { useEffect, useMemo } from "react";
-import { api } from "../lib/api";
 import LoadingSkeleton from "../components/LoadingSkeleton";
 import Spinner from "../components/Spinner";
-
-function parseMaybeJSON(x) {
-  if (typeof x === "string") {
-    const s = x.replace(/^\uFEFF+/, "").trim();
-    try { return JSON.parse(s); } catch { return null; }
-  }
-  return x;
-}
+import { api } from "../lib/api";
+import { useEffect } from "react";
+import { motion as Motion, useReducedMotion } from "framer-motion";
 
 export default function ProjectPage() {
   const { slug } = useParams();
+  const prefersReduced = useReducedMotion();
 
-  const { data, isLoading, isFetching, error, refetch } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["project", slug],
-    queryFn: async () => {
-      const res = await api.get(`/api/projects/${slug}`, {
-        headers: { Accept: "application/json" },
-        transformResponse: [(data) => data], // récupère brut
-      });
-      return res.data;
-    },
-    select: (d) => parseMaybeJSON(d) || d,
-    refetchOnMount: "always",
-    refetchOnWindowFocus: false,
-    staleTime: 0,
+    queryFn: async () => (await api.get(`/projects/${slug}`)).data,
     retry: 1,
-    structuralSharing: false,
+    staleTime: 0,
   });
 
-  // Theming simple via CSS vars
   useEffect(() => {
-    const theme = data?.theme && typeof data.theme === "object" ? data.theme : null;
-    if (theme) {
-      Object.entries(theme).forEach(([k, v]) => {
-        document.documentElement.style.setProperty(`--${k}`, String(v));
+    if (data?.theme) {
+      Object.entries(data.theme).forEach(([k, v]) => {
+        document.documentElement.style.setProperty(`--${k}`, v);
       });
     }
   }, [data]);
 
-  const safeTitle = useMemo(() => {
-    const t = data?.title;
-    return typeof t === "string" ? t : (t != null ? String(t) : "Project");
-  }, [data]);
-
-  const safeDesc = useMemo(() => {
-    const s = data?.summary;
-    return typeof s === "string" ? s : (s != null ? String(s) : "Détails du projet.");
-  }, [data]);
-
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return (
-      <>
-        <Helmet><title>Chargement… • Hamza Bernoussi</title></Helmet>
-        <div className="space-y-4">
-          <LoadingSkeleton className="h-6 w-1/2" />
-          <LoadingSkeleton className="h-64 w-full" />
-          <Spinner />
-        </div>
-      </>
+      <div className="space-y-4" aria-busy="true" aria-live="polite">
+        <LoadingSkeleton className="h-6 w-1/2" />
+        <LoadingSkeleton className="h-64 w-full" />
+        <Spinner />
+      </div>
     );
   }
 
   if (error || !data) {
-    return (
-      <>
-        <Helmet><title>Projet introuvable • Hamza Bernoussi</title></Helmet>
-        <p className="text-red-500">Projet introuvable.</p>
-        <button onClick={() => refetch()} className="mt-2 px-3 py-1.5 text-sm border rounded">
-          Réessayer
-        </button>
-      </>
-    );
+    return <p className="text-red-500">Projet introuvable.</p>;
   }
 
   return (
     <>
       <Helmet>
-        <title>{`${safeTitle} • Hamza Bernoussi`}</title>
-        <meta name="description" content={safeDesc} />
-        {data.cover_url && <meta property="og:image" content={String(data.cover_url)} />}
-        <meta property="og:title" content={safeTitle} />
-        <meta property="og:description" content={safeDesc} />
+        <title>{data.title} • Hamza Bernoussi</title>
+        <meta name="description" content={data.summary} />
+        {data.cover_url && <meta property="og:image" content={data.cover_url} />}
+        <meta property="og:title" content={data.title} />
+        <meta property="og:description" content={data.summary} />
       </Helmet>
 
-      <h1 className="text-3xl font-bold mb-4" style={{ color: "var(--primary)" }}>
-        {safeTitle}
-      </h1>
-      <p className="opacity-80">{safeDesc}</p>
+      <Motion.h1
+        initial={prefersReduced ? false : { opacity: 0, y: 6 }}
+        animate={prefersReduced ? {} : { opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="text-3xl font-bold mb-4"
+        style={{ color: "var(--primary)" }}
+      >
+        {data.title}
+      </Motion.h1>
+
+      <p className="opacity-80">{data.summary}</p>
 
       {data.cover_url && (
-        <img
-          src={String(data.cover_url)}
-          alt={safeTitle}
+        <Motion.img
+          initial={prefersReduced ? false : { opacity: 0 }}
+          animate={prefersReduced ? {} : { opacity: 1 }}
+          transition={{ duration: 0.4, delay: 0.05 }}
+          src={data.cover_url}
+          alt={`Couverture du projet ${data.title}`}
           className="mt-4 rounded-lg shadow max-w-full"
+          loading="lazy"
+          decoding="async"
         />
       )}
 
       <div className="flex flex-wrap gap-2 mt-4 text-sm">
-        {Array.isArray(data.stack) &&
-          data.stack.map((s, i) => (
-            <span key={i} className="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded">
-              {s}
-            </span>
-          ))}
+        {data.stack?.map((s, i) => (
+          <span key={i} className="px-2 py-1 bg-white/10 border border-white/10 rounded">
+            {s}
+          </span>
+        ))}
       </div>
     </>
   );

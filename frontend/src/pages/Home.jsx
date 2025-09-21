@@ -5,8 +5,7 @@ export default function Home() {
     <>
       <Helmet>
         <title>Hamza Bernoussi • Full-Stack Developer</title>
-        <meta
-          name="description"
+        <meta name="description"
           content="Bienvenue sur le portfolio de Hamza Bernoussi, développeur full-stack spécialisé en Laravel, React et Tailwind."
         />
       </Helmet>
