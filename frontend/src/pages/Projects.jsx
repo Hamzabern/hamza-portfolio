@@ -52,18 +52,11 @@ export default function Projects() {
       ) : (
         <div className="grid gap-6 sm:grid-cols-2">
           {projects.map((p) => (
-            <Link
-              key={p.slug}
-              to={`/projects/${p.slug}`}
+            <Link key={p.slug} to={`/projects/${p.slug}`}
               className="group block rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden hover:shadow-glow transition focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
-              aria-label={`Voir le projet ${p.title}`}
-            >
+              aria-label={`Voir le projet ${p.title}`}>
               {p.cover_url && (
-                <img
-                  src={p.cover_url}
-                  alt={p.title}
-                  loading="lazy"
-                  decoding="async"
+                <img src={p.cover_url} loading="lazy" decoding="async"
                   className="w-full h-44 object-cover transition group-hover:opacity-95"
                 />
               )}
@@ -79,11 +72,8 @@ export default function Projects() {
                 </div>
 
                 {/* Lien animé */}
-                <Motion.span
-                  whileHover={{ x: 4 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  className="inline-flex items-center gap-1 mt-3 text-sm font-medium text-brand-500 group-hover:text-white"
-                >
+                <Motion.span whileHover={{ x: 4 }} transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="inline-flex items-center gap-1 mt-3 text-sm font-medium text-brand-500 group-hover:text-white">
                   Voir le projet
                   <span aria-hidden>→</span>
                 </Motion.span>

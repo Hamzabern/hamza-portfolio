@@ -5,18 +5,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: { 400: "#fb7185", 500: "#f43f5e", 600: "#e11d48" },
-        royal: { 400: "#a78bfa", 500: "#8b5cf6" },
+        accent: {
+          400: "#f59e0b", // amber-500
+          500: "#d97706", // amber-600 (jaune foncé)
+          600: "#b45309", // amber-700
+        },
       },
       boxShadow: {
-        glow: "0 0 0 2px rgba(244,63,94,.15), 0 10px 30px rgba(244,63,94,.15)",
-        card: "0 10px 30px rgba(0,0,0,.15)",
+        glow: "0 0 0 2px rgba(217,119,6,.12), 0 10px 30px rgba(217,119,6,.18)",
+        card: "0 10px 30px rgba(0,0,0,.25)",
       },
       backgroundImage: {
         darkgrid:
-          "radial-gradient(circle at 25px 25px, rgba(255,255,255,.05) 2px, transparent 0), radial-gradient(circle at 75px 75px, rgba(255,255,255,.05) 2px, transparent 0)",
-        lightgrid:
-          "radial-gradient(circle at 25px 25px, rgba(0,0,0,.04) 2px, transparent 0), radial-gradient(circle at 75px 75px, rgba(0,0,0,.04) 2px, transparent 0)",
+          "radial-gradient(circle at 25px 25px, rgba(255,255,255,.04) 2px, transparent 0), radial-gradient(circle at 75px 75px, rgba(255,255,255,.04) 2px, transparent 0)",
       },
     },
   },

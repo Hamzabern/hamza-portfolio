@@ -2,40 +2,38 @@ import { Outlet, NavLink } from "react-router-dom";
 import SkipToContent from "./components/SkipToContent";
 
 export default function App() {
+  const navItem = (href, label) => (
+    <a
+      key={href}
+      href={href}
+      className="px-3 py-1.5 rounded-md transition hover:bg-white/10 hover:text-[var(--accent)] data-[active=true]:bg-[var(--accent)] data-[active=true]:text-black"
+      data-active={location.hash === href}
+      onClick={(e) => {
+        // si on est sur "/" on scrolle, sinon on va d'abord à la Home
+        if (location.pathname !== "/") {
+          e.preventDefault();
+          window.location.href = `/${href}`;
+        }
+      }}
+      aria-label={label}
+    >
+      {label}
+    </a>
+  );
+
   return (
     <div className="min-h-dvh flex flex-col">
       <SkipToContent />
-
-      {/* Header avec lien actif = fond + texte (pas de border) */}
-      <header className="bg-black/20 backdrop-blur">
+      <header className="bg-black/20 backdrop-blur sticky top-0 z-40">
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center gap-6">
-          <NavLink to="/" className="font-semibold tracking-wide" aria-label="Accueil">
-            HB • Portfolio
-          </NavLink>
-
+          <NavLink to="/" className="font-semibold tracking-wide">HB • Portfolio</NavLink>
           <nav className="flex flex-wrap gap-1 text-sm">
-            {[
-              { to: "/", label: "Home", end: true },
-              { to: "/projects", label: "Projects" },
-              { to: "/about", label: "About" },
-              { to: "/contact", label: "Contact" },
-            ].map(({ to, label, end }) => (
-              <NavLink
-                key={to}
-                to={to}
-                end={end}
-                className={({ isActive }) =>
-                  `px-3 py-1.5 rounded-md transition ${
-                    isActive
-                      ? "bg-[var(--accent)] text-white"
-                      : "hover:bg-white/10 hover:text-[var(--accent)]"
-                  }`
-                }
-                aria-label={label}
-              >
-                {label}
-              </NavLink>
-            ))}
+            {navItem("#hero", "Home")}
+            {navItem("#services", "Services")}
+            {navItem("#projects", "Projects")}
+            {navItem("#skills", "Skills")}
+            {navItem("#experience", "Experience")}
+            {navItem("#contact", "Contact")}
           </nav>
         </div>
       </header>
