@@ -5,6 +5,7 @@ import ProgressBar from "../components/ProgressBar";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../lib/api";
 import { motion as Motion } from "framer-motion";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 export default function Home() {
   const { data: projects } = useQuery({
@@ -259,32 +260,61 @@ export default function Home() {
 
       {/* CONTACT */}
       <Section id="contact" title="Contact" subtitle="Discutons de ton projet.">
-        <Card className="p-4">
-          <p className="opacity-80 text-sm">Envoyez-moi un message :</p>
-          <div className="mt-3 flex flex-wrap gap-3">
-            <a
-              className="btn-primary"
-              href="mailto:hamza@example.com"
-            >
-              Email
-            </a>
-            <a
-              className="btn-outline"
-              href="https://github.com/"
-              target="_blank"
-            >
-              GitHub
-            </a>
-            <a
-              className="btn-outline"
-              href="https://www.linkedin.com/"
-              target="_blank"
-            >
-              LinkedIn
-            </a>
-          </div>
-        </Card>
-      </Section>
+    <Card className="p-6 space-y-4">
+      {/* Formulaire email */}
+      <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
+        <div>
+          <label className="block text-sm mb-1">Nom</label>
+          <input type="text" className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-white dark:bg-black/30"
+            placeholder="Ton nom" required/>
+        </div>
+        <div>
+          <label className="block text-sm mb-1">Email</label>
+          <input
+            type="email"
+            className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-white dark:bg-black/30"
+            placeholder="ton@email.com"
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-sm mb-1">Message</label>
+          <textarea
+            rows="4"
+            className="w-full px-3 py-2 rounded border border-black/10 dark:border-white/10 bg-white dark:bg-black/30"
+            placeholder="Ton message..."
+            required
+          />
+        </div>
+        <button type="submit" className="btn-primary">Envoyer</button>
+      </form>
+
+      {/* Icônes socials (GitHub / LinkedIn) */}
+      <div className="flex items-center gap-4 text-2xl mt-4">
+        <a
+          href="https://github.com/"
+          target="_blank"
+          rel="noreferrer"
+          className="transition hover:text-[var(--accent)]"
+          aria-label="GitHub"
+          title="GitHub"
+        >
+          <FaGithub />
+        </a>
+        <a
+          href="https://linkedin.com/"
+          target="_blank"
+          rel="noreferrer"
+          className="transition hover:text-[var(--accent)]"
+          aria-label="LinkedIn"
+          title="LinkedIn"
+        >
+          <FaLinkedin />
+        </a>
+      </div>
+    </Card>
+</Section>
+
     </>
   );
 }
