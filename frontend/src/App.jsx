@@ -1,14 +1,24 @@
 import { Outlet, NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
 import SkipToContent from "./components/SkipToContent";
 import ThemeToggle from "./components/ThemeToggle";
 
 export default function App() {
-  const navItem = (href, label) => (
+    const [hash, setHash] = useState(() => window.location.hash || "");
+  useEffect(() => {
+    const onHash = () => setHash(window.location.hash || "");
+    window.addEventListener("hashchange", onHash);
+    window.addEventListener("popstate", onHash);
+    return () => { window.removeEventListener("hashchange", onHash); window.removeEventListener("popstate", onHash); };
+  }, []);
+
+   const navItem = (href, label) => (
     <a
       key={href}
       href={href}
-      className="px-3 py-1.5 rounded-md transition hover:bg-black/5 dark:hover:bg-white/10 hover:text-[var(--accent)] data-[active=true]:bg-[var(--accent)] data-[active=true]:text-black"
-      data-active={location.hash === href}
+      className="px-3 py-1.5 rounded-md transition hover:bg-[var(--accent)] dark:hover:bg-[var(--accent)] hover:text-black data-[active=true]:bg-[var(--accent)] data-[active=true]:text-black hover: focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+      data-active={hash === href}
+      aria-label={label}
     >
       {label}
     </a>

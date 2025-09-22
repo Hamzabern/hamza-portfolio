@@ -4,25 +4,17 @@ import Card from "../components/Card";
 import ProgressBar from "../components/ProgressBar";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../lib/api";
-import Tilt from "react-parallax-tilt";
 import { useRef } from "react";
 import { useInView, motion as Motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 function AnimatedNumber({ to, suffix = "" }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.6 });
   return (
     <div ref={ref} className="text-3xl font-extrabold text-[var(--accent)]">
-      <Motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: inView ? 1 : 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Motion.span
-          initial={{ val: 0 }}
-          animate={{ val: inView ? to : 0 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-        >
+      <Motion.span initial={{ opacity: 0 }} animate={{ opacity: inView ? 1 : 0 }} transition={{ duration: 0.5 }}>
+        <Motion.span initial={{ val: 0 }} animate={{ val: inView ? to : 0 }} transition={{ duration: 1.2, ease: "easeOut" }}>
           {({ val }) => Math.round(val)}
         </Motion.span>
         {suffix}
@@ -30,7 +22,6 @@ function AnimatedNumber({ to, suffix = "" }) {
     </div>
   );
 }
-
 
 export default function Home() {
   const { data: projects } = useQuery({
@@ -113,13 +104,11 @@ return (
     </Section>
 
     {/* PROJECTS */}
-    <Section id="projects" title="Mes projets" subtitle="Sélection récente (lazy images).">
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <Section id="projects" title="Mes projets" subtitle="Sélection récente de travaux." >
+      {/* <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {recent.map((p) => (
           <Tilt key={p.slug} glareEnable glareMaxOpacity={0.2} glareColor="var(--accent)" className="rounded-xl">
-            <a
-              href={`/projects/${p.slug}`}
-              className="group block rounded-xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-sm overflow-hidden shadow-accent hover:shadow-accent transition focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+            <a href={`/projects/${p.slug}`} className="group block rounded-xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-sm overflow-hidden shadow-accent hover:shadow-accent transition focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
               aria-label={`Voir le projet ${p.title}`}
             >
               {p.cover_url && (
@@ -137,6 +126,31 @@ return (
               </div>
             </a>
           </Tilt>
+        ))}
+      </div> */}
+      <div className="grid gap-6 sm:grid-cols-2">
+        {recent.map((p) => (
+          <Link key={p.slug} to={`/projects/${p.slug}`} className="group block rounded-xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-sm overflow-hidden shadow-accent hover:shadow-accent transition focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+            aria-label={`Voir le projet ${p.title}`}>
+            {p.cover_url && (
+              <img src={p.cover_url} alt={p.title} className="w-full h-44 object-cover transition group-hover:z-index-0 group-hover:scale-105"loading="lazy" decoding="async" />
+            )}
+            <div className="p-4">
+              <h2 className="text-lg font-semibold">{p.title}</h2>
+              <p className="opacity-80 text-sm">{p.summary}</p>
+              <div className="flex flex-wrap gap-2 mt-2 text-xs">
+                {p.stack?.map((s, idx) => (
+                  <span key={idx} className="px-2 py-1 rounded bg-white/10 border border-white/10 hover:text-[var(--bg)] hover:bg-[var(--accent)] hover:border-[var(--accent)] transition">
+                    {s}
+                  </span>
+                ))}
+              </div>
+            {/* the button when i hover should change color*/}
+              <span className="inline-block mt-3 text-sm font-semibold hover:text-[var(--accent)] group-hover:text-[var(--accent)]" style={{ color: "var(--accent)" }}>
+                Voir le projet →
+              </span>
+            </div>
+          </Link>
         ))}
       </div>
     </Section>
@@ -264,7 +278,7 @@ return (
     {[
       { to: 15, suffix: "+", label: "Projets livrés" },
       { to: 95, suffix: "%", label: "Satisfaction clients" },
-      { to: 3, suffix: "j", label: "Temps moyen de livraison MVP" },
+      { to: 3,  suffix: "j", label: "Temps moyen de livraison MVP" },
     ].map((m) => (
       <Card key={m.label} className="p-6 shadow-accent hover:shadow-accent transition">
         <AnimatedNumber to={m.to} suffix={m.suffix} />
