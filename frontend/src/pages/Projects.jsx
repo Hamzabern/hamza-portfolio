@@ -10,7 +10,7 @@ export default function Projects() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["projects"],
     queryFn: async () => {
-      const res = await api.get("/api/projects");
+      const res = await api.get("/projects");
       return res.data;
     },
     retry: 1,
@@ -51,20 +51,11 @@ export default function Projects() {
 
       <div className="grid gap-6 sm:grid-cols-2">
         {projects.map((p) => (
-          <Link
-            key={p.slug}
-            to={`/projects/${p.slug}`}
-            className="group block rounded-xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-sm overflow-hidden shadow-accent hover:shadow-accent transition focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
-            aria-label={`Voir le projet ${p.title}`}
-          >
+          <Link key={p.slug} to={`/projects/${p.slug}`} className="group block rounded-xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-sm overflow-hidden shadow-accent hover:shadow-accent transition focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
+            aria-label={`Voir le projet ${p.title}`}>
             {p.cover_url && (
-              <img
-                src={p.cover_url}
-                alt={p.title}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-44 object-cover transition group-hover:opacity-95 shadow-accent"
-              />
+              <img src={p.cover_url} alt={p.title} className="w-full h-44 object-cover transition group-hover:opacity-95 shadow-accent"
+                loading="lazy" decoding="async" />
             )}
             <div className="p-4">
               <h2 className="text-lg font-semibold">{p.title}</h2>
@@ -76,10 +67,7 @@ export default function Projects() {
                   </span>
                 ))}
               </div>
-              <span
-                className="inline-block mt-3 text-sm underline underline-offset-4 group-hover:no-underline"
-                style={{ color: "var(--accent)" }}
-              >
+              <span className="inline-block mt-3 text-sm underline underline-offset-4 group-hover:no-underline" style={{ color: "var(--accent)" }}>
                 Voir le projet →
               </span>
             </div>

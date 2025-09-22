@@ -3,7 +3,7 @@ import { useRef } from "react";
 
 export default function ProgressBar({ label, value }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.4 });
+  const inView = useInView(ref, { once: true, amount: 0.5 }); // déclenche quand ~50% visible
 
   return (
     <div ref={ref}>
@@ -14,7 +14,7 @@ export default function ProgressBar({ label, value }) {
         <Motion.div
           initial={{ width: 0 }}
           animate={{ width: inView ? `${value}%` : 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 1.2, ease: "easeOut" }}  
           className="h-full"
           style={{
             backgroundImage:
@@ -22,13 +22,6 @@ export default function ProgressBar({ label, value }) {
           }}
         />
       </div>
-     
-      <Motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: inView ? 0.3 : 0 }}
-        transition={{ duration: 0.8 }}
-        className="h-1 mt-1 rounded bg-black/10 dark:bg-white/10"
-      />
     </div>
   );
 }
