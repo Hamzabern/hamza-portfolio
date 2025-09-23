@@ -4,24 +4,38 @@ import Card from "../components/Card";
 import ProgressBar from "../components/ProgressBar";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../lib/api";
-import { useRef } from "react";
 import { useInView, motion as Motion } from "framer-motion";
 import { Link } from "react-router-dom";
+
+import { useRef, useState, useEffect } from "react";
 
 function AnimatedNumber({ to, suffix = "" }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.6 });
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+    const dur = 1200; // ms
+    const start = performance.now();
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+    let raf;
+    const tick = (now) => {
+      const p = Math.min(1, (now - start) / dur);
+      setValue(Math.round(easeOutCubic(p) * to));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, to]);
+
   return (
     <div ref={ref} className="text-3xl font-extrabold text-[var(--accent)]">
-      <Motion.span initial={{ opacity: 0 }} animate={{ opacity: inView ? 1 : 0 }} transition={{ duration: 0.5 }}>
-        <Motion.span initial={{ val: 0 }} animate={{ val: inView ? to : 0 }} transition={{ duration: 1.2, ease: "easeOut" }}>
-          {({ val }) => Math.round(val)}
-        </Motion.span>
-        {suffix}
-      </Motion.span>
+      {value}{suffix}
     </div>
   );
 }
+
 
 export default function Home() {
   const { data: projects } = useQuery({
@@ -60,8 +74,13 @@ return (
         </div>
 
         <Motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4, delay: 0.05 }} className="relative">
-            <img src="https://picsum.photos/seed/hamza/640/760" alt="Portrait de Hamza" 
-              className="rounded-2xl w-full h-auto object-cover border border-black/10 dark:border-white/10 shadow-accent hover:sahdow-accent" loading="lazy" decoding="async"/>
+            <img
+  src="https://picsum.photos/seed/hamza/640/760"
+  alt="Portrait de Hamza"
+  className="rounded-2xl w-full h-auto object-cover border border-black/10 dark:border-white/10 shadow-accent hover:shadow-accent"
+  loading="lazy" decoding="async"
+/>
+
         </Motion.div>
       </div>
 
@@ -186,23 +205,44 @@ return (
     </Section>
 
     {/* EXPERIENCE */}
-    <Section id="experience" title="Expérience & Formation" subtitle="Parcours rapide." >
-      <div className="grid md:grid-cols-2 gap-4">
+    <Section id="experience" title="Expérience & Formation" subtitle="Parcours rapide.">
+  <div className="relative pl-5">
+    <div className="absolute left-2 top-0 bottom-0 w-0.5 bg-black/10 dark:bg-white/10"></div>
+
+    <div className="space-y-5">
+      {/* Item 1 */}
+      <div className="relative">
+        <div className="absolute -left-0.5 top-1.5 h-3 w-3 rounded-full bg-[var(--accent)] shadow-accent"></div>
         <Card className="p-4">
-          <h3 className="font-semibold mb-1">Expérience</h3>
-          <ul className="text-sm opacity-80 space-y-1">
-            <li>• Freelance — Full-Stack (2025-…)</li>
-            <li>• Projets persos — SaaS / Portfolio</li>
-          </ul>
-        </Card>
-        <Card className="p-4">
-          <h3 className="font-semibold mb-1">Formation</h3>
-          <ul className="text-sm opacity-80 space-y-1">
-            <li>• Master MASI — Ingénierie Logicielle</li>
-          </ul>
+          <div className="text-xs opacity-70">2025 — …</div>
+          <h3 className="font-semibold">Freelance — Full-Stack</h3>
+          <p className="opacity-80 text-sm">Apps Laravel/React, intégrations API, qualité & perfs.</p>
         </Card>
       </div>
-    </Section>
+
+      {/* Item 2 */}
+      <div className="relative">
+        <div className="absolute -left-0.5 top-1.5 h-3 w-3 rounded-full bg-[var(--accent)] shadow-accent"></div>
+        <Card className="p-4">
+          <div className="text-xs opacity-70">2024 — 2025</div>
+          <h3 className="font-semibold">Projets persos — SaaS / Portfolio</h3>
+          <p className="opacity-80 text-sm">Design system Tailwind, SEO, déploiements.</p>
+        </Card>
+      </div>
+
+      {/* Item 3 */}
+      <div className="relative">
+        <div className="absolute -left-0.5 top-1.5 h-3 w-3 rounded-full bg-[var(--accent)] shadow-accent"></div>
+        <Card className="p-4">
+          <div className="text-xs opacity-70">Master MASI</div>
+          <h3 className="font-semibold">Ingénierie Logicielle</h3>
+          <p className="opacity-80 text-sm">Conception, archi, tests & qualité logicielle.</p>
+        </Card>
+      </div>
+    </div>
+  </div>
+</Section>
+
 
     {/* TESTIMONIALS */}
     <Section id="testimonials" title="Ce qu’on dit" subtitle="Avis de clients/collaborateurs." >
@@ -236,7 +276,7 @@ return (
           Disponibilité freelance/mission — réponse rapide.
         </div>
         <div className="flex gap-2">
-          <a href="#contact" className="btn-primary">
+          <a href="#contact" className="btn-primary btn-attention">
             Me contacter
           </a>
           <a href="#projects" className="btn-outline">
