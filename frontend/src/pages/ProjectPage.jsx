@@ -18,6 +18,24 @@ export default function ProjectPage() {
     staleTime: 0,
   });
 
+  // sauvegarde/restaure proprement sans casser le .dark
+useEffect(() => {
+  if (!data?.theme) return;
+  const prev = new Map();
+  Object.entries(data.theme).forEach(([k, v]) => {
+    const varName = `--${k}`;
+    prev.set(varName, document.documentElement.style.getPropertyValue(varName));
+    document.documentElement.style.setProperty(varName, v);
+  });
+  return () => {
+    prev.forEach((val, key) => {
+      if (val) document.documentElement.style.setProperty(key, val);
+      else document.documentElement.style.removeProperty(key);
+    });
+  };
+}, [data]);
+
+
   // Sauvegarde/restaure les variables CSS si le projet définit un "theme"
   const prevVars = useRef(new Map());
   useEffect(() => {
