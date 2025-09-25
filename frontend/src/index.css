@@ -168,4 +168,8 @@ section { scroll-margin-top: 84px; }
   .tech-title{ @apply text-sm font-medium; }
   .tech-desc{ @apply text-[11px] opacity-70; }
 
+  .site-container { @apply max-w-6xl mx-auto px-4 }
+  .footer-copy { @apply opacity-80 text-center md:text-left }
+   
+
 }

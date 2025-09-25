@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer className="border-t border-black/10 dark:border-white/10 text-sm">
-      <div className="max-w-6xl mx-auto px-4 py-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+      <div className="site-container footer-copy py-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
         <div>
           <div className="font-semibold mb-2">À propos</div>
           <p className="opacity-80">
@@ -28,7 +28,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-black/10 dark:border-white/10">
-        <div className="max-w-6xl mx-auto px-4 py-4 opacity-80 text-center md:text-left">
+        <div className="site-container py-4 footer-copy">
           © {new Date().getFullYear()} Hamza Bernoussi
         </div>
       </div>

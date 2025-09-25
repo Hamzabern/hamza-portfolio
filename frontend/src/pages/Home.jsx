@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async";
 import Section from "../components/section";
 import Card from "../components/Card";
 import ProgressBar from "../components/ProgressBar";
@@ -6,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { api } from "../lib/api";
 import { useInView, motion as Motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import Hero from "../components/sections/Hero";
 
 import { useRef, useState, useEffect } from "react";
 
@@ -16,7 +16,7 @@ function AnimatedNumber({ to, suffix = "" }) {
 
   useEffect(() => {
     if (!inView) return;
-    const dur = 1200; // ms
+    const dur = 1200; 
     const start = performance.now();
     const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
     let raf;
@@ -46,41 +46,9 @@ export default function Home() {
 
 return (
   <>
-    <Helmet>
-      <title>Hamza Bernoussi • Full-Stack Developer</title>
-      <meta name="description" content="Portfolio landing page noir + jaune foncé, animations sobres, projets et compétences."/>
-    </Helmet>
-      {/* HERO */}
-    <section id="hero" className="py-10 sm:py-16">
-      <div className="grid md:grid-cols-2 gap-6 items-center">
-        <div>
-          <Motion.h1 className="text-3xl sm:text-4xl font-extrabold leading-tight" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
-            Salut, je suis <span className="text-[var(--accent)]">Hamza</span>
-            <br />
-            Développeur Full-Stack.
-          </Motion.h1>
-          <p className="mt-3 opacity-80">
-            J’aime construire des apps modernes, rapides et bien pensées.
-            Laravel • React • Tailwind • Sécurité • Qualité.
-          </p>
-          <div className="mt-5 flex flex-wrap gap-3">
-            <a href="#projects" className="btn-primary">
-              Voir mes projets
-            </a>
-            <a href="#contact" className="btn-outline">
-              Me contacter
-            </a>
-          </div>
-        </div>
-
-        <Motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4, delay: 0.05 }} className="relative">
-            <img src="https://img.freepik.com/premium-vector/programmer-work_1294175-6894.jpg?semt=ais_hybrid&w=740&q=80" alt="Illustration développeur"
-              className="rounded-2xl w-full h-auto object-cover border border-black/10 dark:border-white/10 shadow-accent hover:shadow-accent"
-              loading="lazy" decoding="async" />
-        </Motion.div>
-      </div>
+    {/* HERO Section */}
+    <Hero />
       <div className="my-8 divider-accent" />
-    </section>
 
     {/* SERVICES */}
     <Section id="services" title="Ce que je fais" subtitle="Qualité, performance et design." >
