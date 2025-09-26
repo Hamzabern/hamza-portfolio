@@ -18,7 +18,7 @@ export default function Navbar() {
   }, []);
 
   const navItem = (href, label) => (
-    <a key={href} href={href} className={[ "px-3 py-1.5 rounded-md transition hover:bg-[var(--accent)] hover:text-[var(--fg)] dark:hover:bg-[var(--accent)] dark:hover:text-[var(--bg)]",
+    <a key={href} href={href} className={[ "px-3 py-1.5 rounded-md transition hover:bg-[var(--accent)] hover:text-[var(--fg)] dark:hover:bg-[var(--accent)] dark:hover:text-[var(--bg)] font-medium",
         hash === href ? "bg-[var(--accent)] text-black" : "" ].join(" ")} aria-label={label} onClick={() => setOpen(false)} >
       {label}
     </a>
@@ -44,35 +44,33 @@ export default function Navbar() {
             </a>
           </nav>
 
-          {/* Droite : Contact badge + Theme (icône-only) */}
+          {/* Dark/Light Mode (desktop) */}
           <div className="ml-auto hidden md:flex items-center gap-3">
             <ThemeToggle />
           </div>
 
           {/* Hamburger (mobile) */}
-          <button
-            aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
-            className="md:hidden ml-auto icon-btn"
-            onClick={() => setOpen(v => !v)}>
+          <button aria-label={open ? "Fermer le menu" : "Ouvrir le menu"} className="md:hidden ml-auto icon-btn" onClick={() => setOpen(v => !v)}>
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" className="transition-[transform] duration-200">
               <path d={open ? "M6 6l12 12M6 18L18 6" : "M4 6h16M4 12h16M4 18h16"} strokeLinecap="round" />
             </svg>
           </button>
         </div>
 
-        {/* Drawer mobile (centré, blur + slide) */}
+        {/* Drawer mobile */}
         {open && (
           <div className="md:hidden border-t border-black/10 dark:border-white/10 bg-white/80 dark:bg-black/40 drawer">
-            <div className="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-2 mnav items-center text-center">
+            <div className="pt-2max-w-6xl mx-auto px-4 py-3 flex flex-col gap-2 mnav items-center text-center">
               <a href="#hero" onClick={() => setOpen(false)}>Home</a>
               <a href="#services" onClick={() => setOpen(false)}>Services</a>
               <a href="#projects" onClick={() => setOpen(false)}>Projects</a>
               <a href="#skills" onClick={() => setOpen(false)}>Skills</a>
               <a href="#experience" onClick={() => setOpen(false)}>Experience</a>
               <div className="pt-2 flex items-center w-full">
-                <a href="#contact" onClick={() => setOpen(false)} className="contact-badge">
+                <a href="#contact" onClick={() => setOpen(false)} className="contact-badge ml-3">
                   Contact
                 </a>
+                {/* Dark/Light Mode (mobile) */}
                 <div className="ml-auto flex items-center gap-2">
                   <ThemeToggle />
                 </div>

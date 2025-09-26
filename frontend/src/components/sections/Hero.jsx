@@ -1,5 +1,4 @@
 import Reveal from "../Reveal";
-// import Card from "../components/Card"; 
 
 export default function Hero() {
   return (
@@ -20,7 +19,7 @@ export default function Hero() {
 
         <Reveal as="div" y={8} delay={0.08}>
           <img src="https://img.freepik.com/premium-vector/programmer-work_1294175-6894.jpg?semt=ais_hybrid&w=740&q=80" alt="Illustration développeur"
-            className="rounded-2xl w-full h-auto object-cover border border-black/10 dark:border-white/10 shadow-accent hover:shadow-accent"
+            className="rounded-2xl w-full h-auto object-cover border border-black/10 dark:border-white/10"
             loading="lazy" decoding="async"/>
         </Reveal>
       </div>

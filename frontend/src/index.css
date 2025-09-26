@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ---------- Thème (variables) ---------- */
+
 /* LIGHT */
 :root {
   --accent: #facc15;   
@@ -20,14 +22,17 @@
   color-scheme: dark;
 }
 
-html, body, #root { height: 100%; }
-html { scroll-behavior: smooth; }
-body {
-  background-color: var(--bg);
-  color: var(--fg);
-  background-image: theme('backgroundImage.darkgrid');
-  background-size: 100px 100px;
+@layer base{
+  html, body, #root { height: 100%; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    background-image: theme('backgroundImage.darkgrid');
+    background-size: 100px 100px;
+  }
 }
+
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 section { scroll-margin-top: 84px; }
 
@@ -72,13 +77,9 @@ section { scroll-margin-top: 84px; }
     position: relative;
   }
 
-  .contact-badge small {
-    @apply text-xs font-normal opacity-80;
-  }
-
   .contact-badge:hover {
+    @apply  dark:text-[var(--bg)] font-medium;
     background: color-mix(in oklab, var(--accent), #f97316 28%);
-    color: var(--bg);
     box-shadow: 0 10px 28px rgba(249,115,22,.28);
   }
 
@@ -114,7 +115,9 @@ section { scroll-margin-top: 84px; }
   }
 
   .mnav a{ @apply py-2 px-2 rounded; }
-  .mnav a:hover{ @apply bg-black/5 dark:bg-white/10 text-[var(--accent)]; }
+  /* mnav a quand il est hover le texte et bold et sur active aussi */
+  .mnav a:hover{ @apply bg-black/5 dark:bg-white/10 text-[var(--accent)] font-bold; }
+  .mnav a:active{ @apply text-[var(--accent)] font-bold;}
   .drawer{ backdrop-filter: blur(10px); animation: slideIn .28s ease both; }
   @keyframes slideIn{ from{ transform:translateX(20%); opacity:.0 } to{ transform:translateX(0); opacity:1 } }
 
@@ -129,7 +132,7 @@ section { scroll-margin-top: 84px; }
     transition: transform .35s ease;
   }
   .btn-link:hover .arrow {
-    transform: translateX(calc(100% - 2px)); /* traverse le texte */
+    transform: translateX(calc(100% - 2px)); 
   }
 
   .btn-attention {
@@ -153,23 +156,91 @@ section { scroll-margin-top: 84px; }
   }
   @keyframes techMarquee{
     from{ transform: translateX(0); }
-    to  { transform: translateX(-50%); } /* on duplique le contenu pour boucler */
+    to  { transform: translateX(-50%); }
   }
   .tech-icon-wrap{
     @apply h-10 w-10 rounded-md flex items-center justify-center;
     background: rgba(2,6,23,.06);
   }
 
-  .tech-ctrl {
-    @apply inline-flex items-center justify-center w-9 h-9 rounded-md border border-black/10 dark:border-white/10 transition;
-  }
+  .tech-ctrl { @apply inline-flex items-center justify-center w-9 h-9 rounded-md border border-black/10 dark:border-white/10 transition;}
   .tech-ctrl:hover { @apply bg-black/5 dark:bg-white/10; }
-
   .tech-title{ @apply text-sm font-medium; }
   .tech-desc{ @apply text-[11px] opacity-70; }
 
   .site-container { @apply max-w-6xl mx-auto px-4 }
   .footer-copy { @apply opacity-80 text-center md:text-left }
-   
+
+ 
+ /* ---------- Projects ---------- */
+  .project-desc   { @apply opacity-80 text-sm; }
+  .project-card   { @apply h-full flex flex-col rounded-xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-sm overflow-hidden shadow-accent transition; }
+  .project-media  { @apply w-full h-44 object-cover; }
+  .project-body   { @apply p-4 flex flex-col flex-1; }
+  .project-title  { @apply text-lg font-semibold; }
+  .pr            { @apply project-desc;
+      height: 3rem; 
+      overflow: hidden; 
+      text-overflow: ellipsis; 
+      -webkit-box-orient: vertical; 
+    }
+  .project-tags   { @apply flex flex-wrap gap-2 mt-2 text-xs; }
+  .project-tag   { @apply px-2 py-1 rounded-full bg-black/5 dark:bg-white/5; }
+  .project-footer { @apply mt-4 pt-3 border-t border-black/10 dark:border-white/10 flex justify-end gap-3;}
+  @media (max-width: 640px) {
+    .project-desc { height: auto; -webkit-box-orient: unset;   }
+  }
+
+  /* ---------- Carte moderne ---------- */
+  .card-modern {
+    @apply relative rounded-2xl border bg-white/60 dark:bg-white/[.06] backdrop-blur;
+    @apply border-black/10 dark:border-white/10;
+    transition: box-shadow .5s ease, transform .2s ease;
+  }
+  .card-modern::before {
+    content: "";
+    position: absolute; inset: 0; border-radius: 1rem;
+    padding: 1px; 
+    background: linear-gradient(135deg, rgba(250,204,21,.55), rgba(2,6,23,.25));
+    -webkit-mask: 
+      linear-gradient(#000 0 0) content-box, 
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    pointer-events: none;
+  }
+  .card-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 48px var(--shadow-accent), 0 8px 22px rgba(0,0,0,.18);
+  }
+  
+  /* --------------- Liseré lumineux au hover ------------ */
+  .shine {
+    position: relative; overflow: hidden;
+  }
+  .shine::after {
+    content: ""; position: absolute; inset: -150% -50% auto -50%;
+    height: 200%; width: 40%;
+    transform: rotate(12deg) translateX(-120%);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent);
+    transition: transform .8s ease;
+  }
+  .shine:hover::after { transform: rotate(12deg) translateX(180%); }
+
+  /* -------------- Badge puce ----------- */
+  .chip {
+    @apply inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] border;
+    @apply bg-white/40 dark:bg-white/10 border-black/10 dark:border-white/10;
+  }
+  .chip-dot {
+    @apply h-1.5 w-1.5 rounded-full;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--shadow-accent);
+  }
+
+  /* -------- Icône dans pastille grise --------- */
+  .icon-wrap {
+    @apply h-10 w-10 rounded-md flex items-center justify-center;
+    background: rgba(2,6,23,.06);
+  }
 
 }

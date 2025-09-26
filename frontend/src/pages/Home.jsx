@@ -1,11 +1,10 @@
 import Section from "../components/section";
 import Card from "../components/Card";
 import ProgressBar from "../components/ProgressBar";
-import { useQuery } from "@tanstack/react-query";
-import { api } from "../lib/api";
 import { useInView, motion as Motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import Hero from "../components/sections/Hero";
+import Projects from "../components/sections/Projects";
+import Services from "../components/sections/Services";
 
 import { useRef, useState, useEffect } from "react";
 
@@ -38,69 +37,17 @@ function AnimatedNumber({ to, suffix = "" }) {
 
 
 export default function Home() {
-  const { data: projects } = useQuery({
-    queryKey: ["home-projects"],
-    queryFn: async () => (await api.get("/projects")).data,
-  });
-  const recent = Array.isArray(projects) ? projects.slice(0, 6) : [];
-
 return (
   <>
     {/* HERO Section */}
     <Hero />
       <div className="my-8 divider-accent" />
 
-    {/* SERVICES */}
-    <Section id="services" title="Ce que je fais" subtitle="Qualité, performance et design." >
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {[
-          { t: "Apps Web", d: "Laravel / React / Tailwind / MySQL" },
-          {
-            t: "APIs & Sécurité",
-            d: "Validation stricte, bonnes pratiques, CORS",
-          },
-          {
-            t: "UI/UX",
-            d: "Interfaces modernes, accessibles, animations",
-          },
-          { t: "Optimisation & SEO", d: "Visibilité & performance web" },
-        ].map((s) => (
-          <Card key={s.t} className="p-4">
-            <h3 className="font-semibold">{s.t}</h3>
-            <p className="opacity-80 text-sm mt-1">{s.d}</p>
-          </Card>
-        ))}
-      </div>
-    </Section>
+    {/* SERVICES Section */}
+    <Services />
 
-    {/* PROJECTS */}
-    <Section id="projects" title="Mes projets" subtitle="Sélection récente de travaux." >
-      <div className="grid gap-6 sm:grid-cols-2">
-        {recent.map((p) => (
-          <Link key={p.slug} to={`/projects/${p.slug}`} className="group block rounded-xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-sm overflow-hidden shadow-accent hover:shadow-accent transition focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
-            aria-label={`Voir le projet ${p.title}`}>
-            {p.cover_url && (
-              <img src={p.cover_url} alt={p.title} className="w-full h-44 object-cover transition group-hover:z-index-0 group-hover:scale-105"loading="lazy" decoding="async" />
-            )}
-            <div className="p-4">
-              <h2 className="text-lg font-semibold">{p.title}</h2>
-              <p className="opacity-80 text-sm">{p.summary}</p>
-              <div className="flex flex-wrap gap-2 mt-2 text-xs">
-                {p.stack?.map((s, idx) => (
-                  <span key={idx} className="px-2 py-1 rounded bg-white/10 border border-white/10 hover:text-[var(--bg)] hover:bg-[var(--accent)] hover:border-[var(--accent)] transition">
-                    {s}
-                  </span>
-                ))}
-              </div>
-            {/* the button when i hover should change color*/}
-              <span className="inline-block mt-3 text-sm font-semibold hover:text-[var(--accent)] group-hover:text-[var(--accent)]" style={{ color: "var(--accent)" }}>
-                Voir le projet →
-              </span>
-            </div>
-          </Link>
-        ))}
-      </div>
-    </Section>
+    {/* PROJECTS Section */}
+    <Projects />
 
      {/* CTA */}
     <Section id="cta" title="Prêt à discuter ?" subtitle="Je peux t’aider à lancer ou améliorer ton application." >

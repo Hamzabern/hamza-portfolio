@@ -5,10 +5,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Jaune plus lisible en light, un peu plus foncé en dark (via CSS vars)
       },
       boxShadow: {
-        // ombres neutres (pas teintées jaune)
         card: "0 10px 30px rgba(0,0,0,.20)",
       },
       backgroundImage: {
