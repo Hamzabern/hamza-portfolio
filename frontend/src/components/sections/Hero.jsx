@@ -18,7 +18,7 @@ export default function Hero() {
         </Reveal>
 
         <Reveal as="div" y={8} delay={0.08}>
-          <img src="https://img.freepik.com/premium-vector/programmer-work_1294175-6894.jpg?semt=ais_hybrid&w=740&q=80" alt="Illustration développeur"
+          <img src="https://img.freepik.com/free-vector/male-programmer-working-computer-office-wall-with-hanging-reminder-stickers-developer-creating-new-software-interface-coding-programming-system-administrator-designer-character_575670-1159.jpg?t=st=1758903353~exp=1758906953~hmac=e1cdd89babbc7642423e6c5a63d4b06c277aeb0d8ecddae5058056d3838e3200&w=1480" alt="Illustration développeur"
             className="rounded-2xl w-full h-auto object-cover border border-black/10 dark:border-white/10"
             loading="lazy" decoding="async"/>
         </Reveal>

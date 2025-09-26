@@ -205,6 +205,9 @@ section { scroll-margin-top: 84px; }
     -webkit-mask: 
       linear-gradient(#000 0 0) content-box, 
       linear-gradient(#000 0 0);
+    mask: 
+      linear-gradient(#000 0 0) content-box, 
+      linear-gradient(#000 0 0);
     -webkit-mask-composite: xor; mask-composite: exclude;
     pointer-events: none;
   }
@@ -244,3 +247,13 @@ section { scroll-margin-top: 84px; }
   }
 
 }
+
+@layer components {
+  .stars-canvas{
+    position: fixed; inset: 0; z-index: 0;
+    pointer-events: none;
+    display: none; /* par défaut */
+  }
+  .dark .stars-canvas{ display: block; }
+}
+
