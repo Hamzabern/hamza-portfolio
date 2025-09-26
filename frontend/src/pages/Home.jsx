@@ -5,6 +5,7 @@ import { useInView, motion as Motion } from "framer-motion";
 import Hero from "../components/sections/Hero";
 import Projects from "../components/sections/Projects";
 import Services from "../components/sections/Services";
+import Tech from "../components/sections/Tech";
 
 import { useRef, useState, useEffect } from "react";
 
@@ -67,7 +68,8 @@ return (
     </Section>
 
     {/* TECHNOLOGIES */}
-    <Section id="tech" title="Technologies" subtitle="Mon stack principal.">
+    <Tech />
+    {/* <Section id="tech" title="Technologies" subtitle="Mon stack principal.">
       <div className="tech-viewport">
         <div className="tech-track">
           {[ 
@@ -97,7 +99,7 @@ return (
           ))}
         </div>
       </div>
-    </Section>
+    </Section> */}
 
     {/* SKILLS */}
     <Section id="skills" title="Compétences" subtitle="Tech principales avec niveau indicatif.">
