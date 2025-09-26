@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 export function useTheme() {
   const [theme, setTheme] = useState(() => {
-    // priorité: localStorage > prefers-color-scheme > 'dark'
     const saved = localStorage.getItem("theme");
     if (saved) return saved;
     const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;

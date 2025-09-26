@@ -1,10 +1,5 @@
 import { useEffect, useRef } from "react";
 
-/**
- * Canvas transparent (ne teint PAS le fond).
- * Fading via 'destination-in' (on atténue l'alpha au fil du temps, pas de voile coloré).
- * Chaque étoile a un angle aléatoire et une position de départ aléatoire.
- */
 export default function ShootingStars({ intervalMs = 5200 }) {
   const ref = useRef(null);
 
@@ -27,19 +22,17 @@ export default function ShootingStars({ intervalMs = 5200 }) {
     const stars = [];
 
     function spawnStar() {
-      // départ: zone bordure (pour variété) + angle aléatoire (0–360°)
       const margin = Math.min(w, h) * 0.2;
       const edges = [
-        { x: Math.random() * w, y: Math.random() * margin },            // haut
-        { x: Math.random() * w, y: h - Math.random() * margin },        // bas
-        { x: Math.random() * margin, y: Math.random() * h },            // gauche
-        { x: w - Math.random() * margin, y: Math.random() * h },        // droite
+        { x: Math.random() * w, y: Math.random() * margin },            
+        { x: Math.random() * w, y: h - Math.random() * margin },        
+        { x: Math.random() * margin, y: Math.random() * h },            
+        { x: w - Math.random() * margin, y: Math.random() * h },        
       ];
       const start = edges[Math.floor(Math.random() * edges.length)];
 
-      // angle aléatoire (en radians), vitesse et longueur random
       const angle = Math.random() * Math.PI * 2;
-      const speed = 5.5 + Math.random() * 3.5; // px/frame
+      const speed = 5.5 + Math.random() * 3.5;
       const len = 120 + Math.random() * 100;
 
       stars.push({
@@ -55,16 +48,12 @@ export default function ShootingStars({ intervalMs = 5200 }) {
 
     let raf;
     function tick() {
-      // FADE SANS TEINTER LE FOND :
-      // Multiplie l'alpha du canvas (destination-in) => pas de voile visible
       ctx.save();
       ctx.globalCompositeOperation = "destination-in";
-      // garde ~92% de la frame précédente (fade doux)
       ctx.fillStyle = "rgba(0,0,0,0.92)";
       ctx.fillRect(0, 0, w, h);
       ctx.restore();
 
-      // Dessin des étoiles en "source-over" (transparent par défaut derrière)
       ctx.globalCompositeOperation = "source-over";
 
       for (let i = stars.length - 1; i >= 0; i--) {
@@ -73,11 +62,9 @@ export default function ShootingStars({ intervalMs = 5200 }) {
         s.y += s.vy;
         s.life -= 0.006;
 
-        // vecteur "arrière" pour la traînée (suivant l'angle)
         const tx = s.x - Math.cos(s.angle) * s.len;
         const ty = s.y - Math.sin(s.angle) * s.len;
 
-        // dégradé jaune -> transparent le long de la traînée
         const grad = ctx.createLinearGradient(tx, ty, s.x, s.y);
         grad.addColorStop(0, "rgba(250,204,21,0)");
         grad.addColorStop(0.25, "rgba(250,204,21,0.25)");
@@ -91,13 +78,11 @@ export default function ShootingStars({ intervalMs = 5200 }) {
         ctx.lineTo(s.x, s.y);
         ctx.stroke();
 
-        // pointe de l'étoile
         ctx.beginPath();
         ctx.fillStyle = "rgba(250,204,21,0.95)";
         ctx.arc(s.x, s.y, 1.7, 0, Math.PI * 2);
         ctx.fill();
 
-        // sortie de l'écran ?
         if (s.x < -50 || s.x > w + 50 || s.y < -50 || s.y > h + 50 || s.life <= 0) {
           stars.splice(i, 1);
         }
@@ -106,7 +91,6 @@ export default function ShootingStars({ intervalMs = 5200 }) {
       raf = requestAnimationFrame(tick);
     }
 
-    // Lancement
     raf = requestAnimationFrame(tick);
     const id = setInterval(spawnStar, intervalMs);
     spawnStar();
