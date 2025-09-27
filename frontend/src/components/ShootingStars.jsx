@@ -1,18 +1,20 @@
 import { useEffect, useRef } from "react";
 
+/**
+ * Étoiles filantes (montées uniquement en DARK par App.jsx).
+ * - Directions aléatoires depuis les bords
+ * - Traînée avec fade via destination-in (pas de teinte du fond)
+ * Pas de logique de thème ici.
+ */
 export default function ShootingStars({ intervalMs = 5200 }) {
   const ref = useRef(null);
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const isDark = document.documentElement.classList.contains("dark");
-    if (prefersReduced || !isDark) return;
-
     const canvas = ref.current;
     const ctx = canvas.getContext("2d", { alpha: true });
-
     let w = (canvas.width = window.innerWidth);
     let h = (canvas.height = window.innerHeight);
+
     const onResize = () => {
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
@@ -20,17 +22,15 @@ export default function ShootingStars({ intervalMs = 5200 }) {
     window.addEventListener("resize", onResize);
 
     const stars = [];
-
     function spawnStar() {
       const margin = Math.min(w, h) * 0.2;
       const edges = [
-        { x: Math.random() * w, y: Math.random() * margin },            
-        { x: Math.random() * w, y: h - Math.random() * margin },        
-        { x: Math.random() * margin, y: Math.random() * h },            
-        { x: w - Math.random() * margin, y: Math.random() * h },        
+        { x: Math.random() * w, y: Math.random() * margin },             // haut
+        { x: Math.random() * w, y: h - Math.random() * margin },         // bas
+        { x: Math.random() * margin, y: Math.random() * h },             // gauche
+        { x: w - Math.random() * margin, y: Math.random() * h },         // droite
       ];
       const start = edges[Math.floor(Math.random() * edges.length)];
-
       const angle = Math.random() * Math.PI * 2;
       const speed = 5.5 + Math.random() * 3.5;
       const len = 120 + Math.random() * 100;
@@ -47,7 +47,12 @@ export default function ShootingStars({ intervalMs = 5200 }) {
     }
 
     let raf;
-    function tick() {
+    let last = performance.now();
+    const tick = (now) => {
+      const dt = Math.min(0.033, (now - last) / 1000);
+      last = now;
+
+      // fade doux sans teinte de fond
       ctx.save();
       ctx.globalCompositeOperation = "destination-in";
       ctx.fillStyle = "rgba(0,0,0,0.92)";
@@ -60,7 +65,7 @@ export default function ShootingStars({ intervalMs = 5200 }) {
         const s = stars[i];
         s.x += s.vx;
         s.y += s.vy;
-        s.life -= 0.006;
+        s.life -= 0.006 * (1 + dt * 30);
 
         const tx = s.x - Math.cos(s.angle) * s.len;
         const ty = s.y - Math.sin(s.angle) * s.len;
@@ -89,9 +94,9 @@ export default function ShootingStars({ intervalMs = 5200 }) {
       }
 
       raf = requestAnimationFrame(tick);
-    }
-
+    };
     raf = requestAnimationFrame(tick);
+
     const id = setInterval(spawnStar, intervalMs);
     spawnStar();
 

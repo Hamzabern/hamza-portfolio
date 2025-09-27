@@ -247,32 +247,49 @@ section { scroll-margin-top: 84px; }
 
 }
 
-@layer components {
+/* @layer components {
   .stars-canvas{
     position: fixed; inset: 0; z-index: 0;
     pointer-events: none;
-    display: none; /* par défaut */
+    display: none;
   }
   .dark .stars-canvas{ display: block; }
-}
-
+} */
+/* 
 @layer components {
   .light-particles {
     position: fixed; inset: 0; z-index: 0;
     pointer-events: none;
     display: none;
   }
-  /* visible uniquement quand html n'a PAS la classe .dark */
-  html:not(.dark) .light-particles { display: block; }
-  .dark .light-particles { display: none; } /* ceinture + bretelles */
-}
 
-@layer components {
+  html:not(.dark) .light-particles { display: block; }
+  .dark .light-particles { display: none; } 
+} */
+/* .stars-canvas, .light-particles {
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none;
+} */
+
+/* @layer components {
+  .stars-canvas,
+  .light-particles {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+} */
+
+/* @layer components {
   .fx-canvas{
     position: fixed;
     inset: 0;
-    z-index: 0;           /* derrière le contenu */
-    pointer-events: none; /* clics passent au travers */
+    z-index: 0;           
+    pointer-events: none; 
   }
-}
+} */
+
+.stars-canvas,
+.light-particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
 

@@ -10,7 +10,8 @@ export default function App() {
   return (
     <div className="min-h-dvh flex flex-col relative">
       <Navbar />
-      {theme === 'dark' ? <ShootingStars intervalMs={10000} /> : <LightParticles count={25}/>}
+     {theme === "dark" ? <ShootingStars /> : <LightParticles />}
+
       <main id="main" className="flex-1 relative">
         <div className="max-w-6xl mx-auto px-4 py-8">
           <Outlet className="site-container py-8"/>

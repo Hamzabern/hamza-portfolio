@@ -4,11 +4,6 @@ export default function LightParticles({ count }) {
   const ref = useRef(null);
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const html = document.documentElement;
-    const isLight = !html.classList.contains("dark");
-    if (prefersReduced || !isLight) return;
-
     const canvas = ref.current;
     const ctx = canvas.getContext("2d", { alpha: true });
 
@@ -17,9 +12,9 @@ export default function LightParticles({ count }) {
 
     const computeCount = () => {
       if (count && Number.isFinite(count)) return count;
-      if (w < 640) return 16;
-      if (w < 1024) return 22;
-      return 30;
+      if (w < 640) return 16;     // mobile
+      if (w < 1024) return 22;    // tablette
+      return 30;                  // desktop
     };
     let TARGET = computeCount();
 
@@ -36,15 +31,15 @@ export default function LightParticles({ count }) {
       P.push({
         x: Math.random() * w,
         y: h + 20,
-        rBase,                         
-        rAmp: rBase * 0.35,            
-        tw: Math.random() * Math.PI*2,
-        twSpeed: 1 + Math.random()*0.8,
+        rBase,
+        rAmp: rBase * 0.35,
+        tw: Math.random() * Math.PI * 2,
+        twSpeed: 1 + Math.random() * 0.8,
         speedY: 0.5 + Math.random() * 1.2,
-        driftX: (Math.random()*2 - 1) * 0.25, 
+        driftX: (Math.random() * 2 - 1) * 0.25,
         life: 1,
         huePhase: Math.random() * Math.PI * 2,
-        hueSpeed: 0.4 + Math.random() * 0.6, 
+        hueSpeed: 0.4 + Math.random() * 0.6,
       });
     }
     for (let i = 0; i < TARGET; i++) spawn();
@@ -52,30 +47,28 @@ export default function LightParticles({ count }) {
     let raf;
     let last = performance.now();
     const tick = (now) => {
-      if (html.classList.contains("dark")) {
-        ctx.clearRect(0, 0, w, h);
-        cancelAnimationFrame(raf);
-        return;
-      }
-
-      const dt = Math.min(0.033, (now - last) / 1000); 
+      const dt = Math.min(0.033, (now - last) / 1000);
       last = now;
 
       ctx.clearRect(0, 0, w, h);
+
       if (P.length < TARGET) spawn();
 
       for (let i = P.length - 1; i >= 0; i--) {
         const p = P[i];
 
+        // mouvement
         p.y -= p.speedY;
         p.x += p.driftX;
         p.life -= 0.003;
 
-        p.huePhase += p.hueSpeed * dt;          
-        p.tw += p.twSpeed * dt;                 
+        // anime teinte + twinkle
+        p.huePhase += p.hueSpeed * dt;
+        p.tw += p.twSpeed * dt;
         const r = p.rBase + Math.sin(p.tw) * p.rAmp;
 
-        const hueWave = 44 + 4 * Math.sin(p.huePhase); 
+        // HSL: 40–48° → +warm shift vers ~60°
+        const hueWave = 44 + 4 * Math.sin(p.huePhase);
         const warmShift = 11 * (1 - p.life);
         const hue = Math.min(60, hueWave + warmShift);
         const sat = 95;
@@ -101,22 +94,10 @@ export default function LightParticles({ count }) {
     };
     raf = requestAnimationFrame(tick);
 
-    const mo = new MutationObserver(() => {
-      const nowLight = !html.classList.contains("dark");
-      if (!nowLight) {
-        cancelAnimationFrame(raf);
-        ctx.clearRect(0, 0, w, h);
-      } else {
-        last = performance.now();
-        raf = requestAnimationFrame(tick);
-      }
-    });
-    mo.observe(html, { attributes: true, attributeFilter: ["class"] });
-
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
-      mo.disconnect();
+      ctx.clearRect(0, 0, w, h);
     };
   }, [count]);
 
