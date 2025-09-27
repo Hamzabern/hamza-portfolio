@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 
-export function useTheme() {
+const ThemeCtx = createContext(null);
+
+export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
     const saved = localStorage.getItem("theme");
     if (saved) return saved;
@@ -15,7 +17,10 @@ export function useTheme() {
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const toggle = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
+  const toggle = () => setTheme(t => (t === "dark" ? "light" : "dark"));
+  const value = useMemo(() => ({ theme, toggle }), [theme]);
 
-  return { theme, toggle };
+  return <ThemeCtx.Provider value={value}>{children}</ThemeCtx.Provider>;
 }
+
+export { ThemeCtx };

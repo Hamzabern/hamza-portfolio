@@ -12,9 +12,9 @@ export default function LightParticles({ count }) {
 
     const computeCount = () => {
       if (count && Number.isFinite(count)) return count;
-      if (w < 640) return 16;     // mobile
-      if (w < 1024) return 22;    // tablette
-      return 30;                  // desktop
+      if (w < 640) return 16;     
+      if (w < 1024) return 22;    
+      return 30;                  
     };
     let TARGET = computeCount();
 
@@ -57,17 +57,14 @@ export default function LightParticles({ count }) {
       for (let i = P.length - 1; i >= 0; i--) {
         const p = P[i];
 
-        // mouvement
         p.y -= p.speedY;
         p.x += p.driftX;
         p.life -= 0.003;
 
-        // anime teinte + twinkle
         p.huePhase += p.hueSpeed * dt;
         p.tw += p.twSpeed * dt;
         const r = p.rBase + Math.sin(p.tw) * p.rAmp;
 
-        // HSL: 40–48° → +warm shift vers ~60°
         const hueWave = 44 + 4 * Math.sin(p.huePhase);
         const warmShift = 11 * (1 - p.life);
         const hue = Math.min(60, hueWave + warmShift);

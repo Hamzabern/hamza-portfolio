@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { api, ensureArray } from "../../lib/api";
 import Reveal from "../../components/Reveal";
+import Section from "../../components/section";
+
 
 export default function Projects() {
   const { data } = useQuery({
@@ -11,11 +13,7 @@ export default function Projects() {
   const projects = ensureArray(data).slice(0, 6);
 
   return (
-    <section id="projects" className="py-12">
-      <Reveal as="h2" y={6}>
-        <h2 className="text-2xl font-bold mb-6">Projets récents</h2>
-      </Reveal>
-
+  <Section id="projects" title="Projets récents" subtitle="Sélection des 6 derniers.">
       {projects.length === 0 && (
         <p className="opacity-80">Ajoute des projets publiés pour les voir ici.</p>
       )}
@@ -38,13 +36,12 @@ export default function Projects() {
 
                   <div className="project-tags">
                     {(p.stack || []).slice(0, 4).map((s, i) => (
-                      <span key={i} className="px-2 py-1 project-tag bg-white/10 border border-white/10 ">
+                      <span key={i} className="px-2 py-1 project-tag bg-slate-200/50 border border-white/10 ">
                         {s}
                       </span>
                     ))}
                   </div>
 
-                  {/* Footer (toujours rendu, icônes à droite) */}
                   <div className="project-footer">
                     <a href={github || undefined} target="_blank" rel="noreferrer" className={`icon-btn hover:text-[var(--accent)] ${github ? "" : "icon-btn--disabled"}`}
                       aria-label="Voir le code sur GitHub" title={github ? "GitHub (source)" : "Source Code"} >
@@ -67,6 +64,6 @@ export default function Projects() {
           );
         })}
       </div>
-    </section>
+    </Section>
   );
 }

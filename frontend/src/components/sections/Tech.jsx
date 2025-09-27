@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 import Reveal from "../Reveal";
+import Section from "../../components/section";
+
 
 const TECH = [
   { name:"Laravel",  img:"https://laravel.com/img/logomark.min.svg", desc:"Backend & API" },
@@ -35,8 +37,7 @@ export default function Tech() {
   }, []);
 
   return (
-    <section id="tech" className="py-12">
-      <Reveal as="header" y={6}>
+    <Section id="tech" className="py-12" title="Technologies" subtitle="Mon stack principal.">
         <div className="flex items-end justify-between gap-3 mb-3">
           <div>
             <h2 className="text-2xl font-bold">Technologies</h2>
@@ -47,7 +48,6 @@ export default function Tech() {
             <button ref={rightRef} className="tech-ctrl"  aria-label="Défiler à droite">›</button>
           </div>
         </div>
-      </Reveal>
 
       <div className="tech-viewport">
         <div ref={scrollRef} className="tech-scroll">
@@ -66,6 +66,6 @@ export default function Tech() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

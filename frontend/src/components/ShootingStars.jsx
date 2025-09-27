@@ -1,11 +1,5 @@
 import { useEffect, useRef } from "react";
 
-/**
- * Étoiles filantes (montées uniquement en DARK par App.jsx).
- * - Directions aléatoires depuis les bords
- * - Traînée avec fade via destination-in (pas de teinte du fond)
- * Pas de logique de thème ici.
- */
 export default function ShootingStars({ intervalMs = 5200 }) {
   const ref = useRef(null);
 
@@ -25,10 +19,10 @@ export default function ShootingStars({ intervalMs = 5200 }) {
     function spawnStar() {
       const margin = Math.min(w, h) * 0.2;
       const edges = [
-        { x: Math.random() * w, y: Math.random() * margin },             // haut
-        { x: Math.random() * w, y: h - Math.random() * margin },         // bas
-        { x: Math.random() * margin, y: Math.random() * h },             // gauche
-        { x: w - Math.random() * margin, y: Math.random() * h },         // droite
+        { x: Math.random() * w, y: Math.random() * margin },             
+        { x: Math.random() * w, y: h - Math.random() * margin },         
+        { x: Math.random() * margin, y: Math.random() * h },            
+        { x: w - Math.random() * margin, y: Math.random() * h },         
       ];
       const start = edges[Math.floor(Math.random() * edges.length)];
       const angle = Math.random() * Math.PI * 2;
@@ -52,7 +46,6 @@ export default function ShootingStars({ intervalMs = 5200 }) {
       const dt = Math.min(0.033, (now - last) / 1000);
       last = now;
 
-      // fade doux sans teinte de fond
       ctx.save();
       ctx.globalCompositeOperation = "destination-in";
       ctx.fillStyle = "rgba(0,0,0,0.92)";

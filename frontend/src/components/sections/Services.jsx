@@ -1,4 +1,5 @@
 import Reveal from "../Reveal";
+import Section from "../../components/section";
 
 const items = [
   {
@@ -34,42 +35,34 @@ const items = [
 ];
 
 export default function Services() {
-  return (
-    <section id="services" className="py-14">
-      <Reveal as="header" y={6}>
-        <div className="flex items-end justify-between gap-3 mb-6">
-          <div>
-            <h2 className="text-2xl font-bold">Services</h2>
-            <p className="opacity-80 text-sm">Ce que je fais le mieux, avec un focus qualité.</p>
-          </div>
-          <div className="hidden sm:flex items-center gap-2">
-            <span className="chip"><span className="chip-dot" /> Qualité</span>
-            <span className="chip"><span className="chip-dot" /> Perfs</span>
-            <span className="chip"><span className="chip-dot" /> SEO</span>
-          </div>
-        </div>
-      </Reveal>
+ return (
+  <Section id="services" title="Services" subtitle="Ce que je fais le mieux, avec un focus qualité.">
+    <div className="mb-6 hidden sm:flex items-center gap-2">
+      <span className="chip"><span className="chip-dot" /> Qualité</span>
+      <span className="chip"><span className="chip-dot" /> Perfs</span>
+      <span className="chip"><span className="chip-dot" /> SEO</span>
+    </div>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((s, i) => (
-          <Reveal key={s.title} y={10} delay={i * 0.06}>
-            <article className="card-modern shine p-5">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="icon-wrap" aria-hidden="true">{s.icon}</div>
-                <h3 className="font-semibold text-lg">{s.title}</h3>
-              </div>
-              <p className="opacity-80 text-sm">{s.desc}</p>
-              <ul className="mt-4 flex flex-wrap gap-2">
-                {s.chips.map((c) => (
-                  <li key={c} className="chip">
-                    <span className="chip-dot" aria-hidden="true" /> {c}
-                  </li>
-                ))}
-              </ul>
-            </article>
-          </Reveal>
-        ))}
-      </div>
-    </section>
-  );
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {items.map((s, i) => (
+        <Reveal key={s.title} y={10} delay={i * 0.06}>
+          <article className="card-modern shine p-5">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="icon-wrap" aria-hidden="true">{s.icon}</div>
+              <h3 className="font-semibold text-lg">{s.title}</h3>
+            </div>
+            <p className="opacity-80 text-sm">{s.desc}</p>
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {s.chips.map((c) => (
+                <li key={c} className="chip">
+                  <span className="chip-dot" aria-hidden="true" /> {c}
+                </li>
+              ))}
+            </ul>
+          </article>
+        </Reveal>
+      ))}
+    </div>
+  </Section>
+);
 }
