@@ -6,6 +6,8 @@ import Hero from "../components/sections/Hero";
 import Projects from "../components/sections/Projects";
 import Services from "../components/sections/Services";
 import Tech from "../components/sections/Tech";
+import Skills from "../components/sections/Skills";
+
 
 import { useRef, useState, useEffect } from "react";
 
@@ -102,7 +104,7 @@ return (
     </Section> */}
 
     {/* SKILLS */}
-    <Section id="skills" title="Compétences" subtitle="Tech principales avec niveau indicatif.">
+    {/* <Section id="skills" title="Compétences" subtitle="Tech principales avec niveau indicatif.">
       <div className="grid sm:grid-cols-2 gap-6">
         <ProgressBar label="Laravel" value={85} />
         <ProgressBar label="React" value={80} />
@@ -111,7 +113,8 @@ return (
         <ProgressBar label="Sécurité / Auth" value={70} />
         <ProgressBar label="Tests & Qualité" value={65} />
       </div>
-    </Section>
+    </Section> */}
+    <Skills />
 
     {/* EXPERIENCE */}
     <Section id="experience" title="Expérience & Formation" subtitle="Parcours rapide.">
