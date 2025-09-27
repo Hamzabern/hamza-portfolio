@@ -7,7 +7,7 @@ import Projects from "../components/sections/Projects";
 import Services from "../components/sections/Services";
 import Tech from "../components/sections/Tech";
 import Skills from "../components/sections/Skills";
-
+import Experience from "../components/sections/Experience";
 
 import { useRef, useState, useEffect } from "react";
 
@@ -49,6 +49,9 @@ return (
     {/* SERVICES Section */}
     <Services />
 
+    {/* TECHNOLOGIES */}
+    <Tech />
+
     {/* PROJECTS Section */}
     <Projects />
 
@@ -69,92 +72,12 @@ return (
       </div>
     </Section>
 
-    {/* TECHNOLOGIES */}
-    <Tech />
-    {/* <Section id="tech" title="Technologies" subtitle="Mon stack principal.">
-      <div className="tech-viewport">
-        <div className="tech-track">
-          {[ 
-            { name:"Laravel",  img:"https://laravel.com/img/logomark.min.svg",                       desc:"Backend & API" },
-            { name:"React",    img:"https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg", desc:"SPA Frontend" },
-            { name:"Tailwind", img:"https://tailwindcss.com/favicons/apple-touch-icon.png",         desc:"User Interface" },
-            { name:"MySQL",    img:"https://www.mysql.com/common/logos/logo-mysql-170x115.png",     desc:"Base de données" },
-            { name:"GitHub",   img:"https://github.githubassets.com/favicons/favicon.png",          desc:"VCS & CI" },
-            { name:"Docker",   img:"https://www.docker.com/wp-content/uploads/2023/07/favicon.png", desc:"Conteneurs (base)" },
-          ].concat([
-            { name:"Laravel",  img:"https://laravel.com/img/logomark.min.svg",                       desc:"Backend & API" },
-            { name:"React",    img:"https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg", desc:"SPA Frontend" },
-            { name:"Tailwind", img:"https://tailwindcss.com/favicons/apple-touch-icon.png",         desc:"User Interface" },
-            { name:"MySQL",    img:"https://www.mysql.com/common/logos/logo-mysql-170x115.png",     desc:"Base de données" },
-            { name:"GitHub",   img:"https://github.githubassets.com/favicons/favicon.png",          desc:"VCS & CI" },
-            { name:"Docker",   img:"https://www.docker.com/wp-content/uploads/2023/07/favicon.png", desc:"Conteneurs (base)" },
-          ]).map((t, i)=>(
-            <div key={t.name+'-'+i} className="tech-card">
-              <div className="tech-icon-wrap">
-                <img src={t.img} alt={t.name} className="h-6 w-6 object-contain" loading="lazy" decoding="async" />
-              </div>
-              <div>
-                <div className="tech-title">{t.name}</div>
-                <div className="tech-desc">{t.desc}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </Section> */}
-
     {/* SKILLS */}
-    {/* <Section id="skills" title="Compétences" subtitle="Tech principales avec niveau indicatif.">
-      <div className="grid sm:grid-cols-2 gap-6">
-        <ProgressBar label="Laravel" value={85} />
-        <ProgressBar label="React" value={80} />
-        <ProgressBar label="Tailwind" value={85} />
-        <ProgressBar label="MySQL" value={75} />
-        <ProgressBar label="Sécurité / Auth" value={70} />
-        <ProgressBar label="Tests & Qualité" value={65} />
-      </div>
-    </Section> */}
     <Skills />
 
     {/* EXPERIENCE */}
-    <Section id="experience" title="Expérience & Formation" subtitle="Parcours rapide.">
-      <div className="relative pl-5">
-        <div className="absolute left-2 top-0 bottom-0 w-0.5 bg-black/10 dark:bg-white/10"></div>
-
-        <div className="space-y-5">
-          {/* Item 1 */}
-          <div className="relative">
-            <div className="absolute -left-0.5 top-1.5 h-3 w-3 rounded-full bg-[var(--accent)] shadow-accent"></div>
-            <Card className="p-4">
-              <div className="text-xs opacity-70">2025 — …</div>
-              <h3 className="font-semibold">Freelance — Full-Stack</h3>
-              <p className="opacity-80 text-sm">Apps Laravel/React, intégrations API, qualité & perfs.</p>
-            </Card>
-          </div>
-
-          {/* Item 2 */}
-          <div className="relative">
-            <div className="absolute -left-0.5 top-1.5 h-3 w-3 rounded-full bg-[var(--accent)] shadow-accent"></div>
-            <Card className="p-4">
-              <div className="text-xs opacity-70">2024 — 2025</div>
-              <h3 className="font-semibold">Projets persos — SaaS / Portfolio</h3>
-              <p className="opacity-80 text-sm">Design system Tailwind, SEO, déploiements.</p>
-            </Card>
-          </div>
-
-          {/* Item 3 */}
-          <div className="relative">
-            <div className="absolute -left-0.5 top-1.5 h-3 w-3 rounded-full bg-[var(--accent)] shadow-accent"></div>
-            <Card className="p-4">
-              <div className="text-xs opacity-70">Master MASI</div>
-              <h3 className="font-semibold">Ingénierie Logicielle</h3>
-              <p className="opacity-80 text-sm">Conception, archi, tests & qualité logicielle.</p>
-            </Card>
-          </div>
-        </div>
-      </div>
-    </Section>
-
+    <Experience />
+    
     {/* TESTIMONIALS */}
     {/* <Section id="testimonials" title="Ce qu’on dit" subtitle="Avis de clients/collaborateurs." >
       <div className="grid md:grid-cols-3 gap-4">

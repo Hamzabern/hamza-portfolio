@@ -36,36 +36,33 @@ export default function Tech() {
     };
   }, []);
 
-  return (
-    <Section id="tech" className="py-12" title="Technologies" subtitle="Mon stack principal.">
-        <div className="flex items-end justify-between gap-3 mb-3">
-          <div>
-            <h2 className="text-2xl font-bold">Technologies</h2>
-            <p className="opacity-80 text-sm">Mon stack principal.</p>
-          </div>
-          <div className="flex gap-2">
-            <button ref={leftRef}  className="tech-ctrl"  aria-label="Défiler à gauche">‹</button>
-            <button ref={rightRef} className="tech-ctrl"  aria-label="Défiler à droite">›</button>
-          </div>
-        </div>
+return (
+  <Section id="tech" title="Technologies" subtitle="Mon stack principal.">
+    <div className="flex items-end justify-between gap-3 mb-3">
+      <div />
+      <div className="flex gap-2">
+        <button ref={leftRef}  className="tech-ctrl" aria-label="Défiler à gauche">‹</button>
+        <button ref={rightRef} className="tech-ctrl" aria-label="Défiler à droite">›</button>
+      </div>
+    </div>
 
-      <div className="tech-viewport">
-        <div ref={scrollRef} className="tech-scroll">
-          <div className="tech-track">
-            {TECH.concat(TECH).map((t, i) => (
-              <div key={t.name + "-" + i} className="tech-card">
-                <div className="tech-icon-wrap">
-                  <img src={t.img} alt={t.name} className="h-6 w-6 object-contain" loading="lazy" decoding="async" />
-                </div>
-                <div>
-                  <div className="text-sm font-medium">{t.name}</div>
-                  <div className="text-[11px] opacity-70">{t.desc}</div>
-                </div>
+    <div className="tech-viewport">
+      <div ref={scrollRef} className="tech-scroll">
+        <div className="tech-track">
+          {TECH.concat(TECH).map((t, i) => (
+            <div key={t.name + "-" + i} className="tech-card">
+              <div className="tech-icon-wrap">
+                <img src={t.img} alt={t.name} className="h-6 w-6 object-contain" loading="lazy" decoding="async" />
               </div>
-            ))}
-          </div>
+              <div>
+                <div className="text-sm font-medium">{t.name}</div>
+                <div className="text-[11px] opacity-70">{t.desc}</div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-    </Section>
-  );
+    </div>
+  </Section>
+);
 }
