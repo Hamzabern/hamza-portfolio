@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import Reveal from "../Reveal";
-import Section from "../../components/section";
+import Section from "../layout/section";
+// import Reveal from "../Reveal";
 
 
 const TECH = [

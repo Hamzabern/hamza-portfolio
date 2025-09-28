@@ -6,7 +6,6 @@ export const api = axios.create({
   headers: { Accept: "application/json" },
   transformResponse: [(data) => {
     if (typeof data === "string") {
-      // retire BOM s'il reste
       const cleaned = data.replace(/^\uFEFF+/, "").trim();
       try { return JSON.parse(cleaned); } catch { return cleaned; }
     }

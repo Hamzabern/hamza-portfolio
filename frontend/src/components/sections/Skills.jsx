@@ -1,6 +1,6 @@
-import Section from "../section";
-import Reveal from "../Reveal";
-import ProgressBar from "../ProgressBar";
+import Section from "../layout/section";
+import Reveal from "../ui/Reveal";
+import ProgressBar from "../ui/ProgressBar";
 
 export default function Skills() {
   const items = [

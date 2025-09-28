@@ -1,5 +1,5 @@
-import Section from "../section";
-import Reveal from "../Reveal";
+import Section from "../layout/section";
+import Reveal from "../ui/Reveal";
 import { useCallback } from "react";
 
 export default function Contact() {

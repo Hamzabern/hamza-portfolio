@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import ShootingStars from "./components/ShootingStars";
-import LightParticles from "./components/LightParticles";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+import ShootingStars from "./components/effects/ShootingStars";
+import LightParticles from "./components/effects/LightParticles";
 import { useTheme } from "./theme/useTheme";
 
 export default function App() {

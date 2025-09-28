@@ -1,0 +1,26 @@
+@layer components {
+  .site-container { @apply max-w-6xl mx-auto px-4 }
+  .footer-copy { @apply opacity-80 text-center md:text-left }
+
+  .divider-accent {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: .35;
+  }
+
+  .shadow-accent { transition: box-shadow .7s ease; transform: .3s ease;}
+  .shadow-accent:hover {
+    box-shadow: 0 24px 48px rgba(250,204,21,.85), 0 8px 22px rgba(0,0,0,.2);
+    transform: translateY(-2px);
+  }
+
+  .icon-btn .emoji { transition: text-shadow .25s ease; }
+  .icon-btn:hover .emoji { text-shadow: 0 0 15px var(--shadow-accent); }
+
+  .drawer { backdrop-filter: blur(10px); animation: slideIn .28s ease both; }
+  .mnav a{ @apply py-2 px-2 rounded; }
+  .mnav a:hover{ @apply bg-black/5 dark:bg-white/10 text-[var(--accent)] font-bold; }
+  .mnav a:active{ @apply text-[var(--accent)] font-bold;}
+  
+  .stars-canvas, .light-particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+}

@@ -1,0 +1,41 @@
+@layer components {
+  .card-modern {
+    @apply relative rounded-2xl border bg-white/60 dark:bg-white/[.06] backdrop-blur;
+    @apply border-black/10 dark:border-white/10;
+    transition: box-shadow .5s ease, transform .2s ease;
+  }
+  .card-modern::before {
+    content: "";
+    position: absolute; inset: 0; border-radius: 1rem;
+    padding: 1px; 
+    background: linear-gradient(135deg, rgba(250,204,21,.55), rgba(2,6,23,.25));
+    -webkit-mask: 
+      linear-gradient(#000 0 0) content-box, 
+      linear-gradient(#000 0 0);
+    mask: 
+      linear-gradient(#000 0 0) content-box, 
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; 
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .card-modern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 48px var(--accent), 0 8px 22px rgba(0,0,0,.18);
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] border;
+    @apply bg-white/40 dark:bg-white/10 border-black/10 dark:border-white/10;
+  }
+  .chip-dot {
+    @apply h-1.5 w-1.5 rounded-full;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--shadow-accent);
+  }
+
+  .icon-wrap {
+    @apply h-10 w-10 rounded-md flex items-center justify-center;
+    background: rgba(2,6,23,.06);
+  }
+}

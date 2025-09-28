@@ -1,6 +1,6 @@
-import Section from "../section";
-import Card from "../Card";
-import Reveal from "../Reveal";
+import Section from "../layout/section";
+import Card from "../ui/Card";
+import Reveal from "../ui/Reveal";
 
 const ITEMS = [
   {

@@ -1,0 +1,32 @@
+@layer components {
+  .project-desc   { @apply opacity-80 text-sm; }
+
+  .project-card   { 
+    @apply h-full flex flex-col rounded-xl border border-black/10 dark:border-white/10 
+           bg-white/60 dark:bg-white/5 backdrop-blur-sm overflow-hidden shadow-accent transition; 
+  }
+
+  .project-media  { @apply w-full h-44 object-cover; }
+  .project-body   { @apply p-4 flex flex-col flex-1; }
+  .project-title  { @apply text-lg font-semibold; }
+
+  .pr { 
+    @apply project-desc;
+    height: 3rem; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    -webkit-box-orient: vertical; 
+  }
+
+  .project-tags   { @apply flex flex-wrap gap-2 mt-2 text-xs; }
+  .project-tag    { @apply px-2 py-1 rounded-full dark:bg-white/5; }
+
+  .project-footer { 
+    @apply mt-4 pt-3 border-t border-black/10 dark:border-white/10 
+           flex justify-end gap-3;
+  }
+
+  @media (max-width: 640px) {
+    .project-desc { height: auto; -webkit-box-orient: unset; }
+  }
+}

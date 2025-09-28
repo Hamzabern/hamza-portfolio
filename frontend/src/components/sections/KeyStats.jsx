@@ -1,6 +1,6 @@
-import Section from "../section";
-import Reveal from "../Reveal";
-import CountUp from "../CountUp";
+import Section from "../layout/section";
+import Reveal from "../ui/Reveal";
+import CountUp from "../ui/CountUp";
 
 const STATS = [
   { label: "Projets livrés", value: 18, suffix: "+" },

@@ -1,29 +1,39 @@
-import Section from "../components/section";
+import { Suspense, lazy } from "react";
+import Section from "../components/layout/section";
 import { motion as Motion } from "framer-motion";
-import Hero from "../components/sections/Hero";
-import Projects from "../components/sections/Projects";
-import Services from "../components/sections/Services";
-import Tech from "../components/sections/Tech";
-import Skills from "../components/sections/Skills";
-import Experience from "../components/sections/Experience";
-import KeyStats from "../components/sections/KeyStats";
-import Contact from "../components/sections/Contact";
+
+const Hero = lazy(() => import("../components/sections/Hero"));
+const Projects = lazy(() => import("../components/sections/Projects"));
+const Services = lazy(() => import("../components/sections/Services"));
+const Tech = lazy(() => import("../components/sections/Tech"));
+const Skills = lazy(() => import("../components/sections/Skills"));
+const Experience = lazy(() => import("../components/sections/Experience"));
+const KeyStats = lazy(() => import("../components/sections/KeyStats"));
+const Contact = lazy(() => import("../components/sections/Contact"));
 
 export default function Home() {
 return (
   <>
     {/* HERO Section */}
-    <Hero />
+    <Suspense fallback={<Section title="Hero" />}>
+      <Hero />
+    </Suspense>
       <div className="my-8 divider-accent" />
 
     {/* SERVICES Section */}
-    <Services />
+    <Suspense fallback={<Section title="Services" />}>
+      <Services />
+    </Suspense>
 
     {/* TECHNOLOGIES */}
-    <Tech />
+    <Suspense fallback={<Section title="Technologies" />}>
+      <Tech />
+    </Suspense>
 
     {/* PROJECTS Section */}
-    <Projects />
+    <Suspense fallback={<Section title="Projects" />}>
+      <Projects />
+    </Suspense>
 
      {/* CTA */}
     <Section id="cta" title="Prêt à discuter ?" subtitle="Je peux t’aider à lancer ou améliorer ton application." >
@@ -43,10 +53,14 @@ return (
     </Section>
 
     {/* SKILLS */}
+    <Suspense fallback={<Section title="Skills" />}>
     <Skills />
+    </Suspense>
 
     {/* EXPERIENCE */}
-    <Experience />
+    <Suspense fallback={<Section title="Experience" />}>
+      <Experience />
+    </Suspense>
     
     {/* CTA  */}
     <Section id="cta2" title="Un projet en tête ?" subtitle="Voyons ensemble comment le réaliser.">
@@ -63,11 +77,15 @@ return (
     </Section>
 
     {/* METRICS */}
-    <KeyStats />
+    <Suspense fallback={<Section title="Key Stats" />}>
+      <KeyStats />
+    </Suspense>
 
     <div className="my-8 divider-accent" />
 
     {/* CONTACT */}
-    <Contact />
+    <Suspense fallback={<Section title="Contact" />}>
+      <Contact />
+    </Suspense>
   </>
 );}

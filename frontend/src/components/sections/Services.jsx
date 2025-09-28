@@ -1,5 +1,5 @@
-import Reveal from "../Reveal";
-import Section from "../../components/section";
+import Reveal from "../ui/Reveal";
+import Section from "../layout/section";
 
 const items = [
   {

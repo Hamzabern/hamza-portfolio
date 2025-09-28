@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { api, ensureArray } from "../../lib/api";
-import Reveal from "../../components/Reveal";
-import Section from "../../components/section";
+import Reveal from "../ui/Reveal";
+import Section from "../layout/section";
 
 export default function Projects() {
   const { data } = useQuery({

@@ -1,0 +1,35 @@
+@layer components {
+  .tech-viewport { position: relative; overflow: hidden; }
+
+  .tech-scroll { 
+    display: flex; 
+    gap: .75rem; 
+    overflow: hidden; 
+    scroll-behavior: smooth; 
+  }
+
+  .tech-card {
+    @apply flex items-center gap-3 px-3 py-2 rounded-lg border border-black/10 dark:border-white/10 
+           bg-white/60 dark:bg-white/5 hover:shadow-accent transition;
+    min-width: 220px;
+  }
+
+  .tech-track { 
+    display: flex; gap: .75rem; padding-block: .25rem; 
+    animation: techMarquee 30s linear infinite reverse; 
+  }
+
+  .tech-icon-wrap {
+    @apply h-10 w-10 rounded-md flex items-center justify-center dark:bg-white/10;
+    background: rgba(2,6,23,.06);
+  }
+
+  .tech-ctrl { 
+    @apply inline-flex items-center justify-center w-9 h-9 rounded-md border 
+           border-black/10 dark:border-white/10 transition;
+  }
+  .tech-ctrl:hover { @apply bg-black/5 dark:bg-white/10; }
+
+  .tech-title { @apply text-sm font-medium; }
+  .tech-desc  { @apply text-[11px] opacity-70; }
+}
