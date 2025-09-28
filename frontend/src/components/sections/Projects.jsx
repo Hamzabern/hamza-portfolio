@@ -3,7 +3,6 @@ import { api, ensureArray } from "../../lib/api";
 import Reveal from "../../components/Reveal";
 import Section from "../../components/section";
 
-
 export default function Projects() {
   const { data } = useQuery({
     queryKey: ["home-projects"],
