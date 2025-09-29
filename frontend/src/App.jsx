@@ -14,15 +14,13 @@ export default function App() {
     <>
       <SkipToContent />
       <Navbar />
-      <main id="content" className="min-h-dvh">
+      <main id="content" tabIndex="-1" className="min-h-dvh">
         <Outlet />
       </main>
       <Footer />
 
       <Suspense fallback={null}>
         {theme === "dark" ? <ShootingStars /> : <LightParticles />}
-
-
       </Suspense>
     </>
   );

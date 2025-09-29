@@ -27,7 +27,7 @@ export default function Navbar() {
   return (
     <>
       <SkipToContent />
-      <header className="sticky top-0 z-40 bg-white/60 dark:bg-black/20 backdrop-blur border-b border-black/10 dark:border-white/10">
+      <header className="sticky top-0 z-50 bg-white/60 dark:bg-black/20 backdrop-blur border-b border-black/10 dark:border-white/10">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
           {/* Logo gauche */}
           <NavLink to="/" className="font-bold text-lg tracking-wide">HB • Portfolio</NavLink>
