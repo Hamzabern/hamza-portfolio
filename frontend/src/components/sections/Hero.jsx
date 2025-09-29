@@ -5,7 +5,6 @@ export default function Hero() {
     <section className="relative">
       <div className="max-w-6xl mx-auto px-4 py-12 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center">
-          {/* Colonne texte */}
           <div>
             <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
               Salut, je suis <span className="text-[var(--accent)]">Hamza</span>

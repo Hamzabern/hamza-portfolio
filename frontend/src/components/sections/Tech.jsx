@@ -1,16 +1,15 @@
 import { useEffect, useRef } from "react";
 import Section from "../layout/section";
-// import Reveal from "../Reveal";
-
+import LazyImage from "../ui/lazyImage";
 
 const TECH = [
-  { name:"Laravel",  img:"https://laravel.com/img/logomark.min.svg", desc:"Backend & API" },
-  { name:"React",    img:"https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg", desc:"SPA Frontend" },
+  { name:"Laravel", img:"https://laravel.com/img/logomark.min.svg", desc:"Backend & API" },
+  { name:"React", img:"https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg", desc:"SPA Frontend" },
   { name:"Tailwind", img:"https://tailwindcss.com/favicons/apple-touch-icon.png", desc:"User Interface" },
-  { name:"MySQL",    img:"https://www.mysql.com/common/logos/logo-mysql-170x115.png", desc:"Base de données" },
-  { name:"GitHub",   img:"https://github.githubassets.com/favicons/favicon.png", desc:"VCS & CI" },
-  { name:"Docker",   img:"https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png", desc:"Conteneurs (base)" },
-  { name:"Vite",     img:"https://vitejs.dev/logo.svg", desc:"Bundler" },
+  { name:"MySQL", img:"https://www.mysql.com/common/logos/logo-mysql-170x115.png", desc:"Base de données" },
+  { name:"GitHub", img:"https://github.githubassets.com/favicons/favicon.png", desc:"VCS & CI" },
+  { name:"Docker", img:"https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png", desc:"Conteneurs (base)" },
+  { name:"Vite", img:"https://vitejs.dev/logo.svg", desc:"Bundler" },
 ];
 
 export default function Tech() {
@@ -52,7 +51,7 @@ return (
           {TECH.concat(TECH).map((t, i) => (
             <div key={t.name + "-" + i} className="tech-card">
               <div className="tech-icon-wrap">
-                <img src={t.img} alt={t.name} className="h-6 w-6 object-contain" loading="lazy" decoding="async" />
+                <LazyImage src={t.img} alt={t.name} width={76} height={96} className="w-16 h-10 rounded bg-white/70 dark:bg-white/10 p-2" />
               </div>
               <div>
                 <div className="text-sm font-medium">{t.name}</div>

@@ -3,12 +3,13 @@ import { Outlet } from "react-router-dom";
 import Navbar from "./components/layout/Navbar.jsx";
 import Footer from "./components/layout/Footer";
 import SkipToContent from "./components/layout/SkipToContent.jsx";
-import ViewMount from "./components/ui/ViewMount.jsx";
+import { useTheme } from "./theme/useTheme.js";
 
 const ShootingStars = lazy(() => import("./components/effects/ShootingStars.jsx"));
 const LightParticles = lazy(() => import("./components/effects/LightParticles.jsx"));
 
 export default function App() {
+  const { theme } = useTheme();
   return (
     <>
       <SkipToContent />
@@ -18,14 +19,10 @@ export default function App() {
       </main>
       <Footer />
 
-      {/* Effets visuels chargés seulement quand on scrolle vers le bas */}
       <Suspense fallback={null}>
-        <ViewMount>
-          <ShootingStars />
-        </ViewMount>
-        <ViewMount>
-          <LightParticles />
-        </ViewMount>
+        {theme === "dark" ? <ShootingStars /> : <LightParticles />}
+
+
       </Suspense>
     </>
   );
