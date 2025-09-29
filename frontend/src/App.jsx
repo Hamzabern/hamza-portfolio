@@ -13,11 +13,15 @@ export default function App() {
   return (
     <>
       <SkipToContent />
-      <Navbar />
+      <div className="min-h-screen flex flex-col">
+      <header className="sticky top-0 z-50 bg-white/70 dark:bg-slate-900/60 backdrop-blur">
+        <Navbar />
+      </header>
       <main id="content" tabIndex="-1" className="min-h-dvh">
         <Outlet />
       </main>
       <Footer />
+      </div>
 
       <Suspense fallback={null}>
         {theme === "dark" ? <ShootingStars /> : <LightParticles />}
