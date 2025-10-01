@@ -20,7 +20,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <QueryClientProvider client={qc}>
         <ThemeProvider>
           <BrowserRouter>
-            <Suspense fallback={<div className="p-8 text-center">Chargement…</div>}>
+            <Suspense >
               <Routes>
                 <Route element={<App />}>
                   <Route index element={<Home />} />
