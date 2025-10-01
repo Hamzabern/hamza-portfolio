@@ -2,10 +2,10 @@ import LazyImage from "../ui/lazyImage";
 
 export default function Hero() {
   return (
-    <section className="relative cv-auto mount-fade">
+    <section className="cv-auto">
       <div className="max-w-6xl mx-auto px-4 py-12 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center">
-          <div>
+        <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className="sd-stagger">
             <h1 className="text-3xl sm:text-4xl font-extrabold loading-tight" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
               Salut, je suis <span className="text-[var(--accent)]">Hamza</span>
                <br />
@@ -22,7 +22,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="w-full">
+          <div className="sd-fade-up">
             <LazyImage src="https://img.freepik.com/premium-vector/programmer-work_1294175-6894.jpg?semt=ais_hybrid&w=740&q=80" alt="Illustration développeur"
               width={1200} height={800} fit="contain" className="w-full max-w-xl mx-auto rounded-xl shadow-card" />
           </div>

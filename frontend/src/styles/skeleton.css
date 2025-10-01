@@ -1,166 +1,49 @@
-/* ===== Skeleton global (texte, icônes, images) ===== */
-
-:root{
-  --sk-base: 223 14% 90%;       /* gris clair */
-  --sk-spot: 223 14% 84%;
-  --sk-shine: 223 14% 96%;
-}
-.dark:root{
-  --sk-base: 223 8% 24%;        /* gris sombre */
-  --sk-spot: 223 8% 20%;
-  --sk-shine: 223 8% 28%;
-}
-
-@keyframes sk-shimmer {
-  0%   { background-position: -200% 0; }
+/* ---------- Skeletons titres & paragraphes ---------- */
+@keyframes skPulse {
+  0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
-
-/* utilitaire (si tu veux l’appliquer à la main sur un bloc) */
-.sk {
+.skel {
   position: relative;
   border-radius: .375rem;
-  background: linear-gradient(
-    90deg,
-    hsl(var(--sk-base)) 0%,
-    hsl(var(--sk-spot)) 20%,
-    hsl(var(--sk-shine)) 40%,
-    hsl(var(--sk-spot)) 60%,
-    hsl(var(--sk-base)) 100%
-  );
-  background-size: 200% 100%;
-  animation: sk-shimmer 1.2s linear infinite;
+  background: linear-gradient(90deg, rgba(0,0,0,.06) 25%, rgba(0,0,0,.12) 37%, rgba(0,0,0,.06) 63%);
+  background-size: 400% 100%;
+  animation: skPulse 1.2s ease-in-out infinite;
+}
+:where(.dark) .skel {
+  background: linear-gradient(90deg, rgba(255,255,255,.08) 25%, rgba(255,255,255,.16) 37%, rgba(255,255,255,.08) 63%);
 }
 
-/* ===== Mapping automatique quand un wrapper porte .is-loading ===== */
+/* Titres/texte prédimensionnés */
+.skel-title { height: 2rem; max-width: 22rem; }          /* h2 */
+.skel-sub   { height: 1rem; max-width: 36rem; }          /* sous-titre/lead */
+.skel-line  { height: .9rem; }                           /* paragraphes */
 
-/* 1) SECTION GENERIQUE (Section.jsx) */
-.section.is-loading,
-.hero.is-loading {
-  user-select: none;
-  pointer-events: none; /* évite clics sur faux liens */
+/* ---------- Scroll-driven animations (CSS natif) ---------- */
+/* Fade + légère translation sur l'entrée dans la vue */
+@keyframes sdFadeUp { from { opacity: 0; transform: translateY(12px) } to { opacity: 1; transform: none } }
+
+/* Les éléments avec cette classe s’animent selon la progression de scroll dans la viewport */
+.sd-fade-up {
+  opacity: 0;
+  animation: sdFadeUp linear both;
+  animation-timeline: view();                /* scroll timeline natif */
+  animation-range: entry 0% cover 30%;       /* commence à l’entrée, finit quand 30% couverts */
 }
 
-/* Rend le texte transparent mais garde la hauteur via un ::after */
-.section.is-loading .section__inner h1,
-.section.is-loading .section__inner h2,
-.section.is-loading .section__inner h3,
-.section.is-loading .section__inner p,
-.section.is-loading .section__inner li,
-.section.is-loading .section__inner a,
-.section.is-loading .section__inner .btn,
-.hero.is-loading .hero__grid h1,
-.hero.is-loading .hero__grid h2,
-.hero.is-loading .hero__grid p,
-.hero.is-loading .hero__grid a {
-  color: transparent !important;
-  position: relative;
+/* Séquence pour les enfants (stagger léger) */
+.sd-stagger > * {
+  opacity: 0;
+  animation: sdFadeUp linear both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 25%;
 }
+.sd-stagger > *:nth-child(1) { animation-delay: 0ms }
+.sd-stagger > *:nth-child(2) { animation-delay: 40ms }
+.sd-stagger > *:nth-child(3) { animation-delay: 80ms }
+.sd-stagger > *:nth-child(4) { animation-delay: 120ms }
 
-.section.is-loading .section__inner h1::after,
-.section.is-loading .section__inner h2::after,
-.section.is-loading .section__inner h3::after,
-.section.is-loading .section__inner p::after,
-.section.is-loading .section__inner li::after,
-.section.is-loading .section__inner a::after,
-.section.is-loading .section__inner .btn::after,
-.hero.is-loading .hero__grid h1::after,
-.hero.is-loading .hero__grid h2::after,
-.hero.is-loading .hero__grid p::after,
-.hero.is-loading .hero__grid a::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 1em;                   /* hauteur de ligne */
-  border-radius: .35rem;
-  background: linear-gradient(
-    90deg,
-    hsl(var(--sk-base)) 0%,
-    hsl(var(--sk-spot)) 20%,
-    hsl(var(--sk-shine)) 40%,
-    hsl(var(--sk-spot)) 60%,
-    hsl(var(--sk-base)) 100%
-  );
-  background-size: 200% 100%;
-  animation: sk-shimmer 1.2s linear infinite;
-}
-
-/* Ajuste la “longueur” visuelle de certaines lignes */
-.section.is-loading .section__inner h1::after,
-.hero.is-loading .hero__grid h1::after { width: 70%; }
-.section.is-loading .section__inner h2::after,
-.hero.is-loading .hero__grid h2::after { width: 55%; }
-.section.is-loading .section__inner a::after,
-.section.is-loading .section__inner .btn::after,
-.hero.is-loading .hero__grid a::after { width: 8rem; height: 2.25rem; }
-
-/* Paragraphes multi-lignes → 3 bandes par défaut */
-.section.is-loading .section__inner p,
-.hero.is-loading .hero__grid p { line-height: 1.25rem; }
-.section.is-loading .section__inner p::after,
-.hero.is-loading .hero__grid p::after { height: 1.1rem; }
-
-.section.is-loading .section__inner p + p::after { width: 88%; }
-.section.is-loading .section__inner p + p + p::after { width: 62%; }
-
-/* 2) ICÔNES (remplace <svg> ou .icon par un bloc) */
-.section.is-loading .section__inner svg,
-.section.is-loading .section__inner .icon,
-.hero.is-loading .hero__grid svg,
-.hero.is-loading .hero__grid .icon { visibility: hidden; }
-
-.section.is-loading .section__inner svg::before,
-.section.is-loading .section__inner .icon::before,
-.hero.is-loading .hero__grid svg::before,
-.hero.is-loading .hero__grid .icon::before {
-  content: "";
-  display: inline-block;
-  width: 1.5rem; height: 1.5rem;
-  border-radius: .35rem;
-  background: linear-gradient(
-    90deg,
-    hsl(var(--sk-base)) 0%,
-    hsl(var(--sk-spot)) 20%,
-    hsl(var(--sk-shine)) 40%,
-    hsl(var(--sk-spot)) 60%,
-    hsl(var(--sk-base)) 100%
-  );
-  background-size: 200% 100%;
-  animation: sk-shimmer 1.2s linear infinite;
-  vertical-align: middle;
-}
-
-/* 3) IMAGES (Hero visuel, covers...) 
-   → pour une image, entoure-la d’un .sk-img avec ratio pour éviter les sauts */
-.sk-img {
-  position: relative;
-  overflow: hidden;
-  border-radius: .75rem;
-  background: hsl(var(--sk-base));
-}
-.sk-img::after {
-  content: "";
-  position: absolute; inset: 0;
-  background: linear-gradient(
-    90deg,
-    hsl(var(--sk-base)) 0%,
-    hsl(var(--sk-spot)) 20%,
-    hsl(var(--sk-shine)) 40%,
-    hsl(var(--sk-spot)) 60%,
-    hsl(var(--sk-base)) 100%
-  );
-  background-size: 200% 100%;
-  animation: sk-shimmer 1.2s linear infinite;
-}
-.sk-img > img { opacity: 0; }
-.hero.is-loading .sk-img > img { visibility: hidden; }
-
+/* Respect accessibilité */
 @media (prefers-reduced-motion: reduce) {
-  .sk, .sk-img::after,
-  .section.is-loading .section__inner *::after,
-  .section.is-loading .section__inner .icon::before,
-  .hero.is-loading .hero__grid *::after,
-  .hero.is-loading .hero__grid .icon::before {
-    animation: none !important;
-  }
+  .sd-fade-up, .sd-stagger > * { animation: none !important; opacity: 1 !important; transform: none !important; }
 }
