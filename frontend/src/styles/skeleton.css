@@ -21,29 +21,49 @@
 
 /* ---------- Scroll-driven animations (CSS natif) ---------- */
 /* Fade + légère translation sur l'entrée dans la vue */
-@keyframes sdFadeUp { from { opacity: 0; transform: translateY(12px) } to { opacity: 1; transform: none } }
-
+@keyframes sdFadeUp {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 /* Les éléments avec cette classe s’animent selon la progression de scroll dans la viewport */
 .sd-fade-up {
-  opacity: 0;
-  animation: sdFadeUp linear both;
-  animation-timeline: view();                /* scroll timeline natif */
-  animation-range: entry 0% cover 30%;       /* commence à l’entrée, finit quand 30% couverts */
-}
-
-/* Séquence pour les enfants (stagger léger) */
-.sd-stagger > * {
-  opacity: 0;
+  opacity: 1;
   animation: sdFadeUp linear both;
   animation-timeline: view();
   animation-range: entry 0% cover 25%;
 }
-.sd-stagger > *:nth-child(1) { animation-delay: 0ms }
-.sd-stagger > *:nth-child(2) { animation-delay: 40ms }
-.sd-stagger > *:nth-child(3) { animation-delay: 80ms }
-.sd-stagger > *:nth-child(4) { animation-delay: 120ms }
-
-/* Respect accessibilité */
-@media (prefers-reduced-motion: reduce) {
-  .sd-fade-up, .sd-stagger > * { animation: none !important; opacity: 1 !important; transform: none !important; }
+/* Séquence pour les enfants (stagger léger) */
+.sd-stagger > * {
+  opacity: 1;
+  animation: sdFadeUp linear both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 20%;
 }
+.sd-stagger > *:nth-child(1) { animation-delay: 0ms;  }
+.sd-stagger > *:nth-child(2) { animation-delay: 30ms; }
+.sd-stagger > *:nth-child(3) { animation-delay: 60ms; }
+.sd-stagger > *:nth-child(4) { animation-delay: 90ms; }
+
+
+@supports (animation-timeline: view()) {
+  .sd-fade-up {
+    opacity: 0;
+    animation: sdFadeUp linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 25%;
+  }
+  .sd-stagger > * {
+    opacity: 0;
+    animation: sdFadeUp linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 20%;
+  }
+  .sd-stagger > *:nth-child(1) { animation-delay: 0ms;  }
+  .sd-stagger > *:nth-child(2) { animation-delay: 30ms; }
+  .sd-stagger > *:nth-child(3) { animation-delay: 60ms; }
+  .sd-stagger > *:nth-child(4) { animation-delay: 90ms; }
+}
+  
+  @media (prefers-reduced-motion: reduce) {
+    .sd-fade-up, .sd-stagger > * { animation: none !important; opacity: 1 !important; transform: none !important; }
+  }

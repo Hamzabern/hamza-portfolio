@@ -33,12 +33,9 @@
 }
 .shine:hover::after { transform: rotate(12deg) translateX(180%); }
 
-/* 1) "Lazy render" CSS only: évite de peindre tant que hors-vue */
-  .cv-auto {
-    content-visibility: auto;
-    /* réserve une hauteur approximative pour éviter les gros sauts */
-    contain-intrinsic-size: 1px 600px; /* width x height "fictive" */
-  }
+.cv-auto {
+  content-visibility: auto;
+}
 
   /* 2) Apparition douce au montage (quand la section est chargée par React.lazy) */
   @keyframes mountFade {
