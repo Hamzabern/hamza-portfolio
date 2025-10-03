@@ -6,13 +6,14 @@ export default function LazyImage({
   className = "",
   width,
   height,
-  fit = "cover",      
-  aspect,            
+  fit = "cover",
+  aspect,              
   ...rest
 }) {
   const [loaded, setLoaded] = useState(false);
 
-  const aspectStyle = aspect ? { aspectRatio: aspect } : undefined;
+  const ratio = aspect ? aspect : (width && height ? `${width}/${height}` : undefined);
+  const aspectStyle = ratio ? { aspectRatio: ratio } : undefined;
 
   return (
     <div className={`relative overflow-hidden ${className}`} style={aspectStyle}>
@@ -20,9 +21,7 @@ export default function LazyImage({
         <div className="absolute inset-0 animate-pulse bg-gray-200 dark:bg-gray-700" />
       )}
       <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" onLoad={() => setLoaded(true)}
-        className={`w-full ${aspect ? "h-full" : "h-auto"} object-${fit} transition-opacity duration-300 ${
-          loaded ? "opacity-100" : "opacity-0"
-        }`}
+        className={`w-full ${ratio ? "h-full" : "h-auto"} object-${fit} transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
         {...rest}
       />
     </div>
