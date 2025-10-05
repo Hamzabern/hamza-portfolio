@@ -1,4 +1,3 @@
-import Reveal from "../ui/Reveal";
 import Section from "../layout/section";
 
 const items = [
@@ -35,18 +34,17 @@ const items = [
 ];
 
 export default function Services() {
- return (
-  <Section id="services" title="Services" subtitle="Ce que je fais le mieux, avec un focus qualité.">
-    <div className="mb-6 hidden sm:flex items-center gap-2">
-      <span className="chip"><span className="chip-dot" /> Qualité</span>
-      <span className="chip"><span className="chip-dot" /> Perfs</span>
-      <span className="chip"><span className="chip-dot" /> SEO</span>
-    </div>
+  return (
+    <Section id="services" title="Services" subtitle="Ce que je fais le mieux, avec un focus qualité.">
+      <div className="mb-6 hidden sm:flex items-center gap-2 sd-stagger">
+        <span className="chip sd-fade-up"><span className="chip-dot" /> Qualité</span>
+        <span className="chip sd-fade-up"><span className="chip-dot" /> Perfs</span>
+        <span className="chip sd-fade-up"><span className="chip-dot" /> SEO</span>
+      </div>
 
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {items.map((s, i) => (
-        <Reveal key={s.title} y={10} delay={i * 0.06}>
-          <article className="card-modern shine p-5">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 sd-stagger">
+        {items.map((s) => (
+          <article key={s.title} className="card-modern shine p-5 sd-fade-up">
             <div className="flex items-center gap-3 mb-3">
               <div className="icon-wrap" aria-hidden="true">{s.icon}</div>
               <h3 className="font-semibold text-lg">{s.title}</h3>
@@ -60,9 +58,8 @@ export default function Services() {
               ))}
             </ul>
           </article>
-        </Reveal>
-      ))}
-    </div>
-  </Section>
-);
+        ))}
+      </div>
+    </Section>
+  );
 }

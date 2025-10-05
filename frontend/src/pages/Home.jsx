@@ -3,9 +3,10 @@ import Section from "../components/layout/section";
 import { motion as Motion } from "framer-motion";
 
 const Hero = lazy(() => import("../components/sections/Hero"));
-const HeroSkel = lazy(() => import("../components/sections/Hero.skeleton"));
-const Projects = lazy(() => import("../components/sections/Projects"));
+const HeroSkel = lazy(() => import("../components/sections/skeleton/Hero.skeleton"));
 const Services = lazy(() => import("../components/sections/Services"));
+const ServicesSkel = lazy(() => import("../components/sections/skeleton/Services.skeleton"));
+const Projects = lazy(() => import("../components/sections/Projects"));
 const Tech = lazy(() => import("../components/sections/Tech"));
 const Skills = lazy(() => import("../components/sections/Skills"));
 const Experience = lazy(() => import("../components/sections/Experience"));
@@ -23,7 +24,7 @@ return (
         <div className="my-8 divider-accent" />
 
       {/* SERVICES Section */}
-      <Suspense fallback={<Section title="Services" />}>
+      <Suspense fallback={<ServicesSkel />}>
         <Services />
       </Suspense>
 

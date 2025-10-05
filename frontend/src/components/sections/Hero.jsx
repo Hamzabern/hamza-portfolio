@@ -23,8 +23,7 @@ export default function Hero() {
 
           <div className="sd-fade-up">
            <LazyImage src="https://img.freepik.com/premium-vector/programmer-work_1294175-6894.jpg?semt=ais_hybrid&w=740&q=80" alt="Illustration développeur"
-              width={1200} height={800} aspect="3/2" fit="contain" className="w-full max-w-xl mx-auto rounded-xl shadow-card"/>
-
+              width={1200} height={800} aspect="3/2" fit="contain" className="w-full max-w-xl max-h-[400px] mx-auto rounded-xl shadow-card"/>
           </div>
         </div>
       </div>
