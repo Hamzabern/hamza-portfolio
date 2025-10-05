@@ -29,4 +29,40 @@
   @media (max-width: 640px) {
     .project-desc { height: auto; -webkit-box-orient: unset; }
   }
+
+  .carousel-btn {
+    @apply absolute top-1/2 -translate-y-1/2 z-10 h-8 w-8 rounded-full 
+           bg-black/45 text-white grid place-items-center opacity-0 group-hover:opacity-100
+           transition hover:bg-black/60;
+  }
+  .zoom-btn {
+    @apply absolute right-2 top-2 z-10 h-8 px-2 rounded-md 
+           bg-black/45 text-white opacity-0 group-hover:opacity-100 transition hover:bg-black/60;
+  }
+  .lb-close {
+    @apply absolute top-3 right-3 z-[101] h-10 w-10 grid place-items-center rounded-full 
+           bg-white/90 text-black hover:bg-white transition;
+  }
+  .lb-nav {
+    @apply absolute top-1/2 -translate-y-1/2 z-[101] h-10 w-10 grid place-items-center rounded-full 
+           bg-white/80 text-black hover:bg-white transition;
+  }
+  .lb-zoom {
+    @apply absolute bottom-3 right-3 z-[101] flex items-center gap-1 bg-white/85 text-black rounded-md px-2 py-1;
+  }
+  .more-pill {
+    @apply inline-flex items-center rounded-full border border-black/10 dark:border-white/10
+           bg-white/60 dark:bg-white/5 px-4 py-2 text-sm hover:shadow-accent transition;
+  }
 }
+
+@layer components {
+  .proj-toolbar { @apply flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-6; }
+  .searchbox { @apply w-full sm:w-64 rounded-md border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--accent)]; }
+  .chip { @apply inline-flex items-center rounded-full border border-black/10 dark:border-white/10 px-3 py-1 text-xs sm:text-sm bg-white/60 dark:bg-white/5 hover:shadow-accent transition cursor-pointer; }
+  .chip-active { @apply bg-[var(--accent)] text-white border-transparent shadow-accent; }
+  .sorter { @apply rounded-md border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 px-2 py-2 text-sm; }
+  .muted { @apply opacity-70 text-sm; }
+}
+
+
