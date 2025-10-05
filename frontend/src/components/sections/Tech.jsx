@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import Section from "../layout/section";
-import LazyImage from "../ui/lazyImage";
+import LazyImage from "../ui/LazyImage";
 
 const TECH = [
   { name:"Laravel", img:"https://laravel.com/img/logomark.min.svg", desc:"Backend & API" },

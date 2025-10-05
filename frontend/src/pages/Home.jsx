@@ -6,8 +6,9 @@ const Hero = lazy(() => import("../components/sections/Hero"));
 const HeroSkel = lazy(() => import("../components/sections/skeleton/Hero.skeleton"));
 const Services = lazy(() => import("../components/sections/Services"));
 const ServicesSkel = lazy(() => import("../components/sections/skeleton/Services.skeleton"));
-const Projects = lazy(() => import("../components/sections/Projects"));
 const Tech = lazy(() => import("../components/sections/Tech"));
+const TechSkel  = lazy(() => import("../components/sections/skeleton/Tech.skeleton.jsx"));
+const Projects = lazy(() => import("../components/sections/Projects"));
 const Skills = lazy(() => import("../components/sections/Skills"));
 const Experience = lazy(() => import("../components/sections/Experience"));
 const KeyStats = lazy(() => import("../components/sections/KeyStats"));
@@ -29,7 +30,7 @@ return (
       </Suspense>
 
       {/* TECHNOLOGIES */}
-      <Suspense fallback={<Section title="Technologies" />}>
+      <Suspense fallback={<TechSkel />}>
         <Tech />
       </Suspense>
 
