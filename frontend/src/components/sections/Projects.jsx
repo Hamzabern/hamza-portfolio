@@ -28,28 +28,30 @@ export default function Projects() {
   }, []);
 
   const filtered = useMemo(() => {
-    const q = normalize(query);
-    let list = PROJECTS.filter(p => {
-      const matchesQuery =
-        !q ||
-        normalize(p.title).includes(q) ||
-        normalize(p.summary).includes(q) ||
-        (p.stack || []).some(s => normalize(s).includes(q));
+  const q = normalize(query);
 
-      const matchesStacks =
-        activeStacks.length === 0 ||
-        activeStacks.every(tag => (p.stack || []).includes(tag));
+  let list = PROJECTS.filter(p => {
+    const matchesQuery =
+      !q ||
+      normalize(p.title).includes(q) ||
+      normalize(p.summary).includes(q) ||
+      (p.stack || []).some(s => normalize(s).includes(q));
 
-      return matchesQuery && matchesStacks;
-    });
+    const matchesStacks =
+      activeStacks.length === 0 ||
+      (p.stack || []).some(s => activeStacks.includes(s));
 
-    if (sortBy === "title") {
-      list = list.slice().sort((a, b) => a.title.localeCompare(b.title));
-    } else {
-      list = list.slice();
-    }
-    return list;
+    return matchesQuery && matchesStacks;
+  });
+
+  if (sortBy === "title") {
+    list = list.slice().sort((a, b) => a.title.localeCompare(b.title));
+  } else {
+    list = list.slice(); 
+  }
+  return list;
   }, [query, activeStacks, sortBy]);
+
 
   const hasMore = filtered.length > visible;
   const visibleProjects = filtered.slice(0, visible);
@@ -67,6 +69,9 @@ export default function Projects() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useMemo(() => setVisible(STEP), [query, activeStacks, sortBy]);
+
+  const expanded = visible > STEP;
+  const canCollapse = filtered.length > STEP && expanded;
 
   return (
     <Section id="projects" title="Projets récents" subtitle={`${filtered.length} projet(s) — filtre par stack, recherche, tri.`} >
@@ -136,12 +141,33 @@ export default function Projects() {
         </div>
       )}
 
-      {/* Afficher plus (par 6) */}
-      {hasMore && (
+      {/* Afficher plus / moins */}
+      {(hasMore || canCollapse) && (
         <div className="flex justify-center mt-6">
-          <button type="button" onClick={() => setVisible((v) => v + STEP)} className="more-pill">
-            Afficher plus
-          </button>
+          {!expanded && hasMore && (
+            <button
+              type="button"
+              onClick={() => setVisible(v => v + STEP)}
+              className="more-pill"
+            >
+              Afficher plus
+            </button>
+          )}
+
+          {canCollapse && (
+            <button
+              type="button"
+              onClick={() => {
+                setVisible(STEP);
+                // remonter à la section “projects” pour éviter de laisser l’utilisateur en bas
+                const el = document.getElementById("projects");
+                if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+              className="more-pill"
+            >
+              Afficher moins
+            </button>
+          )}
         </div>
       )}
 

@@ -65,4 +65,26 @@
   .muted { @apply opacity-70 text-sm; }
 }
 
+@layer components {
+  .chip {
+    @apply inline-flex items-center rounded-full border border-black/10 dark:border-white/10
+           px-3 py-1 text-xs sm:text-sm bg-white/60 dark:bg-white/5
+           text-slate-900 dark:text-slate-100
+           hover:shadow-accent transition cursor-pointer
+           focus:outline-none focus:ring-2 focus:ring-[var(--accent)];
+  }
+  .chip-active {
+    @apply bg-[var(--accent)] text-white border-transparent shadow-accent
+           focus:ring-2 focus:ring-offset-0 focus:ring-white/30;
+  }
+
+  .sorter {
+    @apply rounded-md border border-black/10 dark:border-white/10
+           bg-white/60 dark:bg-white/5
+           text-slate-900 dark:text-slate-100
+           px-2 py-2 text-sm
+           focus:outline-none focus:ring-2 focus:ring-[var(--accent)];
+  }
+}
+
 
