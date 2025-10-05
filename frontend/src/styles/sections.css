@@ -21,7 +21,7 @@
   }
   .card-modern:hover {
     transform: translateY(-2px);
-    box-shadow: 0 24px 48px var(--accent), 0 8px 22px rgba(0,0,0,.18);
+    box-shadow: 0 3px 18px var(--accent), 0 8px 22px rgba(0,0,0,.18);
   }
 
   .chip {

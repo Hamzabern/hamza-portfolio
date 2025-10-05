@@ -1,14 +1,8 @@
-import Section from "../Services";
+import Section from "../../layout/section";
 
 export default function ServicesSkeleton() {
   return (
-    <Section
-      id="services"
-      title="Services"
-      subtitle="Ce que je fais le mieux, avec un focus qualité."
-      loading
-      className=""
-    >
+    <Section id="services" title="Services" subtitle="Ce que je fais le mieux, avec un focus qualité." loading className="" >
       {/* chips skeleton */}
       <div className="mb-6 hidden sm:flex items-center gap-2">
         <div className="skel h-6 w-20 rounded" />
