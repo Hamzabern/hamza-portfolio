@@ -7,6 +7,14 @@ export default function Lightbox({ open, images = [], index = 0, onClose }) {
   useEffect(() => { setIdx(index); setZoom(1); }, [index, open]);
 
   useEffect(() => {
+    function onScroll() {
+      if (open) onClose?.();
+    }
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [open, onClose]);
+
+  useEffect(() => {
     function onKey(e) {
       if (!open) return;
       if (e.key === "Escape") onClose?.();
@@ -23,7 +31,10 @@ export default function Lightbox({ open, images = [], index = 0, onClose }) {
   const src = images[idx] || images[0];
 
   return (
-    <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose?.();
+      }}>
       <button aria-label="Fermer" className="lb-close" onClick={onClose}>✕</button>
 
       <div className="relative max-w-5xl w-full h-[70vh] bg-black/20 rounded-xl overflow-hidden">

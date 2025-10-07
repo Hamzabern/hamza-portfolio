@@ -120,19 +120,23 @@ export default function Projects() {
                   </div>
 
                   <div className="project-footer">
-                    <a href={p.github || undefined} target="_blank" rel="noreferrer" className={`icon-btn hover:text-[var(--accent)] ${p.github ? "" : "icon-btn--disabled"}`} 
-                      aria-label="Voir le code sur GitHub">
-                      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
-                        <path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.02c-3.34.72-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.09-.76.08-.75.08-.75 1.2.08 1.83 1.24 1.83 1.24 1.07 1.84 2.8 1.31 3.49 1 .11-.78.42-1.31.77-1.61-2.66-.3-5.47-1.33-5.47-5.92 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.6-2.81 5.61-5.49 5.91.43.37.82 1.09.82 2.21v3.27c0 .32.22.68.83.57A12 12 0 0 0 12 .5Z"/>
-                      </svg>
-                    </a>
-                    <a href={p.live || undefined} target="_blank" rel="noreferrer" className={`icon-btn hover:text-[var(--accent)] ${p.live ? "" : "icon-btn--disabled"}`}
-                      aria-label="Voir la démo live" >
-                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                        <path d="M15 3h6v6m0-6L10 14" strokeLinecap="round" />
-                        <path d="M21 13v6a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6" strokeLinecap="round" />
-                      </svg>
-                    </a>
+                    {p.github && (
+                      <a href={p.github} target="_blank" rel="noreferrer" className="icon-btn hover:text-[var(--accent)]" aria-label="Voir le code sur GitHub" >
+                        {/* icône GitHub */}
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                          <path d="M12 .5a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.02c-3.34.72-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.09-.76.08-.75.08-.75 1.2.08 1.83 1.24 1.83 1.24 1.07 1.84 2.8 1.31 3.49 1 .11-.78.42-1.31.77-1.61-2.66-.3-5.47-1.33-5.47-5.92 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.6-2.81 5.61-5.49 5.91.43.37.82 1.09.82 2.21v3.27c0 .32.22.68.83.57A12 12 0 0 0 12 .5Z"/>
+                        </svg>
+                      </a>
+                    )}
+                    {p.live && (
+                      <a href={p.live} target="_blank" rel="noreferrer" className="icon-btn hover:text-[var(--accent)]" aria-label="Voir la démo live" >
+                        {/* icône “lien” */}
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M15 3h6v6m0-6L10 14" strokeLinecap="round" />
+                          <path d="M21 13v6a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h6" strokeLinecap="round" />
+                        </svg>
+                      </a>
+                    )}
                   </div>
                 </div>
               </article>
@@ -145,26 +149,17 @@ export default function Projects() {
       {(hasMore || canCollapse) && (
         <div className="flex justify-center mt-6">
           {!expanded && hasMore && (
-            <button
-              type="button"
-              onClick={() => setVisible(v => v + STEP)}
-              className="more-pill"
-            >
+            <button type="button" onClick={() => setVisible(v => v + STEP)} className="more-pill" >
               Afficher plus
             </button>
           )}
 
           {canCollapse && (
-            <button
-              type="button"
-              onClick={() => {
-                setVisible(STEP);
-                // remonter à la section “projects” pour éviter de laisser l’utilisateur en bas
+            <button type="button" onClick={() => { setVisible(STEP);
                 const el = document.getElementById("projects");
                 if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
               }}
-              className="more-pill"
-            >
+              className="more-pill">
               Afficher moins
             </button>
           )}

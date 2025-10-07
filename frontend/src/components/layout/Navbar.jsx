@@ -6,6 +6,29 @@ import SkipToContent from "./SkipToContent";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [hash, setHash] = useState(() => window.location.hash || "");
+  // const [active, setActive] = useState("hero");
+
+  // useEffect(() => {
+  //   const sections = ["hero", "services", "projects", "skills", "experience", "contact"]
+    
+  //   function onScroll() {
+  //     const scrollY = window.scrollY + 120;
+  //     for(let id of sections) {
+  //       const el = document.getElementById(id);
+  //       if(el) {
+  //         const top = el.offsetTop;
+  //         const height = el.offsetHeight
+  //         if (scrollY >= top && scrollY < top + height) {
+  //           setActive(id);
+  //           break;
+  //         }
+  //       }
+  //     }
+  //   }
+  //     window.addEventListener("scroll", onScroll);
+  //     onScroll();
+  //     return () => window.removeEventListener("scroll", onScroll);
+  // }, []);
 
   useEffect(() => {
     const onHash = () => setHash(window.location.hash || "");
@@ -17,9 +40,9 @@ export default function Navbar() {
     };
   }, []);
 
-  const navItem = (href, label) => (
-    <a key={href} href={href} className={["px-3 py-1.5 rounded-md transition hover:bg-[var(--accent)] hover:text-[var(--fg)] dark:hover:bg-[var(--accent)] dark:hover:text-[var(--bg)]",
-        hash === href ? "bg-[var(--accent)] text-black" : "" ].join(" ")} aria-label={label} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} >
+  const navItem = (a, label) => (
+    <a key={a} a={a} className={["px-3 py-1.5 rounded-md transition hover:bg-[var(--accent)] hover:text-[var(--fg)] dark:hover:bg-[var(--accent)] dark:hover:text-[var(--bg)]",
+        hash === a ? "bg-[var(--accent)] text-black" : "" ].join(" ")} aria-label={label} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} >
       {label}
     </a>
 );

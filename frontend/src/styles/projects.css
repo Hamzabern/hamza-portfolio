@@ -59,9 +59,6 @@
 @layer components {
   .proj-toolbar { @apply flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-6; }
   .searchbox { @apply w-full sm:w-64 rounded-md border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-[var(--accent)]; }
-  .chip { @apply inline-flex items-center rounded-full border border-black/10 dark:border-white/10 px-3 py-1 text-xs sm:text-sm bg-white/60 dark:bg-white/5 hover:shadow-accent transition cursor-pointer; }
-  .chip-active { @apply bg-[var(--accent)] text-white border-transparent shadow-accent; }
-  .sorter { @apply rounded-md border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 px-2 py-2 text-sm; }
   .muted { @apply opacity-70 text-sm; }
 }
 
@@ -74,14 +71,14 @@
            focus:outline-none focus:ring-2 focus:ring-[var(--accent)];
   }
   .chip-active {
-    @apply bg-[var(--accent)] text-white border-transparent shadow-accent
+    @apply bg-[var(--accent)] text-white dark:bg-[var(--accent)] dark:text-black border-transparent shadow-accent
            focus:ring-2 focus:ring-offset-0 focus:ring-white/30;
   }
 
   .sorter {
     @apply rounded-md border border-black/10 dark:border-white/10
-           bg-white/60 dark:bg-white/5
-           text-slate-900 dark:text-slate-100
+           bg-white/60 dark:bg-[var(--bg)]
+           text-slate-900 dark:text-slate-100 
            px-2 py-2 text-sm
            focus:outline-none focus:ring-2 focus:ring-[var(--accent)];
   }
