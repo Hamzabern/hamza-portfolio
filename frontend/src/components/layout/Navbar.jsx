@@ -6,36 +6,28 @@ import SkipToContent from "./SkipToContent";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [hash, setHash] = useState(() => window.location.hash || "");
+  
+  const TRACKED = ["#hero", "#services", "#skills", "#experience", "#projects", "#contact"];
+  const HEADER_OFFSET = 100;
 
-  const TRACKED = ["hero","services","projects","skills","experience","contact"];
-  const HEADER_OFFSET = 90; 
-
-  useEffect(() => {
-    let rafId = 0;
+   useEffect(() => {
     const onScroll = () => {
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        const probe = HEADER_OFFSET + 30; 
-        let current = TRACKED[0];
-        for (const id of TRACKED) {
-          const el = document.getElementById(id);
-          if (!el) continue;
-          const r = el.getBoundingClientRect();
-          if (r.top <= probe && r.bottom > probe) { current = id; break; }
+      const current = window.scrollY + HEADER_OFFSET;
+      for (const href of TRACKED) {
+        const section = document.getElementById(href.slice(1));
+        if (section && section.offsetTop <= current && section.offsetTop + section.offsetHeight > current) {
+          setHash(href);
+          return;
         }
-        setHash("#" + current);
-      });
+      }
+      setHash("");
     };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
-    onScroll();
+    window.addEventListener("scroll", onScroll);
     return () => {
-      cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, []);
+    };    
+  }, []); 
+
 
   useEffect(() => {
     const onHash = () => setHash(window.location.hash || "");

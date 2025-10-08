@@ -8,12 +8,7 @@ const Services = lazy(() => import("../components/sections/Services"));
 const ServicesSkel = lazy(() => import("../components/sections/skeleton/Services.skeleton"));
 const Tech = lazy(() => import("../components/sections/Tech"));
 const TechSkel  = lazy(() => import("../components/sections/skeleton/Tech.skeleton.jsx"));
-const Projects   = lazy(() =>
-  Promise.all([
-    import("../components/sections/Projects"),
-    new Promise(r => setTimeout(r, 300)), // petit délai pour voir le skeleton
-  ]).then(([m]) => m)
-);
+const Projects   = lazy(() => import("../components/sections/Projects"));
 const ProjectsSkel = lazy(() => import("../components/sections/skeleton/Projects.skeleton.jsx"));
 const Skills = lazy(() => import("../components/sections/Skills"));
 const Experience = lazy(() => import("../components/sections/Experience"));
