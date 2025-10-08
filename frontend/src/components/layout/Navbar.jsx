@@ -7,6 +7,36 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [hash, setHash] = useState(() => window.location.hash || "");
 
+  const TRACKED = ["hero","services","projects","skills","experience","contact"];
+  const HEADER_OFFSET = 90; 
+
+  useEffect(() => {
+    let rafId = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const probe = HEADER_OFFSET + 30; 
+        let current = TRACKED[0];
+        for (const id of TRACKED) {
+          const el = document.getElementById(id);
+          if (!el) continue;
+          const r = el.getBoundingClientRect();
+          if (r.top <= probe && r.bottom > probe) { current = id; break; }
+        }
+        setHash("#" + current);
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    onScroll();
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
   useEffect(() => {
     const onHash = () => setHash(window.location.hash || "");
     window.addEventListener("hashchange", onHash);
