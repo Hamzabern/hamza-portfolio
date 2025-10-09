@@ -14,7 +14,17 @@ const Projects   = lazy(() => import("../components/sections/Projects"));
 const ProjectsSkel = lazy(() => import("../components/sections/skeleton/Projects.skeleton.jsx"));
 const Skills = lazy(() => import("../components/sections/Skills"));
 const SkillsSkeleton = lazy(() => import("../components/sections/skeleton/Skills.skeleton.jsx"));
-const Experience = lazy(() => import("../components/sections/Experience"));
+// const Experience = lazy(() => import("../components/sections/Experience"));
+const Experience = lazy(() =>
+  Promise.all([
+    import("../components/sections/Experience"),
+    new Promise(r => setTimeout(r, 8000)), 
+  ]).then(([m]) => m)
+);
+const ExperienceSkeleton = lazy(() =>
+  import("../components/sections/skeleton/Experience.skeleton.jsx")
+);
+
 const KeyStats = lazy(() => import("../components/sections/KeyStats"));
 const Contact = lazy(() => import("../components/sections/Contact"));
 
@@ -54,7 +64,7 @@ return (
       </Suspense>
 
       {/* EXPERIENCE */}
-      <Suspense fallback={<Section title="Experience" />}>
+      <Suspense fallback={<ExperienceSkeleton />}>
         <Experience />
       </Suspense>
       
