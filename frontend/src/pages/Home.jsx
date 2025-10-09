@@ -8,9 +8,12 @@ const Services = lazy(() => import("../components/sections/Services"));
 const ServicesSkel = lazy(() => import("../components/sections/skeleton/Services.skeleton"));
 const Tech = lazy(() => import("../components/sections/Tech"));
 const TechSkel  = lazy(() => import("../components/sections/skeleton/Tech.skeleton.jsx"));
+const Cta = lazy(() => import("../components/sections/Cta.jsx"));
+const CtaSkeleton = lazy(() => import("../components/sections/skeleton/Cta.skeleton.jsx"));
 const Projects   = lazy(() => import("../components/sections/Projects"));
 const ProjectsSkel = lazy(() => import("../components/sections/skeleton/Projects.skeleton.jsx"));
 const Skills = lazy(() => import("../components/sections/Skills"));
+const SkillsSkeleton = lazy(() => import("../components/sections/skeleton/Skills.skeleton.jsx"));
 const Experience = lazy(() => import("../components/sections/Experience"));
 const KeyStats = lazy(() => import("../components/sections/KeyStats"));
 const Contact = lazy(() => import("../components/sections/Contact"));
@@ -41,25 +44,13 @@ return (
       </Suspense>
 
       {/* CTA */}
-      <Section id="cta" title="Prêt à discuter ?" subtitle="Je peux t’aider à lancer ou améliorer ton application." >
-        <div className="rounded-xl border border-black/10 dark:border-white/10 p-5 bg-white/60 dark:bg-white/5 flex flex-wrap items-center gap-3 justify-between hover:shadow-accent transition">
-          <div className="text-sm opacity-80">
-            Disponibilité freelance/mission — réponse rapide.
-          </div>
-          <div className="flex gap-2">
-            <a href="#contact" className="btn-primary btn-attention">
-              Me contacter
-            </a>
-            <a href="#projects" className="btn-outline">
-              Voir des exemples
-            </a>
-          </div>
-        </div>
-      </Section>
+      <Suspense fallback={<CtaSkeleton />}>
+        <Cta />
+      </Suspense>
 
       {/* SKILLS */}
-      <Suspense fallback={<Section title="Skills" />}>
-      <Skills />
+      <Suspense fallback={<SkillsSkeleton />}>
+        <Skills />
       </Suspense>
 
       {/* EXPERIENCE */}
