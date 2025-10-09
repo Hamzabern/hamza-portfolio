@@ -1,0 +1,22 @@
+@layer components {
+  .exp-grid       { @apply grid gap-6 lg:grid-cols-3; }
+  .exp-main       { @apply lg:col-span-2 space-y-6 relative pl-6; }
+  .exp-line       { @apply absolute left-2 top-0 bottom-0 w-[2px] bg-cyan-400/30 dark:bg-cyan-300/25; }
+  .exp-dot        { @apply absolute -left-[7px] top-5 h-3.5 w-3.5 rounded-full bg-cyan-400 dark:bg-cyan-300 ring-4 ring-cyan-400/20 dark:ring-cyan-300/15; }
+
+  .exp-card-wrap  { @apply relative; }
+  .exp-card       { @apply rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-md p-5 shadow-sm hover:shadow-accent transition; }
+  .exp-head       { @apply flex items-start justify-between gap-4; }
+  .exp-title      { @apply text-base font-semibold leading-tight; }
+  .exp-meta       { @apply text-xs flex items-center gap-3 opacity-70 mt-1; }
+  .exp-badges     { @apply flex flex-wrap gap-2 mt-3; }
+  .exp-badge      { @apply inline-flex items-center px-2.5 py-1 rounded-full text-[11px] bg-white/60 dark:bg-white/5 border border-black/10 dark:border-white/10; }
+  .exp-list       { @apply list-disc pl-5 space-y-1 text-sm mt-3 opacity-90; }
+
+  .exp-side       { @apply space-y-6; }
+  .side-card      { @apply rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 backdrop-blur-md p-5; }
+  .side-title     { @apply text-sm font-semibold flex items-center gap-2; }
+  .side-item      { @apply text-sm flex items-center justify-between py-2 border-b border-black/5 dark:border-white/5 last:border-none; }
+
+  .pill           { @apply inline-flex items-center gap-1 h-7 px-2.5 rounded-full text-[11px] bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10; }
+}
