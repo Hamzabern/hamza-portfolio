@@ -1,48 +1,4 @@
-// import Section from "../layout/section";
-// import Card from "../ui/Card";
-// import Reveal from "../ui/Reveal";
-
-// const ITEMS = [
-//   {
-//     period: "2025 — …",
-//     title: "Freelance — Full-Stack",
-//     desc: "Apps Laravel/React, intégrations API, qualité & perfs.",
-//   },
-//   {
-//     period: "2024 — 2025",
-//     title: "Projets persos — SaaS / Portfolio",
-//     desc: "Design system Tailwind, SEO, déploiements.",
-//   },
-//   {
-//     period: "Master MASI",
-//     title: "Ingénierie Logicielle",
-//     desc: "Conception, archi, tests & qualité logicielle.",
-//   },
-// ];
-
-// export default function Experience() {
-//   return (
-//     <Section id="experience" title="Expérience & Formation" subtitle="Parcours rapide." >
-//       <div className="relative pl-5">
-//         <div className="absolute left-2 top-0 bottom-0 w-0.5 bg-black/10 dark:bg-white/10" />
-//         <div className="space-y-5">
-//           {ITEMS.map((it, i) => (
-//             <Reveal key={i} y={10} delay={i * 0.06}>
-//               <div className="relative">
-//                 <div className="absolute -left-0.5 top-1.5 h-3 w-3 rounded-full bg-[var(--accent)] shadow-accent" />
-//                 <Card className="p-4">
-//                   <div className="text-xs opacity-70">{it.period}</div>
-//                   <h3 className="font-semibold">{it.title}</h3>
-//                   <p className="opacity-80 text-sm">{it.desc}</p>
-//                 </Card>
-//               </div>
-//             </Reveal>
-//           ))}
-//         </div>
-//       </div>
-//     </Section>
-//   );
-// }
+import { useState } from "react";
 import Section from "../layout/section";
 import Reveal from "../ui/Reveal";
 
@@ -54,11 +10,11 @@ const EXPERIENCES = [
     period: "2022 – Present",
     contract: "Full-time",
     summary:
-      "Lead d’une équipe de 5 devs sur un SaaS scalable (microservices) desservant 100k+ users.",
+      "Lead d’une équipe de 5 devs sur un SaaS scalable (microservices) 100k+ users.",
     achievements: [
-      "-40% sur le temps de chargement via optimisation perfs.",
-      "CI/CD mis en place (-60% sur temps de déploiement).",
-      "Mentorat juniors + revues de code systématiques.",
+      "-40% sur le temps de chargement via optimisation perfs",
+      "CI/CD mise en place (-60% sur temps de déploiement)",
+      "Mentorat juniors + revues de code"
     ],
     stack: ["React", "Node.js", "AWS", "MongoDB", "Docker"],
   },
@@ -71,11 +27,39 @@ const EXPERIENCES = [
     summary:
       "MVP fintech de A à Z (web app responsive + APIs REST). Plateforme 10k+ utilisateurs.",
     achievements: [
-      "Intégration paiements (Stripe/PayPal).",
-      "Monitoring temps-réel des transactions.",
-      "Système de notifications et rôles.",
+      "Intégration paiements (Stripe/PayPal)",
+      "Monitoring temps-réel des transactions",
+      "Système de notifications et rôles"
     ],
     stack: ["Vue.js", "Laravel", "PostgreSQL", "Redis", "Kubernetes"],
+  },
+  {
+    title: "Software Engineer Intern",
+    company: "CloudSys",
+    location: "Remote",
+    period: "2019 – 2020",
+    contract: "Internship",
+    summary:
+      "Contribution à un outil de gestion d’infrastructure cloud.",
+    achievements: [
+      "Mise en place scripts automatisés",
+      "Documentation technique et intégration CI",
+    ],
+    stack: ["Python", "Flask", "Docker"],
+  },
+  {
+    title: "Academic Project — MASI Master",
+    company: "Université EMSI",
+    location: "Casablanca, MA",
+    period: "2018 – 2019",
+    contract: "Academic",
+    summary:
+      "Projet universitaire de fin d’études sur l’architecture logicielle.",
+    achievements: [
+      "Modélisation UML, gestion de projet agile",
+      "Rapport de conception et soutenance",
+    ],
+    stack: ["Java", "UML", "Spring"],
   },
 ];
 
@@ -116,21 +100,26 @@ function PinIcon() {
 }
 
 export default function Experience() {
+  const [visible, setVisible] = useState(2);
+  const STEP = 2;
+  const total = EXPERIENCES.length;
+  const shown = EXPERIENCES.slice(0, visible);
+
   return (
-    <Section id="experience" title="Professional Experience" subtitle="A journey through my professional growth and the impact I’ve made." >
-      <div className="exp-grid">
-        {/* COLONNE GAUCHE : TIMELINE */}
-        <div className="exp-main">
-          <div className="exp-line" />
-          {EXPERIENCES.map((xp, i) => (
+    <Section id="experience" title="Professional Experience" subtitle="A journey through my professional growth and the impact I’ve made.">
+      <div className="xp-grid">
+        {/* Timeline */}
+        <div className="xp-main">
+          <div className="xp-line" />
+          {shown.map((xp, i) => (
             <Reveal key={i} y={10} delay={i * 0.05}>
-              <div className="exp-card-wrap">
-                <div className="exp-dot" />
-                <article className="exp-card">
-                  <header className="exp-head">
+              <div className="xp-wrap">
+                <div className="xp-dot" />
+                <article className="xp-card">
+                  <header className="xp-head">
                     <div className="flex-1">
-                      <h3 className="exp-title">{xp.title}</h3>
-                      <div className="exp-meta">
+                      <h3 className="xp-title">{xp.title}</h3>
+                      <div className="xp-meta">
                         <span className="inline-flex items-center gap-1">
                           <OfficeIcon /> {xp.company}
                         </span>
@@ -139,40 +128,51 @@ export default function Experience() {
                         </span>
                       </div>
                     </div>
-
-                    {/* ⬇️ remplace l'ancien bloc par celui-ci */}
-                    <div className="exp-head-right">
-                      <div className="pill">
-                        <CalIcon /> {xp.period}
-                      </div>
-                      <div className="pill">{xp.contract}</div>
+                    <div className="xp-right">
+                      <div className="xp-pill"><CalIcon /> {xp.period}</div>
+                      <div className="xp-pill">{xp.contract}</div>
                     </div>
                   </header>
 
-                  {xp.summary && <p className="mt-3 text-sm opacity-90">{xp.summary}</p>}
+                  {xp.summary && <p className="xp-summary">{xp.summary}</p>}
 
                   {xp.achievements?.length ? (
-                    <ul className="exp-list">
+                    <ul className="xp-list">
                       {xp.achievements.map((a, k) => <li key={k}>{a}</li>)}
                     </ul>
                   ) : null}
 
                   {xp.stack?.length ? (
-                    <div className="exp-badges">
-                      {xp.stack.map((t, k) => <span key={k} className="exp-badge">{t}</span>)}
+                    <div className="xp-badges">
+                      {xp.stack.map((t, k) => (
+                        <span key={k} className="xp-badge">{t}</span>
+                      ))}
                     </div>
                   ) : null}
                 </article>
               </div>
             </Reveal>
           ))}
+
+          {total > 2 && (
+            <div className="pt-2">
+              {visible < total ? (
+                <button type="button" className="xp-more-btn" onClick={() => setVisible(v => Math.min(total, v + STEP))}>
+                  Afficher plus
+                </button>
+              ) : (
+                <button type="button" className="xp-more-btn" onClick={() => setVisible(2)}>
+                  Afficher moins
+                </button>
+              )}
+            </div>
+          )}
         </div>
 
-        {/* COLONNE DROITE : SIDEBAR */}
-        <div className="exp-side">
-          <aside className="side-card">
-            <h4 className="side-title">
-              {/* petite icône ruban/certif */}
+        {/* Sidebar */}
+        <div className="xp-side">
+          <aside className="xp-side-card">
+            <h4 className="xp-side-title">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                 <path d="M12 15a6 6 0 1 0-6-6 6 6 0 0 0 6 6Z" /><path d="m11 21-1-4 2 1 2-1-1 4-1-.5-1 .5Z"/>
               </svg>
@@ -180,7 +180,7 @@ export default function Experience() {
             </h4>
             <div className="mt-3">
               {CERTS.map((c, i) => (
-                <div key={i} className="side-item">
+                <div key={i} className="xp-side-row">
                   <span className="opacity-90">{c.label}</span>
                   <span className="opacity-60 text-xs">{c.year}</span>
                 </div>
@@ -188,11 +188,11 @@ export default function Experience() {
             </div>
           </aside>
 
-          <aside className="side-card">
-            <h4 className="side-title">Quick Stats</h4>
+          <aside className="xp-side-card">
+            <h4 className="xp-side-title">Quick Stats</h4>
             <div className="mt-3">
               {STATS.map((s, i) => (
-                <div key={i} className="side-item">
+                <div key={i} className="xp-side-row">
                   <span className="opacity-90">{s.label}</span>
                   <span className="font-semibold">{s.value}</span>
                 </div>
