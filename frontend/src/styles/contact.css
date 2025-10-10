@@ -60,3 +60,9 @@
   .consent { @apply inline-flex items-start gap-2 text-sm select-none; }
   .consent input { @apply mt-1; }
 }
+@layer components {
+  .dark .form-select { 
+    background-color: #0f172aef;
+   }
+  .form-select:focus { outline: none; }
+}
