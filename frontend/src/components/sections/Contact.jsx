@@ -1,26 +1,85 @@
 import Section from "../layout/section";
 import Reveal from "../ui/Reveal";
-import { useCallback } from "react";
+import { useCallback, useRef, useState } from "react";
+
+const PROJECT_TYPES = ["Site vitrine", "Application web", "Portfolio", "SaaS", "Refonte", "Autre"];
+const BUDGETS = ["< 500 €", "500 – 2 000 €", "2 000 – 5 000 €", "5 000+ €"];
+const TIMELINES = ["Pas pressé", "1–2 mois", "2–4 semaines", "Urgent"];
 
 export default function Contact() {
+  const [errors, setErrors] = useState({});
+  const textareaRef = useRef(null);
+
+  const autoResize = (el) => {
+    el.style.height = "auto";
+    el.style.height = el.scrollHeight + "px";
+  };
+
   const onSubmit = useCallback((e) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    const name = encodeURIComponent(form.get("name") || "");
-    const email = encodeURIComponent(form.get("email") || "");
-    const message = encodeURIComponent(form.get("message") || "");
-    const body = `Nom: ${name}%0AEmail: ${email}%0A%0A${message}`;
-    window.location.href = `mailto:hamza@example.com?subject=Contact%20Portfolio&body=${body}`;
+    const get = (k) => (form.get(k) || "").toString().trim();
+
+    const name = get("name");
+    const email = get("email");
+    const company = get("company");
+    const budget = get("budget");
+    const timeline = get("timeline");
+    const message = get("message");
+    const types = form.getAll("types"); // tableau
+    const consent = form.get("consent") === "on";
+    const file = form.get("file");
+
+    // Validation simple
+    const nextErrors = {};
+    if (!name) nextErrors.name = "Ton nom est requis.";
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) nextErrors.email = "Email invalide.";
+    if (!message) nextErrors.message = "Merci de décrire ton besoin.";
+    if (!consent) nextErrors.consent = "Tu dois accepter pour être recontacté.";
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length) return;
+
+    // Construction du mailto (limité, pièces jointes non supportées par mailto)
+    const subjectBits = [
+      "Contact Portfolio",
+      types.length ? `• ${types.join(", ")}` : "",
+      budget ? `• Budget: ${budget}` : "",
+      timeline ? `• Délai: ${timeline}` : "",
+    ].filter(Boolean);
+    const subject = encodeURIComponent(subjectBits.join(" "));
+
+    const bodyLines = [
+      `Nom: ${name}`,
+      `Email: ${email}`,
+      company ? `Société: ${company}` : "",
+      types.length ? `Type(s) de projet: ${types.join(", ")}` : "",
+      budget ? `Budget estimé: ${budget}` : "",
+      timeline ? `Délai/urgence: ${timeline}` : "",
+      "",
+      message,
+      "",
+      file && file.name ? `(Pièce jointe à envoyer manuellement: ${file.name})` : "",
+    ].filter(Boolean);
+    const body = encodeURIComponent(bodyLines.join("\n"));
+
+    // Astuce UX si fichier choisi
+    if (file && file.name) {
+      alert("Astuce: la pièce jointe ne peut pas être incluse via mailto. Après ouverture de l’email, ajoute le fichier manuellement avant d’envoyer.");
+    }
+
+    window.location.href = `mailto:hamza@example.com?subject=${subject}&body=${body}`;
   }, []);
 
   return (
     <Section id="contact" title="Contact" subtitle="Discutons de ton projet. Réponse < 24h.">
       <div className="grid gap-6 md:grid-cols-2">
+        {/* Colonne gauche : infos rapides */}
         <Reveal y={8}>
-          <div className="rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 p-5 shadow-accent">
+          <div className="rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 p-5">
             <p className="opacity-80 text-sm">
-              Tu peux m’écrire via le formulaire ou directement par email. Je réponds généralement dans les 24h.
+              Tu peux m’écrire via le formulaire ou directement par email. Je réponds généralement sous 24h.
             </p>
+
             <div className="mt-4 flex items-center gap-2">
               <a href="https://github.com/Hamzabern" target="_blank" rel="noreferrer" className="icon-btn hover:text-[var(--accent)]" aria-label="GitHub" title="GitHub">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
@@ -36,26 +95,121 @@ export default function Contact() {
           </div>
         </Reveal>
 
+        {/* Colonne droite : formulaire pro */}
         <Reveal y={8} delay={0.05}>
-          <form onSubmit={onSubmit} className="rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 p-5 shadow-accent">
-            <div className="grid gap-3">
-              <label className="text-sm">
-                Nom
-                <input className="mt-1 w-full rounded-md border border-black/10 dark:border-white/10 bg-white/80 dark:bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-[var(--accent)]"
-                  type="text" name="name" autoComplete="name" placeholder="Ton nom" />
-              </label>
-              <label className="text-sm">
-                Email (réponse sous 24h)
-                <input className="mt-1 w-full rounded-md border border-black/10 dark:border-white/10 bg-white/80 dark:bg-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-[var(--accent)]"
-                  type="email" name="email" required autoComplete="email" placeholder="nom@domaine.com" />
-              </label>
-              <label className="text-sm">
-                Message
-                <textarea className="mt-1 w-full rounded-md border border-black/10 dark:border-white/10 bg-white/80 dark:bg-white/10 px-3 py-2 h-28 resize-y outline-none focus:ring-2 focus:ring-[var(--accent)]"
-                  name="message" placeholder="Décris brièvement ton besoin…" />
-              </label>
-              <div className="pt-2">
-                <button type="submit" className="btn-primary">Envoyer</button>
+          <form onSubmit={onSubmit} className="rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 p-5">
+            <div className="form-grid">
+              {/* Nom */}
+              <div className="form-field">
+                <label className="form-label" htmlFor="name">Nom complet<span className="req">*</span></label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  placeholder="Ex. John Doe"
+                  className="form-input"
+                  aria-invalid={!!errors.name}
+                />
+                {errors.name && <p className="form-error">{errors.name}</p>}
+              </div>
+
+              {/* Email */}
+              <div className="form-field">
+                <label className="form-label" htmlFor="email">Email<span className="req">*</span></label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  placeholder="nom@domaine.com"
+                  required
+                  className="form-input"
+                  aria-invalid={!!errors.email}
+                />
+                <p className="form-help">Réponse sous 24h.</p>
+                {errors.email && <p className="form-error">{errors.email}</p>}
+              </div>
+
+              {/* Société (optionnel) */}
+              <div className="form-field">
+                <label className="form-label" htmlFor="company">Entreprise / Organisation</label>
+                <input
+                  id="company"
+                  name="company"
+                  type="text"
+                  placeholder="Ex. ACME Inc."
+                  className="form-input"
+                />
+              </div>
+
+              {/* Budget */}
+              <div className="form-field">
+                <label className="form-label" htmlFor="budget">Budget estimé</label>
+                <select id="budget" name="budget" className="form-select" defaultValue="">
+                  <option value="" disabled>Choisir…</option>
+                  {BUDGETS.map((b) => <option key={b} value={b}>{b}</option>)}
+                </select>
+              </div>
+
+              {/* Délai */}
+              <div className="form-field">
+                <label className="form-label" htmlFor="timeline">Délai / Urgence</label>
+                <select id="timeline" name="timeline" className="form-select" defaultValue="">
+                  <option value="" disabled>Choisir…</option>
+                  {TIMELINES.map((t) => <option key={t} value={t}>{t}</option>)}
+                </select>
+              </div>
+
+              {/* Types de projet */}
+              <div className="form-field md:col-span-2">
+                <span className="form-label">Type de projet</span>
+                <div className="chip-grid">
+                  {PROJECT_TYPES.map((t) => (
+                    <label key={t} className="chip-check">
+                      <input type="checkbox" name="types" value={t} />
+                      <span>{t}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              {/* Message */}
+              <div className="form-field md:col-span-2">
+                <label className="form-label" htmlFor="message">Détails du projet<span className="req">*</span></label>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="Objectifs, fonctionnalités, pages, inspirations, etc."
+                  className="form-textarea"
+                  ref={textareaRef}
+                  onInput={(e) => autoResize(e.currentTarget)}
+                  aria-invalid={!!errors.message}
+                />
+                {errors.message && <p className="form-error">{errors.message}</p>}
+              </div>
+
+              {/* Fichier (non attaché par mailto, info UX) */}
+              <div className="form-field">
+                <label className="form-label" htmlFor="file">Pièce jointe (optionnel)</label>
+                <input id="file" name="file" type="file" className="form-input" />
+                <p className="form-help">Ajoute le fichier manuellement dans ton email après ouverture.</p>
+              </div>
+
+              {/* Consentement */}
+              <div className="form-field md:col-span-2">
+                <label className="consent">
+                  <input type="checkbox" name="consent" />
+                  <span>J’accepte que mes informations soient utilisées pour me recontacter.<span className="req">*</span></span>
+                </label>
+                {errors.consent && <p className="form-error">{errors.consent}</p>}
+              </div>
+
+              {/* Submit */}
+              <div className="md:col-span-2 flex justify-end pt-2">
+                <button type="submit" className="btn-primary">
+                  Envoyer la demande
+                </button>
               </div>
             </div>
           </form>
