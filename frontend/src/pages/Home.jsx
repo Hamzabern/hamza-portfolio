@@ -1,6 +1,5 @@
 import { Suspense, lazy } from "react";
 import Section from "../components/layout/section";
-import { motion as Motion } from "framer-motion";
 
 const Hero = lazy(() => import("../components/sections/Hero"));
 const HeroSkel = lazy(() => import("../components/sections/skeleton/Hero.skeleton"));
@@ -18,7 +17,8 @@ const Experience = lazy(() => import("../components/sections/Experience"));
 const ExperienceSkeleton = lazy(() => import("../components/sections/skeleton/Experience.skeleton.jsx"));
 const Cta2 = lazy(() => import("../components/sections/Cta2.jsx"));
 const Cta2Skeleton = lazy(() => import("../components/sections/skeleton/Cta2.skeleton.jsx"));
-
+const KeyStatsSkeleton = lazy(() => import("../components/sections/skeleton/KeyStats.skeleton.jsx"));
+const ContactSkeleton  = lazy(() => import("../components/sections/skeleton/Contact.skeleton.jsx"));
 const KeyStats = lazy(() => import("../components/sections/KeyStats"));
 const Contact = lazy(() => import("../components/sections/Contact"));
 
@@ -68,14 +68,14 @@ return (
       </Suspense>
 
       {/* METRICS */}
-      <Suspense fallback={<Section title="Key Stats" />}>
+      <Suspense fallback={<KeyStatsSkeleton />}>
         <KeyStats />
       </Suspense>
 
       <div className="my-8 divider-accent" />
 
       {/* CONTACT */}
-      <Suspense fallback={<Section title="Contact" />}>
+      <Suspense fallback={<ContactSkeleton />}>
         <Contact />
       </Suspense>
     </div>
