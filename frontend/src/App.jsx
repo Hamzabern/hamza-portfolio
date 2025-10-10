@@ -24,7 +24,7 @@ export default function App() {
       </div>
 
       <Suspense fallback={null}>
-        {theme === "dark" ? <ShootingStars /> : <LightParticles />}
+        {theme === "dark" ? <ShootingStars maxStars={6} minDelayMs={4000} maxDelayMs={9000} initial={1} fadeStrength={0.08} /> : <LightParticles />}
       </Suspense>
     </>
   );

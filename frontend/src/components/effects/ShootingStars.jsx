@@ -1,6 +1,12 @@
 import { useEffect, useRef } from "react";
 
-export default function ShootingStars({ intervalMs = 5200 }) {
+export default function ShootingStars({
+  maxStars = 6,          
+  minDelayMs = 4000,     
+  maxDelayMs = 9000,     
+  initial = 2,           
+  fadeStrength = 0.08,   
+}) {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -16,7 +22,10 @@ export default function ShootingStars({ intervalMs = 5200 }) {
     window.addEventListener("resize", onResize);
 
     const stars = [];
+
     function spawnStar() {
+      if (stars.length >= maxStars) return; 
+
       const margin = Math.min(w, h) * 0.2;
       const edges = [
         { x: Math.random() * w, y: Math.random() * margin },
@@ -40,22 +49,19 @@ export default function ShootingStars({ intervalMs = 5200 }) {
       });
     }
 
-    // ---- TICK (avec dt clampé et fade des traces) ----
     let raf;
-    let last = 0; // important pour reset propre
+    let last = 0;
     const tick = (now) => {
       if (!last) last = now;
       const dt = Math.min(0.033, (now - last) / 1000);
       last = now;
 
-      // FADE progressif des anciennes traces (ne pas clearRect ici)
       ctx.save();
       ctx.globalCompositeOperation = "destination-out";
-      ctx.fillStyle = "rgba(0,0,0,0.08)"; // 0.06 = plus long ; 0.12 = plus court
+      ctx.fillStyle = `rgba(0,0,0,${fadeStrength})`;
       ctx.fillRect(0, 0, w, h);
       ctx.restore();
 
-      // dessin normal
       ctx.globalCompositeOperation = "source-over";
 
       for (let i = stars.length - 1; i >= 0; i--) {
@@ -93,37 +99,45 @@ export default function ShootingStars({ intervalMs = 5200 }) {
       raf = requestAnimationFrame(tick);
     };
 
-    // ---- Spawn timer (contrôlé) + visibilité page ----
-    let spawnTimer = null;
-    const startSpawn = () => { if (!spawnTimer) spawnTimer = setInterval(spawnStar, intervalMs); };
-    const stopSpawn = () => { if (spawnTimer) { clearInterval(spawnTimer); spawnTimer = null; } };
+    let spawnTo = null;
+    function scheduleNext() {
+      clearTimeout(spawnTo);
+      const delay = Math.floor(minDelayMs + Math.random() * (maxDelayMs - minDelayMs));
+      spawnTo = setTimeout(() => {
+        spawnStar();
+        scheduleNext();
+      }, delay);
+    }
+    function stopSchedule() {
+      clearTimeout(spawnTo);
+      spawnTo = null;
+    }
 
     const onVisibility = () => {
       if (document.hidden) {
-        // pause propre → pas d'explosion à la reprise
-        stopSpawn();
+        stopSchedule();
         cancelAnimationFrame(raf);
-        last = 0; // reset dt
+        last = 0;
       } else {
-        startSpawn();
+        scheduleNext();
         raf = requestAnimationFrame(tick);
       }
     };
     document.addEventListener("visibilitychange", onVisibility);
 
     // start
-    startSpawn();
-    spawnStar();
+    for (let i = 0; i < Math.max(0, initial); i++) spawnStar();
+    scheduleNext();
     raf = requestAnimationFrame(tick);
 
     return () => {
       cancelAnimationFrame(raf);
-      stopSpawn();
+      stopSchedule();
       window.removeEventListener("resize", onResize);
       document.removeEventListener("visibilitychange", onVisibility);
       ctx.clearRect(0, 0, w, h);
     };
-  }, [intervalMs]);
+  }, [maxStars, minDelayMs, maxDelayMs, initial, fadeStrength]);
 
   return <canvas ref={ref} className="stars-canvas" aria-hidden="true" />;
 }

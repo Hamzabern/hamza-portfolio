@@ -14,16 +14,10 @@ const Projects   = lazy(() => import("../components/sections/Projects"));
 const ProjectsSkel = lazy(() => import("../components/sections/skeleton/Projects.skeleton.jsx"));
 const Skills = lazy(() => import("../components/sections/Skills"));
 const SkillsSkeleton = lazy(() => import("../components/sections/skeleton/Skills.skeleton.jsx"));
-// const Experience = lazy(() => import("../components/sections/Experience"));
-const Experience = lazy(() =>
-  Promise.all([
-    import("../components/sections/Experience"),
-    new Promise(r => setTimeout(r, 8000)), 
-  ]).then(([m]) => m)
-);
-const ExperienceSkeleton = lazy(() =>
-  import("../components/sections/skeleton/Experience.skeleton.jsx")
-);
+const Experience = lazy(() => import("../components/sections/Experience"));
+const ExperienceSkeleton = lazy(() => import("../components/sections/skeleton/Experience.skeleton.jsx"));
+const Cta2 = lazy(() => import("../components/sections/Cta2.jsx"));
+const Cta2Skeleton = lazy(() => import("../components/sections/skeleton/Cta2.skeleton.jsx"));
 
 const KeyStats = lazy(() => import("../components/sections/KeyStats"));
 const Contact = lazy(() => import("../components/sections/Contact"));
@@ -69,18 +63,9 @@ return (
       </Suspense>
       
       {/* CTA  */}
-      <Section id="cta2" title="Un projet en tête ?" subtitle="Voyons ensemble comment le réaliser.">
-        <div className="relative rounded-xl border border-black/10 dark:border-white/10 p-6 bg-white/60 dark:bg-white/5 shadow-accent hover:shadow-accent transition overflow-hidden">
-          <Motion.div className="absolute left-0 top-0 h-0.5 w-full" initial={{ x: "-100%" }} whileInView={{ x: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: 1.2, ease: "easeOut" }}
-            style={{ background: "linear-gradient(90deg, transparent, var(--accent), transparent)" }} />
-          <h3 className="text-lg font-semibold">Disponible dès maintenant 🚀</h3>
-          <p className="opacity-70 mt-1">Contacte-moi pour ton idée d’app web, SaaS ou portfolio.</p>
-          <div className="mt-4 flex gap-3">
-            <a href="#contact" className="btn-primary">Me contacter</a>
-            <a href="#projects" className="btn-outline">Voir mes projets</a>
-          </div>
-        </div>
-      </Section>
+      <Suspense fallback={<Cta2Skeleton />}>
+        <Cta2 />
+      </Suspense>
 
       {/* METRICS */}
       <Suspense fallback={<Section title="Key Stats" />}>
