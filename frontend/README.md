@@ -1,12 +1,46 @@
-# React + Vite
+# HB • Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portfolio moderne **React + Vite + Tailwind** (frontend) avec effets visuels légers, lazy-loading + skeletons, theming dark/light, et UI orientée performance & accessibilité.  
+Le backend (Laravel) sera branché en **V2** pour `/api/contact` et admin.
 
-Currently, two official plugins are available:
+## 🚀 Stack
+- **Frontend**: React 18, Vite, React Router, Framer Motion (léger), Tailwind
+- **Data & FX**: React Query (prévu), animations CSS scroll-driven, canvas **ShootingStars** (dark)
+- **Qualité**: ESLint, composants accessibles (focus states, aria), design tokens (CSS vars)
+- **Déploiement**: GitHub Actions → GitHub Pages (frontend uniquement)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📦 Structure
+frontend/
+src/
+components/
+effects/ (LightParticles, ShootingStars)
+layout/ (Navbar, Footer, Section, SkipToContent, ThemeToggle)
+sections/
+Hero, Services, Tech, Projects, Skills, Experience, KeyStats, Contact, Cta2
+skeleton/ (Hero.skeleton, Services.skeleton, Tech.skeleton, Projects.skeleton, KeyStats.skeleton, Contact.skeleton, Cta2.skeleton)
+ui/ (Card, CountUp, LoadingSkeleton, LazyImage, ProgressBar, Reveal, Spinner)
+pages/ (Home, NotFound)
+styles/ (base, layout, animations, sections, projects, tech, contact, experience)
+theme/ (ThemeProvider, useTheme)
+main.jsx, App.jsx, index.css
+vite.config.js
+404.html
+.github/workflows/deploy.yml # build & déploiement du frontend
 
-## Expanding the ESLint configuration
+## ✨ Features principales
+- **Lazy-loading + Skeletons**: Hero, Services, Tech, Projects (gallery + zoom), **Cta2**, **KeyStats**, **Contact** (pro), etc.
+- **ShootingStars** (dark): spawn contrôlé (cap & jitter), traînées qui **disparaissent** progressivement, pause quand l’onglet n’est pas visible.
+- **Experience**: timeline + sidebar (Certifications, Quick Stats), “Afficher plus/moins”.
+- **Projects**: filtres par stack, tri, pagination “Afficher plus/moins”, zoom image avec overlay, fermeture on-scroll/outside-click, carrousel multi-images.
+- **Navbar**: sticky, état actif selon la section en vue, ignore CTA, “Skip to content” accessible.
+- **Contact (freelance pro)**: Nom, Email, Société, **Budget**, **Délai**, **Types de projet**, Message, **Fichier**, **RGPD** (validations).  
+  - V1: `mailto:` (sans upload)
+  - V2: endpoint Laravel `/api/contact` (validation + rate limit + email avec pièce jointe)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Scripts
+```bash
+# depuis frontend/
+npm install
+npm run dev     # dev server (http://localhost:5173)
+npm run build   # build de production
+npm run preview # prévisualisation du build
