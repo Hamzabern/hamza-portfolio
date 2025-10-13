@@ -1,4 +1,4 @@
-import LazyImage from "../ui/LazyImage";
+import LazyImage from "../ui/lazyImage";
 
 export default function Hero() {
   return (
