@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\SiteSetting;
 use App\Models\Project;
+use App\Http\Controllers\Api\ContactController;
+
 
 Route::get('/health', fn() => response()->json(['ok'=>true,'time'=>now()->toIso8601String()]));
 
@@ -26,3 +28,5 @@ Route::get('/projects/{slug}', function (string $slug) {
     return response()->json($project);
 });
 
+Route::middleware('throttle:contact')->post('/contact', ContactController::class);
+Route::get('/health', fn() => response()->json(['ok'=>true,'time'=>now()]));
