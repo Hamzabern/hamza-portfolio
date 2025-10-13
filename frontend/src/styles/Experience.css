@@ -83,8 +83,7 @@
     @apply mt-2 inline-flex items-center gap-2 text-sm font-medium text-[var(--accent)]
            hover:underline transition;
   }
-}
-@layer components {
+  
   .xp-card {
     box-shadow: 0 3px 10px rgba(0,0,0,.06) !important;
   }
