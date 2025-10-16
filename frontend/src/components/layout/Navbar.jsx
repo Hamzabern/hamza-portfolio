@@ -28,7 +28,6 @@ export default function Navbar() {
     };    
   }, []); 
 
-
   useEffect(() => {
     const onHash = () => setHash(window.location.hash || "");
     window.addEventListener("hashchange", onHash);
@@ -40,11 +39,11 @@ export default function Navbar() {
   }, []);
 
   const navItem = (href, label) => (
-    <a key={href} href={href} className={["px-3 py-1.5 rounded-md transition hover:bg-[var(--accent)] hover:text-[var(--fg)] dark:hover:bg-[var(--accent)] dark:hover:text-[var(--bg)]",
-        hash === href ? "bg-[var(--accent)] text-black" : "" ].join(" ")} aria-label={label} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} >
-      {label}
-    </a>
-);
+      <a key={href} href={href} className={["px-3 py-1.5 rounded-md transition hover:bg-[var(--accent)] hover:text-[var(--fg)] dark:hover:bg-[var(--accent)] dark:hover:text-[var(--bg)]",
+          hash === href ? "bg-[var(--accent)] text-black" : "" ].join(" ")} aria-label={label} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} >
+        {label}
+      </a>
+  );
 
   return (
     <>

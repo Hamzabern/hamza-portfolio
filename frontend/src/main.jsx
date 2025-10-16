@@ -8,7 +8,6 @@ import { ThemeProvider } from "./theme/ThemeProvider";
 import App from "./App.jsx";
 import "./index.css";
 
-// Pages en lazy
 const Home = lazy(() => import("./pages/Home.jsx"));
 const NotFound = lazy(() => import("./pages/NotFound.jsx"));
 
@@ -19,8 +18,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <HelmetProvider>
       <QueryClientProvider client={qc}>
         <ThemeProvider>
-          <BrowserRouter>
-            <Suspense >
+          <BrowserRouter basename={import.meta.env.BASE_URL}>
+            <Suspense fallback={null}>
               <Routes>
                 <Route element={<App />}>
                   <Route index element={<Home />} />
