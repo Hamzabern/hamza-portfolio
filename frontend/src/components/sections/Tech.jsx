@@ -6,9 +6,9 @@ const TECH = [
   { name:"Laravel", img:"https://laravel.com/img/logomark.min.svg", desc:"Backend & API" },
   { name:"React", img:"https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg", desc:"SPA Frontend" },
   { name:"Tailwind", img:"https://tailwindcss.com/favicons/apple-touch-icon.png", desc:"User Interface" },
-  { name:"MySQL", img:"https://www.mysql.com/common/logos/logo-mysql-170x115.png", desc:"Base de données" },
+  { name:"MySQL", img:"https://www.mysql.com/common/logos/logo-mysql-170x115.png", desc:"Database" },
   { name:"GitHub", img:"https://github.githubassets.com/favicons/favicon.png", desc:"VCS & CI" },
-  { name:"Docker", img:"https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png", desc:"Conteneurs (base)" },
+  { name:"Docker", img:"https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png", desc:"Containers (base)" },
   { name:"Vite", img:"https://vitejs.dev/logo.svg", desc:"Bundler" },
 ];
 
@@ -36,12 +36,12 @@ export default function Tech() {
   }, []);
 
 return (
-  <Section id="tech" title="Technologies" subtitle="Mon stack principal.">
+  <Section id="tech" title="Technologies" subtitle="My main tech stack.">
     <div className="flex items-end justify-between gap-3 mb-3">
       <div />
       <div className="flex gap-2">
-        <button ref={leftRef}  className="tech-ctrl" aria-label="Défiler à gauche">‹</button>
-        <button ref={rightRef} className="tech-ctrl" aria-label="Défiler à droite">›</button>
+        <button ref={leftRef}  className="tech-ctrl" aria-label="Scroll left">‹</button>
+        <button ref={rightRef} className="tech-ctrl" aria-label="Scroll right">›</button>
       </div>
     </div>
 

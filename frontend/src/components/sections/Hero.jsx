@@ -9,17 +9,18 @@ export default function Hero() {
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div className="sd-stagger">
             <h1 className="text-3xl sm:text-4xl font-extrabold leading-tight">
-              Salut, je suis <span className="text-[var(--accent)]">Hamza</span><br />
-              Développeur Full-Stack.
+              Hi, I'm <span className="text-[var(--accent)]">Hamza</span><br />
+              a Full-Stack Developer.
             </h1>
             <p className="mt-3 opacity-80">
-              J’aime construire des apps modernes, rapides et bien pensées.
-              Laravel • React • Tailwind • Sécurité • Qualité.
+              I love building fast, modern, and well-crafted web applications.
+              <br />
+              Laravel • React • Tailwind • Security • Quality.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-3">
-              <a href="#projects" className="btn-primary">Voir mes projets</a>
-              <a href="#contact" className="btn-outline">Me contacter</a>
+              <a href="#projects" className="btn-primary">View my projects</a>
+              <a href="#contact" className="btn-outline">Get in touch</a>
             </div>
           </div>
 
