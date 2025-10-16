@@ -1,4 +1,5 @@
 import LazyImage from "../ui/LazyImage";
+import heroImg from "../../assets/hero/hero-Illustration.png";
 
 export default function Hero() {
   return (
@@ -22,8 +23,7 @@ export default function Hero() {
           </div>
 
           <div className="sd-fade-up">
-           <LazyImage src="https://img.freepik.com/premium-vector/programmer-work_1294175-6894.jpg?semt=ais_hybrid&w=740&q=80" alt="Illustration développeur"
-              width={1200} height={800} aspect="3/2" fit="" className="w-full max-w-2xl mx-auto rounded-xl "/>
+           <LazyImage src={heroImg} alt="Hero Illustration" width={1200} height={800} aspect="3/2" fit="" className="w-full max-w-2xl mx-auto rounded-xl "/>
           </div>
         </div>
       </div>
