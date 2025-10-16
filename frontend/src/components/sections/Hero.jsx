@@ -1,5 +1,6 @@
 import LazyImage from "../ui/LazyImage";
-import heroImg from "../../assets/hero/hero-Illustration.png";
+import heroPng from "../../assets/hero/hero-Illustration.png";
+import heroWebp from "../../assets/hero/hero-Illustration.webp";
 
 export default function Hero() {
   return (
@@ -23,7 +24,11 @@ export default function Hero() {
           </div>
 
           <div className="sd-fade-up">
-           <LazyImage src={heroImg} alt="Hero Illustration" width={1200} height={800} aspect="3/2" fit="" className="w-full max-w-2xl mx-auto rounded-xl "/>
+            <picture className="block">
+              <source srcSet={heroWebp} type="image/webp" />
+              <LazyImage src={heroPng} alt="Hero Illustration" width={1200} height={800} loading="eager" fetchpriority="high"
+                aspect="3/2" fit="" noSkeleton className="w-full max-w-2xl mx-auto rounded-xl "/>
+            </picture>
           </div>
         </div>
       </div>

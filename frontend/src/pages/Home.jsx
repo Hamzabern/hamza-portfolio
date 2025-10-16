@@ -1,5 +1,4 @@
 import { Suspense, lazy } from "react";
-import Section from "../components/layout/section";
 
 const Hero = lazy(() => import("../components/sections/Hero"));
 const HeroSkel = lazy(() => import("../components/sections/skeleton/Hero.skeleton"));
