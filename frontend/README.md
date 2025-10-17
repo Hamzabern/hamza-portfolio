@@ -59,7 +59,7 @@ This project is designed with a **clean UI**, smooth animations, and a focus on 
 ---
 
 ## 🧰 Folder Structure (Frontend)
-
+```
 hamza-portfolio/
 |
 +-- src/
@@ -75,7 +75,7 @@ hamza-portfolio/
 +-- package.json
 +-- vite.config.js
 \-- README.md
-
+```
 ---
 
 ## 💡 Design Philosophy
