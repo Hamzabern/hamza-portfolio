@@ -36,7 +36,6 @@ This project is designed with a **clean UI**, smooth animations, and a focus on 
 ✅ **Projects Section** — Showcases my featured projects with live previews  
 ✅ **CTA Section** — Direct links for contact and collaboration  
 ✅ **Contact Section** — Email, socials, and form for inquiries  
-✅ **Multilingual Support** — English / French translations  
 ✅ **Responsive Design** — Perfectly optimized for mobile, tablet, and desktop  
 ✅ **Lazy Loading + Skeletons** — Smooth page transitions and loading effects  
 ✅ **Dark / Light Mode Ready** — Coming in a later revision  
@@ -62,20 +61,20 @@ This project is designed with a **clean UI**, smooth animations, and a focus on 
 ## 🧰 Folder Structure (Frontend)
 
 hamza-portfolio/
-│
-├── src/
-│ ├── components/ # Reusable UI elements (Hero, Projects, CTA, etc.)
-│ ├── pages/ # Page-level components
-│ ├── assets/ # Local images and icons
-│ ├── data/ # content.json (static data)
-│ ├── hooks/ # Custom React hooks
-│ ├── utils/ # Helper functions
-│ └── styles/ # Tailwind configuration + custom CSS
-│
-├── public/ # Fallback assets + index.html
-├── package.json
-├── vite.config.js
-└── README.md
+|
++-- src/
+|   +-- components/     # Reusable UI elements (Hero, Projects, CTA, etc.)
+|   +-- pages/          # Page-level components
+|   +-- assets/         # Local images and icons
+|   +-- data/           # content.json (static data)
+|   +-- hooks/          # Custom React hooks
+|   +-- utils/          # Helper functions
+|   \-- styles/         # Tailwind configuration + custom CSS
+|
++-- public/             # Fallback assets + index.html
++-- package.json
++-- vite.config.js
+\-- README.md
 
 ---
 
@@ -113,12 +112,12 @@ This backend and admin interface will be built with **Laravel 11 + Vue/React**.
 
 ## 🛠️ Development Commands
 
-**Run locally**
+## Run locally
 
 npm install
 npm run dev
 
-**Build for production**
+## Build for production
 
 npm run build
 
@@ -128,7 +127,7 @@ npm run build
 ## 🧑‍💻 Author
 
 **Created by:** [ZesDev](https://github.com/Hamzabern)  
-**Contact:** zesdev.contact@gmail.com
+**Contact:** bernoussihamzaa@gmail.com
 
 ---
 
