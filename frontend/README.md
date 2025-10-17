@@ -1,46 +1,137 @@
-# HB • Portfolio
+# 💼 hamza-portfolio — My Personal Developer Showcase
 
-Portfolio moderne **React + Vite + Tailwind** (frontend) avec effets visuels légers, lazy-loading + skeletons, theming dark/light, et UI orientée performance & accessibilité.  
-Le backend (Laravel) sera branché en **V2** pour `/api/contact` et admin.
+> **Built and maintained by [ZesDev](https://github.com/Hamzabern)**  
+> A modern, animated, and responsive developer portfolio designed to reflect both personality and professionalism.
 
-## 🚀 Stack
-- **Frontend**: React 18, Vite, React Router, Framer Motion (léger), Tailwind
-- **Data & FX**: React Query (prévu), animations CSS scroll-driven, canvas **ShootingStars** (dark)
-- **Qualité**: ESLint, composants accessibles (focus states, aria), design tokens (CSS vars)
-- **Déploiement**: GitHub Actions → GitHub Pages (frontend uniquement)
+---
 
-## 📦 Structure
-frontend/
-src/
-components/
-effects/ (LightParticles, ShootingStars)
-layout/ (Navbar, Footer, Section, SkipToContent, ThemeToggle)
-sections/
-Hero, Services, Tech, Projects, Skills, Experience, KeyStats, Contact, Cta2
-skeleton/ (Hero.skeleton, Services.skeleton, Tech.skeleton, Projects.skeleton, KeyStats.skeleton, Contact.skeleton, Cta2.skeleton)
-ui/ (Card, CountUp, LoadingSkeleton, LazyImage, ProgressBar, Reveal, Spinner)
-pages/ (Home, NotFound)
-styles/ (base, layout, animations, sections, projects, tech, contact, experience)
-theme/ (ThemeProvider, useTheme)
-main.jsx, App.jsx, index.css
-vite.config.js
-404.html
-.github/workflows/deploy.yml # build & déploiement du frontend
+## ✨ Overview
 
-## ✨ Features principales
-- **Lazy-loading + Skeletons**: Hero, Services, Tech, Projects (gallery + zoom), **Cta2**, **KeyStats**, **Contact** (pro), etc.
-- **ShootingStars** (dark): spawn contrôlé (cap & jitter), traînées qui **disparaissent** progressivement, pause quand l’onglet n’est pas visible.
-- **Experience**: timeline + sidebar (Certifications, Quick Stats), “Afficher plus/moins”.
-- **Projects**: filtres par stack, tri, pagination “Afficher plus/moins”, zoom image avec overlay, fermeture on-scroll/outside-click, carrousel multi-images.
-- **Navbar**: sticky, état actif selon la section en vue, ignore CTA, “Skip to content” accessible.
-- **Contact (freelance pro)**: Nom, Email, Société, **Budget**, **Délai**, **Types de projet**, Message, **Fichier**, **RGPD** (validations).  
-  - V1: `mailto:` (sans upload)
-  - V2: endpoint Laravel `/api/contact` (validation + rate limit + email avec pièce jointe)
+**hamza-portfolio** is a personal developer portfolio built with **React**, **Vite**, and **Tailwind CSS**, showcasing my projects, skills, and story as a full-stack software engineer.
 
-## 🛠️ Scripts
-```bash
-# depuis frontend/
+This project is designed with a **clean UI**, smooth animations, and a focus on **performance and scalability** — serving both as a public portfolio and a real-world example of production-grade frontend architecture.
+
+---
+
+## 🧱 Tech Stack
+
+| Area | Technology |
+|------|-------------|
+| **Frontend Framework** | React + Vite |
+| **Styling** | Tailwind CSS + custom theme |
+| **Animations** | Framer Motion |
+| **State Management** | React Hooks + Context |
+| **Assets Handling** | WebP + fallback (auto detection for performance) |
+| **Routing** | React Router |
+| **Deployment** | Netlify / Vercel |
+| **Version Control** | Git + GitHub |
+
+---
+
+## 🎨 Sections & Features (Current)
+
+✅ **Hero Section** — Intro, tagline, and professional identity  
+✅ **Services Section** — What I do and areas of expertise  
+✅ **Tech Stack Section** — Technologies I use  
+✅ **Projects Section** — Showcases my featured projects with live previews  
+✅ **CTA Section** — Direct links for contact and collaboration  
+✅ **Contact Section** — Email, socials, and form for inquiries  
+✅ **Multilingual Support** — English / French translations  
+✅ **Responsive Design** — Perfectly optimized for mobile, tablet, and desktop  
+✅ **Lazy Loading + Skeletons** — Smooth page transitions and loading effects  
+✅ **Dark / Light Mode Ready** — Coming in a later revision  
+
+---
+
+## 🚀 Vision & Roadmap
+
+### 🎯 Current Phase — V1 (Live Portfolio)
+- Fully static, lightweight, and optimized for fast deployment  
+- All content managed via JSON (`content.json`)  
+- Focused on UI/UX quality, performance, and structure  
+
+### 🧩 Next Phase — V2 (Connected Portfolio)
+- Add a **Laravel backend** (API + Admin Dashboard)  
+- Allow users/clients to **edit all portfolio content** dynamically (projects, texts, links)  
+- Integrate authentication for multiple client dashboards  
+- Enable export/import of portfolio templates  
+- Add analytics and contact message tracking  
+
+---
+
+## 🧰 Folder Structure (Frontend)
+
+hamza-portfolio/
+│
+├── src/
+│ ├── components/ # Reusable UI elements (Hero, Projects, CTA, etc.)
+│ ├── pages/ # Page-level components
+│ ├── assets/ # Local images and icons
+│ ├── data/ # content.json (static data)
+│ ├── hooks/ # Custom React hooks
+│ ├── utils/ # Helper functions
+│ └── styles/ # Tailwind configuration + custom CSS
+│
+├── public/ # Fallback assets + index.html
+├── package.json
+├── vite.config.js
+└── README.md
+
+---
+
+## 💡 Design Philosophy
+
+> “Simplicity, motion, and meaning.”
+
+- **Modern aesthetic** — clean layout, soft colors, fluid transitions  
+- **Lightweight & fast** — optimized builds via Vite + asset compression  
+- **Interactive** — hover effects, smooth transitions, scroll reveals  
+- **Professional yet personal** — reflects my personality while staying elegant  
+- **Easily customizable** — every section modular and reusable  
+
+---
+
+## 🌐 Live Demo
+
+> 🔗 Coming soon — hosted version on [Vercel](https://vercel.com/) or [Netlify](https://netlify.com/)
+
+---
+
+## 🧭 Road to V2 (Full Portfolio SaaS Vision)
+
+The future of **hamza-portfolio** goes beyond a personal website.  
+It will evolve into a **fully dynamic SaaS portfolio builder**, where clients can:
+
+- Manage their portfolio content through an admin dashboard  
+- Update texts, projects, and media in real time  
+- Choose from multiple layout templates  
+- Deploy automatically with one click  
+
+This backend and admin interface will be built with **Laravel 11 + Vue/React**.
+
+---
+
+## 🛠️ Development Commands
+
+**Run locally**
+
 npm install
-npm run dev     # dev server (http://localhost:5173)
-npm run build   # build de production
-npm run preview # prévisualisation du build
+npm run dev
+
+**Build for production**
+
+npm run build
+
+
+---
+
+## 🧑‍💻 Author
+
+**Created by:** [ZesDev](https://github.com/Hamzabern)  
+**Contact:** zesdev.contact@gmail.com
+
+---
+
+## 🏷️ License
+Released under the **MIT License**.  
+© 2025 **ZesDev**. All rights reserved.
