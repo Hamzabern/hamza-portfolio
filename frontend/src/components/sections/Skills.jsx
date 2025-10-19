@@ -8,11 +8,11 @@ export default function Skills() {
     { label: "React", value: 80 },
     { label: "Tailwind", value: 85 },
     { label: "MySQL", value: 75 },
-    { label: "Sécurité / Auth", value: 70 },
-    { label: "Tests & Qualité", value: 65 },
+    { label: "Security / Auth", value: 70 },
+    { label: "Testing & Quality", value: 95 },
   ];
   return (
-    <Section id="skills" title="Compétences" subtitle="Tech principales avec niveau indicatif.">
+    <Section id="skills" title="Skills" subtitle="Main technologies with indicative level.">
       <div className="grid sm:grid-cols-2 gap-6">
         {items.map((it, i) => (
           <Reveal key={it.label} y={8} delay={i * 0.04}>
