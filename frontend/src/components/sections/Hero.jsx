@@ -1,6 +1,6 @@
 import LazyImage from "../ui/LazyImage";
-import heroPng from "../../assets/hero/hero-Illustration.png";
-import heroWebp from "../../assets/hero/hero-Illustration.webp";
+import heroPng from "../../assets/hero/hero-illustration.png";
+import heroWebp from "../../assets/hero/hero-illustration.webp";
 
 export default function Hero() {
   return (
