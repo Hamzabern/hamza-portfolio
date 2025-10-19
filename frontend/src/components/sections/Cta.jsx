@@ -1,19 +1,18 @@
 import Section from "../layout/section";
-import { motion as Motion } from "framer-motion";
 
 export default function Cta() {
   return (
-    <Section id="cta" title="Prêt à discuter ?" subtitle="Je peux t’aider à lancer ou améliorer ton application.">
+    <Section id="cta" title="Ready to talk ?" subtitle="I can help you launch or improve your application.">
       <div className="rounded-xl border border-black/10 dark:border-white/10 p-5 bg-white/60 dark:bg-white/5 flex flex-wrap items-center gap-3 justify-between hover:shadow-accent transition">
         <div className="text-sm opacity-80">
-          Disponibilité freelance/mission — réponse rapide.
+          Freelance/contract availability — quick response.
         </div>
         <div className="flex gap-2">
           <a href="#contact" className="btn-primary btn-attention">
-            Me contacter
+            Contact me
           </a>
           <a href="#projects" className="btn-outline">
-            Voir des exemples
+           See examples
           </a>
         </div>
       </div>

@@ -158,11 +158,11 @@ export default function Experience() {
             <div className="pt-2">
               {visible < total ? (
                 <button type="button" className="xp-more-btn" onClick={() => setVisible(v => Math.min(total, v + STEP))}>
-                  Afficher plus
+                 Show more
                 </button>
               ) : (
                 <button type="button" className="xp-more-btn" onClick={() => setVisible(2)}>
-                  Afficher moins
+                  Show less
                 </button>
               )}
             </div>

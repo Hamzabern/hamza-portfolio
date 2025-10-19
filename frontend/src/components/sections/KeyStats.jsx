@@ -3,15 +3,15 @@ import Reveal from "../ui/Reveal";
 import CountUp from "../ui/CountUp";
 
 const STATS = [
-  { label: "Projets livrés", value: 18, suffix: "+" },
+  { label: "Projects Delivered", value: 18, suffix: "+" },
   { label: "Satisfaction", value: 98, suffix: "%" },
-  { label: "Temps moyen de réponse", value: 24, suffix: "h" },
-  { label: "Technos maîtrisées", value: 8, suffix: "+" },
+  { label: "Average Response Time", value: 24, suffix: "h" },
+  { label: "Technologies Mastered", value: 8, suffix: "+" },
 ];
 
 export default function KeyStats() {
   return (
-    <Section id="stats" title="Chiffres clés" subtitle="Quelques indicateurs rapides.">
+    <Section id="stats" title="Key Figures" subtitle="A few quick insights.">
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {STATS.map((s, i) => (
           <Reveal key={s.label} y={8} delay={i * 0.05}>

@@ -2,9 +2,9 @@ import Section from "../layout/section";
 import Reveal from "../ui/Reveal";
 import { useCallback, useRef, useState } from "react";
 
-const PROJECT_TYPES = ["Site vitrine", "Application web", "Portfolio", "SaaS", "Refonte", "Autre"];
-const BUDGETS = ["< 500 €", "500 – 2 000 €", "2 000 – 5 000 €", "5 000+ €"];
-const TIMELINES = ["Pas pressé", "1–2 mois", "2–4 semaines", "Urgent"];
+const PROJECT_TYPES = ["Showcase website", "Web application", "Portfolio", "SaaS", "Redesign", "Other"];
+const BUDGETS = ["< $500", "$500 – $2,000", "$2,000 – $5,000", "$5,000+"];
+const TIMELINES = ["Not urgent", "1–2 months", "2–4 weeks", "Urgent"];
 
 export default function Contact() {
   const [errors, setErrors] = useState({});
@@ -26,58 +26,54 @@ export default function Contact() {
     const budget = get("budget");
     const timeline = get("timeline");
     const message = get("message");
-    const types = form.getAll("types"); // tableau
+    const types = form.getAll("types"); 
     const consent = form.get("consent") === "on";
     const file = form.get("file");
 
-    // Validation simple
     const nextErrors = {};
-    if (!name) nextErrors.name = "Ton nom est requis.";
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) nextErrors.email = "Email invalide.";
-    if (!message) nextErrors.message = "Merci de décrire ton besoin.";
-    if (!consent) nextErrors.consent = "Tu dois accepter pour être recontacté.";
+    if (!name) nextErrors.name = "Your name is required.";
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) nextErrors.email = "Invalid email.";
+    if (!message) nextErrors.message = "Please describe your needs.";
+    if (!consent) nextErrors.consent = "You must accept to be contacted.";
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length) return;
 
-    // Construction du mailto (limité, pièces jointes non supportées par mailto)
     const subjectBits = [
-      "Contact Portfolio",
+      "Portfolio Contact",
       types.length ? `• ${types.join(", ")}` : "",
       budget ? `• Budget: ${budget}` : "",
-      timeline ? `• Délai: ${timeline}` : "",
+      timeline ? `• Timeline: ${timeline}` : "",
     ].filter(Boolean);
     const subject = encodeURIComponent(subjectBits.join(" "));
 
     const bodyLines = [
-      `Nom: ${name}`,
+      `Name: ${name}`,
       `Email: ${email}`,
-      company ? `Société: ${company}` : "",
-      types.length ? `Type(s) de projet: ${types.join(", ")}` : "",
-      budget ? `Budget estimé: ${budget}` : "",
-      timeline ? `Délai/urgence: ${timeline}` : "",
+      company ? `Company: ${company}` : "",
+      types.length ? `Project type(s): ${types.join(", ")}` : "",
+      budget ? `Estimated budget: ${budget}` : "",
+      timeline ? `Timeline/urgency: ${timeline}` : "",
       "",
       message,
       "",
-      file && file.name ? `(Pièce jointe à envoyer manuellement: ${file.name})` : "",
+      file && file.name ? `(Attachment to add manually: ${file.name})` : "",
     ].filter(Boolean);
     const body = encodeURIComponent(bodyLines.join("\n"));
 
-    // Astuce UX si fichier choisi
     if (file && file.name) {
-      alert("Astuce: la pièce jointe ne peut pas être incluse via mailto. Après ouverture de l’email, ajoute le fichier manuellement avant d’envoyer.");
+      alert("Tip: The attachment cannot be included via mailto. After the email opens, please attach the file manually before sending.");
     }
 
-    window.location.href = `mailto:hamza@example.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:bernoussihamzaa@gmail.com?subject=${subject}&body=${body}`;
   }, []);
 
   return (
-    <Section id="contact" title="Contact" subtitle="Discutons de ton projet. Réponse < 24h.">
+    <Section id="contact" title="Contact" subtitle="Let’s discuss your project. Response in under 24h.">
       <div className="grid gap-6 md:grid-cols-2">
-        {/* Colonne gauche : infos rapides */}
         <Reveal y={8}>
           <div className="rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 p-5">
             <p className="opacity-80 text-sm">
-              Tu peux m’écrire via le formulaire ou directement par email. Je réponds généralement sous 24h.
+             You can write to me via the form or directly by email. I usually reply within 24 hours.
             </p>
 
             <div className="mt-4 flex items-center gap-2">
@@ -95,75 +91,46 @@ export default function Contact() {
           </div>
         </Reveal>
 
-        {/* Colonne droite : formulaire pro */}
         <Reveal y={8} delay={0.05}>
           <form onSubmit={onSubmit} className="rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/5 p-5">
             <div className="form-grid">
-              {/* Nom */}
+              {/* Name */}
               <div className="form-field">
-                <label className="form-label" htmlFor="name">Nom complet<span className="req">*</span></label>
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  autoComplete="name"
-                  placeholder="Ex. John Doe"
-                  className="form-input"
-                  aria-invalid={!!errors.name}
-                />
+                <label className="form-label" htmlFor="name">Full name<span className="req">*</span></label>
+                <input id="name" name="name" type="text" autoComplete="name" placeholder="Ex. John Doe" className="form-input" aria-invalid={!!errors.name}/>
                 {errors.name && <p className="form-error">{errors.name}</p>}
               </div>
 
-              {/* Email */}
               <div className="form-field">
                 <label className="form-label" htmlFor="email">Email<span className="req">*</span></label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  placeholder="nom@domaine.com"
-                  required
-                  className="form-input"
-                  aria-invalid={!!errors.email}
-                />
+                <input id="email" name="email" type="email" autoComplete="email" placeholder="name@example.com" required className="form-input" aria-invalid={!!errors.email}/>
                 <p className="form-help">Réponse sous 24h.</p>
                 {errors.email && <p className="form-error">{errors.email}</p>}
               </div>
 
-              {/* Société (optionnel) */}
               <div className="form-field">
-                <label className="form-label" htmlFor="company">Entreprise / Organisation</label>
-                <input
-                  id="company"
-                  name="company"
-                  type="text"
-                  placeholder="Ex. ACME Inc."
-                  className="form-input"
-                />
+                <label className="form-label" htmlFor="company">Company / Organization</label>
+                <input id="company" name="company" type="text" placeholder="Ex. ACME Inc." className="form-input" />
               </div>
 
-              {/* Budget */}
               <div className="form-field">
-                <label className="form-label" htmlFor="budget">Budget estimé</label>
+                <label className="form-label" htmlFor="budget">Estimated budget</label>
                 <select id="budget" name="budget" className="form-select" defaultValue="">
-                  <option value="" disabled>Choisir…</option>
+                  <option value="" disabled>Choose…</option>
                   {BUDGETS.map((b) => <option key={b} value={b}>{b}</option>)}
                 </select>
               </div>
 
-              {/* Délai */}
               <div className="form-field">
-                <label className="form-label" htmlFor="timeline">Délai / Urgence</label>
+                <label className="form-label" htmlFor="timeline">Timeline / Urgency</label>
                 <select id="timeline" name="timeline" className="form-select" defaultValue="">
-                  <option value="" disabled>Choisir…</option>
+                  <option value="" disabled>Choose…</option>
                   {TIMELINES.map((t) => <option key={t} value={t}>{t}</option>)}
                 </select>
               </div>
 
-              {/* Types de projet */}
               <div className="form-field md:col-span-2">
-                <span className="form-label">Type de projet</span>
+                <span className="form-label">Project type</span>
                 <div className="chip-grid">
                   {PROJECT_TYPES.map((t) => (
                     <label key={t} className="chip-check">
@@ -174,41 +141,30 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Message */}
               <div className="form-field md:col-span-2">
-                <label className="form-label" htmlFor="message">Détails du projet<span className="req">*</span></label>
-                <textarea
-                  id="message"
-                  name="message"
-                  placeholder="Objectifs, fonctionnalités, pages, inspirations, etc."
-                  className="form-textarea"
-                  ref={textareaRef}
-                  onInput={(e) => autoResize(e.currentTarget)}
-                  aria-invalid={!!errors.message}
-                />
+                <label className="form-label" htmlFor="message">Project details<span className="req">*</span></label>
+                <textarea id="message" name="message" placeholder="Goals, features, pages, inspirations, etc."
+                  className="form-textarea" ref={textareaRef} onInput={(e) => autoResize(e.currentTarget)} aria-invalid={!!errors.message}/>
                 {errors.message && <p className="form-error">{errors.message}</p>}
               </div>
 
-              {/* Fichier (non attaché par mailto, info UX) */}
               <div className="form-field">
-                <label className="form-label" htmlFor="file">Pièce jointe (optionnel)</label>
+                <label className="form-label" htmlFor="file">Attachment (optional)</label>
                 <input id="file" name="file" type="file" className="form-input" />
-                <p className="form-help">Ajoute le fichier manuellement dans ton email après ouverture.</p>
+                <p className="form-help">Add the file manually to your email after opening.</p>
               </div>
 
-              {/* Consentement */}
               <div className="form-field md:col-span-2">
                 <label className="consent">
                   <input type="checkbox" name="consent" />
-                  <span>J’accepte que mes informations soient utilisées pour me recontacter.<span className="req">*</span></span>
+                  <span>I agree that my information may be used to contact me back.<span className="req">*</span></span>
                 </label>
                 {errors.consent && <p className="form-error">{errors.consent}</p>}
               </div>
 
-              {/* Submit */}
               <div className="md:col-span-2 flex justify-end pt-2">
                 <button type="submit" className="btn-primary">
-                  Envoyer la demande
+                  Send request
                 </button>
               </div>
             </div>
