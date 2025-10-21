@@ -161,12 +161,13 @@ php artisan serve
 | **Frontend** | Netlify / Vercel |
 | **Backend** |	Laravel Forge / Ploi / Docker |
 | **Database** | MySQL (PlanetScale / Render / Supabase) |
+
 ---
 
 ## 💬 Contact
 
-**Developer**: **ZesDev** | [Hamza Bernoussi](https://github.com/Hamzabern)
-**Email:** bernoussihamzaa@gmail.com
+**Created by:** [ZesDev](https://github.com/Hamzabern)  
+**Contact:** bernoussihamzaa@gmail.com
 **GitHub**: (https://github.com/Hamzabern)
 [![Deploy](https://img.shields.io/badge/Live-Demo-blue)](https://hamzabern.github.io/hamza-portfolio/)
 
