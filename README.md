@@ -168,6 +168,7 @@ php artisan serve
 **Developer**: **ZesDev** | [Hamza Bernoussi](https://github.com/Hamzabern)
 **Email:** bernoussihamzaa@gmail.com
 **GitHub**: (https://github.com/Hamzabern)
+[![Deploy](https://img.shields.io/badge/Live-Demo-blue)](https://hamzabern.github.io/hamza-portfolio/)
 
 ---
 
