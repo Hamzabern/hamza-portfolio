@@ -168,7 +168,8 @@ php artisan serve
 
 **Created by:** [ZesDev](https://github.com/Hamzabern)  
 **Contact:** bernoussihamzaa@gmail.com
-**GitHub**: (https://github.com/Hamzabern)
+**GitHub:** (https://github.com/Hamzabern)
+**LIVE DEM:**
 [![Deploy](https://img.shields.io/badge/Live-Demo-blue)](https://hamzabern.github.io/hamza-portfolio/)
 
 ---
